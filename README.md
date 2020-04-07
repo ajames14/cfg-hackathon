@@ -1,1 +1,1 @@
-# cfg-hackathon
+# CFG Hackathon
