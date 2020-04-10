@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.contrib.postgres.fields import ArrayField
+from django.apps import apps
 
 Chatroom = apps.get_model('food_swap', 'Chatroom')
 
