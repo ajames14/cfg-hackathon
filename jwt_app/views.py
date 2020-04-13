@@ -65,7 +65,7 @@ class ProfileView(APIView):
             if 'postcode' in request.data.keys():
                 try:
                     Chatroom.objects.get(postcode=request.data['postcode'])
-                    # TODO: will need to add the user to that chatroom
+                    # TODO: will need to add the user to that chatroom, check if they're in another chatroom and remove them if so
                 except Chatroom.DoesNotExist:
                     chatroom_data = { 'postcode': request.data['postcode'] }
                     # TODO: will need to add user to the chatroom data
