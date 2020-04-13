@@ -5,6 +5,7 @@ from django.conf import settings
 import jwt
 User = get_user_model()
 
+
 class JWTAuthentication(BasicAuthentication):
 
     def authenticate(self, request):
@@ -19,7 +20,8 @@ class JWTAuthentication(BasicAuthentication):
         token = header.replace('Bearer ', '')
 
         try:
-            payload = jwt.decode(token, settings.SECRET_KEY, algorithms=['HS256'])
+            payload = jwt.decode(
+                token, settings.SECRET_KEY, algorithms=['HS256'])
             user = User.objects.get(pk=payload.get('sub'))
         except jwt.exceptions.InvalidTokenError:
             raise PermissionDenied({'message': 'Invalid token'})
