@@ -7,13 +7,13 @@ from rest_framework.status import HTTP_201_CREATED, HTTP_422_UNPROCESSABLE_ENTIT
 from django.contrib.auth import get_user_model
 from django.conf import settings
 import jwt
-from .serializers import UserSerializer
+from .serializers import UserSerializer, ValidateSerializer
 User = get_user_model()
 
 class RegisterView(APIView):
 
     def post(self, request):
-        serializer = UserSerializer(data=request.data)
+        serializer = ValidateSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response({'message': 'Registration successful'})
@@ -23,11 +23,11 @@ class RegisterView(APIView):
 
 class LoginView(APIView):
 
-    def get_user(self, email):
-        try:
-            return User.objects.get(email=email)
-        except User.DoesNotExist:
-            raise PermissionDenied({'message': 'Invalid credentials'})
+    def get_user(self, request):
+        serializer = ValidateSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'message': 'Registration successful'})
 
     def post(self, request):
 
