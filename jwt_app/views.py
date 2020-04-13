@@ -23,11 +23,11 @@ class RegisterView(APIView):
 
 class LoginView(APIView):
 
-    def get_user(self, request):
-        serializer = ValidateSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response({'message': 'Registration successful'})
+    def get_user(self, email):
+        try:
+            return User.objects.get(email=email)
+        except User.DoesNotExist:
+            raise PermissionDenied({'message': 'Invalid credentials'})
 
     def post(self, request):
 
