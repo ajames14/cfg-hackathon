@@ -9,6 +9,9 @@ class Chatroom(models.Model):
   postcode = models.CharField(max_length=4, unique=True)
   # users = ArrayField(models.ForeignKey(User, related_name='chatroom', on_delete=models.PROTECT, null=True))
 
+def __str__(self):
+    return self.postcode
+
 
 class Post(models.Model):
   user = models.ForeignKey(User, related_name='post', on_delete=models.CASCADE)
