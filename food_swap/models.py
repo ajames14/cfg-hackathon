@@ -6,7 +6,7 @@ User = get_user_model()
 # Create your models here.
 
 class Chatroom(models.Model):
-  postcode = models.CharField(max_length=4)
+  postcode = models.CharField(max_length=4, unique=True)
   # users = ArrayField(models.ForeignKey(User, related_name='chatroom', on_delete=models.PROTECT, null=True))
 
 
