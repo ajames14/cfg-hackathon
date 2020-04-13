@@ -65,8 +65,10 @@ class ProfileView(APIView):
             if 'postcode' in request.data.keys():
                 try:
                     Chatroom.objects.get(postcode=request.data['postcode'])
+                    # TODO: will need to add the user to that chatroom
                 except Chatroom.DoesNotExist:
                     chatroom_data = { 'postcode': request.data['postcode'] }
+                    # TODO: will need to add user to the chatroom data
                     chatroom = ChatroomSerializer(data=chatroom_data)
                     if chatroom.is_valid():
                         chatroom.save()
