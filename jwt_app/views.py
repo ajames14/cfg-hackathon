@@ -59,22 +59,43 @@ class ProfileView(APIView):
 
     def put(self, request):
         initial_user = User.objects.get(pk=request.user.id)
+        serialized_user = UserSerializer(initial_user)
         updated_user = UserSerializer(initial_user, data=request.data)
 
-        if (updated_user.is_valid()):
+
+        if updated_user.is_valid():
+
+            # print('req', serialized_user.data)
+            # print('UPDATED', updated_user.data['postcode'])
 
             initial_user = updated_user
-            initial_user.save()
+            # initial_user.save()
 
             if 'postcode' in request.data.keys():
                 try:
-                    Chatroom.objects.get(postcode=request.data['postcode'])
-                    # TODO: will need to add the user to that chatroom, check if they're in another chatroom and remove them if so
+                    chatroom_data = Chatroom.objects.get(postcode=request.data['postcode'])
+                    serialized_chatroom = ChatroomSerializer(chatroom_data)
+                    serialized_chatroom.data['users'].append(serialized_user.data['id'])
+                    print('TOSAVE', serialized_chatroom.data['id'])
+
+                    obj = Chatroom.objects.get(pk=serialized_chatroom.data['id'])
+                    # TODO: will need to add the user to that chatroom(DONE), check if they're in another chatroom and remove them if so
+
+                    chatroom_data = {'postcode': serialized_chatroom.data['postcode'], 'users': serialized_chatroom.data['users']}
+                    chatroom = ChatroomSerializer(obj, data=chatroom_data)
+                    if chatroom.is_valid():
+                        # print('CHATROOM', chatroom.data)
+                        chatroom.save()
+                    else:
+                        print('error', chatroom.data)
+
                 except Chatroom.DoesNotExist:
-                    chatroom_data = {'postcode': request.data['postcode']}
+                    print('DOESNTEXIST')
+                    chatroom_data = {'postcode': request.data['postcode'], 'users': [serialized_user.data['id']]}
                     # TODO: will need to add user to the chatroom data
                     chatroom = ChatroomSerializer(data=chatroom_data)
                     if chatroom.is_valid():
+                        # print('CHATROOM', chatroom.data)
                         chatroom.save()
 
             return Response(initial_user.data, status=HTTP_202_ACCEPTED)

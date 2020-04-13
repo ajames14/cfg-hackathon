@@ -7,5 +7,5 @@ User = get_user_model()
 class ChatroomSerializer(serializers.ModelSerializer):
     class Meta:
         model = Chatroom
-        fields = ('id', 'postcode')
+        fields = ('id', 'postcode', 'users')
 
