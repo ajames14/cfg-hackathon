@@ -2,6 +2,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.exceptions import PermissionDenied
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
+from rest_framework.status import HTTP_201_CREATED, HTTP_422_UNPROCESSABLE_ENTITY, HTTP_204_NO_CONTENT, HTTP_401_UNAUTHORIZED
+
 from django.contrib.auth import get_user_model
 from django.conf import settings
 import jwt
@@ -47,3 +49,17 @@ class ProfileView(APIView):
         user = User.objects.get(pk=request.user.id)
         serialized_user = UserSerializer(user)
         return Response(serialized_user.data)
+
+    def put(self, request):
+        initial_user = User.objects.get(pk=request.user.id)
+        updated_user = UserSerializer(initial_user, data=request.data)
+        if (updated_user.is_valid()):
+            initial_user = updated_user
+            initial_user.save()
+            return Response(initial_user.data)
+        return Response(updated_user.errors, status=HTTP_422_UNPROCESSABLE_ENTITY)
+
+    def delete(self, request):
+        user = User.objects.get(pk=request.user.id)
+        user.delete()
+        return Response(status=HTTP_204_NO_CONTENT)
