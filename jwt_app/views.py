@@ -18,7 +18,7 @@ class RegisterView(APIView):
             serializer.save()
             return Response({'message': 'Registration successful'})
 
-        return Response(serializer.errors, status=422)
+        return Response(serializer.errors, status=HTTP_422_UNPROCESSABLE_ENTITY)
 
 
 class LoginView(APIView):
