@@ -1,3 +1,5 @@
+from food_swap.serializers import ChatroomSerializer
+from food_swap.models import Chatroom
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.exceptions import PermissionDenied
@@ -10,8 +12,6 @@ import jwt
 from .serializers import UserSerializer, ValidateSerializer
 User = get_user_model()
 
-from food_swap.models import Chatroom
-from food_swap.serializers import ChatroomSerializer
 
 class RegisterView(APIView):
 
@@ -30,7 +30,8 @@ class LoginView(APIView):
         try:
             return User.objects.get(email=email)
         except User.DoesNotExist:
-            raise PermissionDenied({'message': 'Invalid credentials'}, status=HTTP_401_UNAUTHORIZED)
+            raise PermissionDenied(
+                {'message': 'Invalid credentials'}, status=HTTP_401_UNAUTHORIZED)
 
     def post(self, request):
 
@@ -39,10 +40,13 @@ class LoginView(APIView):
 
         user = self.get_user(email)
         if not user.check_password(password):
-            raise PermissionDenied({'message': 'Invalid credentials'}, status=HTTP_401_UNAUTHORIZED)
+            raise PermissionDenied(
+                {'message': 'Invalid credentials'}, status=HTTP_401_UNAUTHORIZED)
 
-        token = jwt.encode({'sub': user.id}, settings.SECRET_KEY, algorithm='HS256')
+        token = jwt.encode(
+            {'sub': user.id}, settings.SECRET_KEY, algorithm='HS256')
         return Response({'token': token, 'message': f'Welcome back {user.username}!'}, status=HTTP_202_ACCEPTED)
+
 
 class ProfileView(APIView):
 
@@ -67,13 +71,13 @@ class ProfileView(APIView):
                     Chatroom.objects.get(postcode=request.data['postcode'])
                     # TODO: will need to add the user to that chatroom, check if they're in another chatroom and remove them if so
                 except Chatroom.DoesNotExist:
-                    chatroom_data = { 'postcode': request.data['postcode'] }
+                    chatroom_data = {'postcode': request.data['postcode']}
                     # TODO: will need to add user to the chatroom data
                     chatroom = ChatroomSerializer(data=chatroom_data)
                     if chatroom.is_valid():
                         chatroom.save()
 
-            return Response(initial_user.data, status=HTTP_202_ACCEPTED) 
+            return Response(initial_user.data, status=HTTP_202_ACCEPTED)
 
         return Response(updated_user.errors, status=HTTP_422_UNPROCESSABLE_ENTITY)
 

@@ -5,6 +5,7 @@ User = get_user_model()
 
 # Create your models here.
 
+
 class Chatroom(models.Model):
     postcode = models.CharField(max_length=4, unique=True)
     users = models.ManyToManyField(User, related_name='chatroom', blank=True)
