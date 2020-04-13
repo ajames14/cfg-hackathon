@@ -6,6 +6,7 @@ from rest_framework.exceptions import PermissionDenied
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.status import HTTP_201_CREATED, HTTP_422_UNPROCESSABLE_ENTITY, HTTP_204_NO_CONTENT, HTTP_401_UNAUTHORIZED, HTTP_202_ACCEPTED, HTTP_200_OK
 
+
 from django.contrib.auth import get_user_model
 from django.conf import settings
 import jwt
@@ -62,24 +63,45 @@ class ProfileView(APIView):
         serialized_user = UserSerializer(initial_user)
         updated_user = UserSerializer(initial_user, data=request.data)
 
-
         if updated_user.is_valid():
 
-            # print('req', serialized_user.data)
-            # print('UPDATED', updated_user.data['postcode'])
-
             initial_user = updated_user
-            # initial_user.save()
+            initial_user.save()
 
             if 'postcode' in request.data.keys():
                 try:
+                  # remove from other chatroom:
+                    chatrooms_all = Chatroom.objects.all()
+                    serializer_all = ChatroomSerializer(chatrooms_all, many=True)
+
+                    for ordered_dict in serializer_all.data:
+                      print('ALLLL', list(ordered_dict.items()))
+                      for user_tuple in list(ordered_dict.items())[2][1]:
+                         print('TUPLEEE', user_tuple, serialized_user.data['id'])
+                         if user_tuple == serialized_user.data['id']:
+                           print('MATCH')
+                           print(list(ordered_dict.items())[0][1])
+                           new_users = list(ordered_dict.items())[2][1]
+                           new_users.remove(user_tuple)
+                           print('NEW USER', new_users)
+                           obj1 = Chatroom.objects.get(pk=list(ordered_dict.items())[0][1])
+                           new_chatroom_data = {'postcode': list(ordered_dict.items())[1][1], 'users': new_users}
+                           print('DATAAA', new_chatroom_data)
+                           new_chatroom = ChatroomSerializer(obj1, data=new_chatroom_data)
+                           if new_chatroom.is_valid():
+                              # print('CHATROOM', new_chatroom.data)
+                              new_chatroom.save()
+                           else:
+                              print('error', new_chatroom.data)
+
+
+                  # add to new chatroom:
+                  
                     chatroom_data = Chatroom.objects.get(postcode=request.data['postcode'])
                     serialized_chatroom = ChatroomSerializer(chatroom_data)
                     serialized_chatroom.data['users'].append(serialized_user.data['id'])
-                    print('TOSAVE', serialized_chatroom.data['id'])
-
+                    # print('TOSAVE', serialized_chatroom.data['id'])
                     obj = Chatroom.objects.get(pk=serialized_chatroom.data['id'])
-                    # TODO: will need to add the user to that chatroom(DONE), check if they're in another chatroom and remove them if so
 
                     chatroom_data = {'postcode': serialized_chatroom.data['postcode'], 'users': serialized_chatroom.data['users']}
                     chatroom = ChatroomSerializer(obj, data=chatroom_data)
@@ -90,9 +112,7 @@ class ProfileView(APIView):
                         print('error', chatroom.data)
 
                 except Chatroom.DoesNotExist:
-                    print('DOESNTEXIST')
                     chatroom_data = {'postcode': request.data['postcode'], 'users': [serialized_user.data['id']]}
-                    # TODO: will need to add user to the chatroom data
                     chatroom = ChatroomSerializer(data=chatroom_data)
                     if chatroom.is_valid():
                         # print('CHATROOM', chatroom.data)
