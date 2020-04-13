@@ -10,6 +10,9 @@ import jwt
 from .serializers import UserSerializer, ValidateSerializer
 User = get_user_model()
 
+from food_swap.models import Chatroom
+from food_swap.serializers import ChatroomSerializer
+
 class RegisterView(APIView):
 
     def post(self, request):
@@ -53,10 +56,23 @@ class ProfileView(APIView):
     def put(self, request):
         initial_user = User.objects.get(pk=request.user.id)
         updated_user = UserSerializer(initial_user, data=request.data)
+
         if (updated_user.is_valid()):
+
             initial_user = updated_user
             initial_user.save()
-            return Response(initial_user.data, status=HTTP_202_ACCEPTED)
+
+            if 'postcode' in request.data.keys():
+                try:
+                    Chatroom.objects.get(postcode=request.data['postcode'])
+                except Chatroom.DoesNotExist:
+                    chatroom_data = { 'postcode': request.data['postcode'] }
+                    chatroom = ChatroomSerializer(data=chatroom_data)
+                    if chatroom.is_valid():
+                        chatroom.save()
+
+            return Response(initial_user.data, status=HTTP_202_ACCEPTED) 
+
         return Response(updated_user.errors, status=HTTP_422_UNPROCESSABLE_ENTITY)
 
     def delete(self, request):
