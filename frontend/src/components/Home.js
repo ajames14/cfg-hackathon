@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Home = () => {
   return (
@@ -9,9 +10,9 @@ const Home = () => {
             HELPING YOU CUT CROWDS & MINIMIZE WASTE
           </div>
           <div style={{ marginTop: 157 }}>
-            <a href="#" style={{ paddingLeft: '10px', color: 'white' }}>
+            <Link to="/about" style={{ paddingLeft: '10px', color: 'white' }}>
               Find out more...
-            </a>
+            </Link>
           </div>
         </div>
       </div>

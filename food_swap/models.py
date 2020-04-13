@@ -14,14 +14,20 @@ class Chatroom(models.Model):
         return self.postcode
 
 # alternative option to ManyToMany Field:
+
+
 class Intermediary(models.Model):
-    user = models.ForeignKey(User, related_name='medium', on_delete=models.CASCADE)
-    Chatroom = models.ForeignKey(Chatroom, related_name='medium', on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        User, related_name='medium', on_delete=models.CASCADE)
+    Chatroom = models.ForeignKey(
+        Chatroom, related_name='medium', on_delete=models.CASCADE)
 
 
 class Post(models.Model):
-    user = models.ForeignKey(User, related_name='post', on_delete=models.CASCADE)
-    chatroom = models.ForeignKey(Chatroom, related_name='chatroom', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name='post',
+                             on_delete=models.CASCADE)
+    chatroom = models.ForeignKey(
+        Chatroom, related_name='chatroom', on_delete=models.CASCADE)
     text = models.CharField(max_length=2000)
     time_stamp = models.DateTimeField(auto_now_add=True, null=True)
     is_swapped = models.BooleanField(default=False)
@@ -31,8 +37,10 @@ class Post(models.Model):
 
 
 class Comment(models.Model):
-    user = models.ForeignKey(User, related_name='comment', on_delete=models.CASCADE)
-    post = models.ForeignKey(Post, related_name='comment', on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        User, related_name='comment', on_delete=models.CASCADE)
+    post = models.ForeignKey(
+        Post, related_name='comment', on_delete=models.CASCADE)
     text = models.CharField(max_length=2000)
     time_stamp = models.DateTimeField(auto_now_add=True, null=True)
 

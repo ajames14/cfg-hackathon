@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import ReactDOM from 'react-dom'
-import { Switch, Route, BrowserRouter } from 'react-router-dom'
+import { Switch, Route, HashRouter } from 'react-router-dom'
 import axios from 'axios'
 import Auth from './lib/auth'
 
@@ -11,12 +11,13 @@ import UserContext from './components/UserContext'
 import Navbar from './components/Navbar'
 
 import Home from './components/Home'
+import About from './components/About'
 
 const App = (props) => {
   const [userInfo, setUserInfo] = useState(null)
   const sharedInfo = useMemo(() => ({ userInfo, setUserInfo }), [
     userInfo,
-    setUserInfo,
+    setUserInfo
   ])
 
   useEffect(() => {
@@ -26,7 +27,7 @@ const App = (props) => {
       console.log('setting user')
       axios
         .get('/api/profile', {
-          headers: { Authorization: `Bearer ${Auth.getToken()}` },
+          headers: { Authorization: `Bearer ${Auth.getToken()}` }
         })
         .then((response) => {
           setUserInfo(response.data)
@@ -44,14 +45,15 @@ const App = (props) => {
   console.log('user', userInfo)
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <UserContext.Provider value={sharedInfo}>
         <Navbar />
         <Switch>
           <Route exact path="/" component={Home} />
+          <Route exact path="/about" component={About} />
         </Switch>
       </UserContext.Provider>
-    </BrowserRouter>
+    </HashRouter>
   )
 }
 
