@@ -60,65 +60,50 @@ class ProfileView(APIView):
 
     def put(self, request):
         initial_user = User.objects.get(pk=request.user.id)
-        serialized_user = UserSerializer(initial_user)
         updated_user = UserSerializer(initial_user, data=request.data)
 
         if updated_user.is_valid():
-
-            initial_user = updated_user
-            initial_user.save()
+            updated_user.save()
 
             if 'postcode' in request.data.keys():
                 try:
-                  # remove from other chatroom:
+                  # remove user from other chatroom:
                     chatrooms_all = Chatroom.objects.all()
                     serializer_all = ChatroomSerializer(chatrooms_all, many=True)
+                    print('ALLLL', serializer_all.data)
 
                     for ordered_dict in serializer_all.data:
-                      print('ALLLL', list(ordered_dict.items()))
                       for user_tuple in list(ordered_dict.items())[2][1]:
-                         print('TUPLEEE', user_tuple, serialized_user.data['id'])
-                         if user_tuple == serialized_user.data['id']:
-                           print('MATCH')
-                           print(list(ordered_dict.items())[0][1])
-                           new_users = list(ordered_dict.items())[2][1]
-                           new_users.remove(user_tuple)
-                           print('NEW USER', new_users)
-                           obj1 = Chatroom.objects.get(pk=list(ordered_dict.items())[0][1])
-                           new_chatroom_data = {'postcode': list(ordered_dict.items())[1][1], 'users': new_users}
-                           print('DATAAA', new_chatroom_data)
-                           new_chatroom = ChatroomSerializer(obj1, data=new_chatroom_data)
+                         if user_tuple == updated_user.data['id']:
+                           list(ordered_dict.items())[2][1].remove(user_tuple)
+                           chatroom_obj = Chatroom.objects.get(pk=list(ordered_dict.items())[0][1])
+                           new_chatroom_data = {'postcode': list(ordered_dict.items())[1][1], 'users': list(ordered_dict.items())[2][1]}
+                           new_chatroom = ChatroomSerializer(chatroom_obj, data=new_chatroom_data)
                            if new_chatroom.is_valid():
-                              # print('CHATROOM', new_chatroom.data)
                               new_chatroom.save()
                            else:
                               print('error', new_chatroom.data)
 
-
                   # add to new chatroom:
-                  
                     chatroom_data = Chatroom.objects.get(postcode=request.data['postcode'])
                     serialized_chatroom = ChatroomSerializer(chatroom_data)
-                    serialized_chatroom.data['users'].append(serialized_user.data['id'])
-                    # print('TOSAVE', serialized_chatroom.data['id'])
+                    serialized_chatroom.data['users'].append(updated_user.data['id'])
                     obj = Chatroom.objects.get(pk=serialized_chatroom.data['id'])
 
                     chatroom_data = {'postcode': serialized_chatroom.data['postcode'], 'users': serialized_chatroom.data['users']}
                     chatroom = ChatroomSerializer(obj, data=chatroom_data)
                     if chatroom.is_valid():
-                        # print('CHATROOM', chatroom.data)
                         chatroom.save()
                     else:
                         print('error', chatroom.data)
 
                 except Chatroom.DoesNotExist:
-                    chatroom_data = {'postcode': request.data['postcode'], 'users': [serialized_user.data['id']]}
+                    chatroom_data = {'postcode': request.data['postcode'], 'users': [updated_user.data['id']]}
                     chatroom = ChatroomSerializer(data=chatroom_data)
                     if chatroom.is_valid():
-                        # print('CHATROOM', chatroom.data)
                         chatroom.save()
 
-            return Response(initial_user.data, status=HTTP_202_ACCEPTED)
+            return Response({'id': updated_user.data['id'], 'username': updated_user.data['username'], 'postcode' : updated_user.data['postcode']}, status=HTTP_202_ACCEPTED)
 
         return Response(updated_user.errors, status=HTTP_422_UNPROCESSABLE_ENTITY)
 
