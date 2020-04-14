@@ -27,7 +27,7 @@ const Navbar = () => {
     >
       <div className="navbar-brand">
         <Link id="homeicon" className="navbar-item has-text-centered" to="/">
-          WASTENOTWANTNOT
+          wastenotwantnot
         </Link>
         <a
           role="button"

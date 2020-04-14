@@ -9,8 +9,8 @@ const Home = () => {
           <div className="home-link" id="smaller-link">
             HELPING YOU CUT CROWDS & MINIMIZE WASTE
           </div>
-          <div style={{ marginTop: 157 }}>
-            <Link to="/about" style={{ paddingLeft: '10px', color: 'white' }}>
+          <div style={{ margin: '60px 0px 30px 0px' }}>
+            <Link to="/about" style={{ paddingLeft: '8px', color: 'white' }}>
               Find out more...
             </Link>
           </div>
@@ -29,3 +29,5 @@ const Home = () => {
 }
 
 export default Home
+
+// CONVERT THIS TO CSS GRID?

@@ -1,0 +1,57 @@
+#home-section {
+  box-sizing: border-box;
+
+  @include media('<=460px') {
+    width: 100vh;
+  }
+
+  .box {
+    margin: 10px;
+    background-color: $brightorange;
+    border-radius: 0;
+    mix-blend-mode: difference;
+    @include media('<=phone') {
+      width: 100%;
+    }
+    @include media('<=780px') {
+      margin: 10px 0px;
+    }
+  }
+
+  #lrg-box {
+    @include media('<=780px') {
+      height: 50vh;
+    }
+  }
+
+  #small-box {
+    background-color: $lightorange;
+    border-radius: 0;
+    @include media('<=phone') {
+      width: 100%;
+      height: 50vh;
+    }
+  }
+
+  #small-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    @include media('<=780px') {
+      flex-direction: column;
+    }
+  }
+
+  .home-link {
+    color: white;
+    font-weight: 800;
+    font-size: 10vh;
+  }
+
+  #smaller-link {
+    font-size: 10vh;
+    @include media('<=780px') {
+      font-size: 3rem;
+    }
+  }
+}

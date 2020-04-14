@@ -1,0 +1,17 @@
+@media screen and (min-device-width: 1200px) and (max-device-width: 1600px) and (-webkit-min-device-pixel-ratio: 2) and (min-resolution: 192dpi) {
+  #home-section {
+    display: flex;
+    flex-direction: row;
+    width: auto;
+
+    #small-container {
+      display: flex;
+      flex-direction: column;
+      // width: 100vh;
+    }
+
+    // #small-box {
+    // 	height: 38.8vh;
+    // }
+  }
+}

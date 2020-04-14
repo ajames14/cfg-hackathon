@@ -5,7 +5,7 @@ import axios from 'axios'
 import Auth from './lib/auth'
 
 import 'bulma'
-import '../src/style.scss'
+import '../src/styles/app.scss'
 
 import UserContext from './components/UserContext'
 import Navbar from './components/Navbar'
@@ -40,6 +40,11 @@ const App = (props) => {
           props.history.push('/login')
         })
     } else return
+  }, [])
+
+  useEffect(() => {
+    const vh = window.innerHeight * 0.01
+    document.documentElement.style.setProperty('--vh', `${vh}px`)
   }, [])
 
   console.log('user', userInfo)

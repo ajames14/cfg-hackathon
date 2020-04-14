@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans:300,400,600,700&display=swap');
+@import './breakpoints.scss';
+@import './variables.scss';
+
+@import './components/home.scss';
+
+body,
+html {
+  width: 100%;
+  height: 100vh;
+  font-family: 'Josefin Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+    'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.container {
+  width: 1560px;
+  min-width: 1560px;
+  margin: 0 auto;
+  height: 100%;
+  @include media('<=1560px') {
+    width: 1386px;
+    min-width: 1386px;
+  }
+  @include media('<=desktop') {
+    width: 1080px;
+    min-width: 1080px;
+  }
+  @include media('<=1080px') {
+    width: 100%;
+    min-width: 100%;
+  }
+  .row {
+    display: flex;
+    height: 100%;
+    padding: 0 32px;
+    @include media('<=phone') {
+      padding: 0 16px;
+    }
+  }
+  .v-center {
+    align-items: center;
+  }
+  .space-between {
+    justify-content: space-between;
+  }
+}
+
+.navbar {
+  padding: 0px 20px;
+  text-transform: uppercase;
+  font-weight: 800;
+
+  .navbar-end {
+    font-weight: 400;
+  }
+
+  .navbar-brand {
+    letter-spacing: 0.5rem;
+    text-transform: uppercase;
+  }
+}
+
+.tween {
+  width: 100px;
+  height: 100px;
+  background-color: red;
+  margin: 0 !important;
+  position: relative;
+  left: calc(50% - 50px);
+}
+
+.stagger {
+  width: 50px;
+  height: 50px;
+  left: 700px;
+  background-color: green;
+  position: relative;
+}
