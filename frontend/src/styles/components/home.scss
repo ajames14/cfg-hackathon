@@ -19,8 +19,8 @@
   }
 
   #lrg-box {
-    @include media('<=780px') {
-      height: 50vh;
+    @include media('<=phone') {
+      height: 50%;
     }
   }
 
@@ -29,7 +29,6 @@
     border-radius: 0;
     @include media('<=phone') {
       width: 100%;
-      height: 50vh;
     }
   }
 
@@ -39,6 +38,9 @@
     justify-content: center;
     @include media('<=780px') {
       flex-direction: column;
+    }
+    @include media('<=phone') {
+      height: 50%;
     }
   }
 
@@ -50,8 +52,8 @@
 
   #smaller-link {
     font-size: 10vh;
-    @include media('<=780px') {
-      font-size: 3rem;
-    }
+    // @include media('<=780px') {
+    //   font-size: 3rem;
+    // }
   }
 }
