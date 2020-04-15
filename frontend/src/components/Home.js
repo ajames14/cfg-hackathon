@@ -1,12 +1,15 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import IntroOverlay from './IntroOverlay'
+import { gsap } from 'gsap'
 
 const Home = () => {
   return (
     <div className="section" id="home-section">
+      <IntroOverlay />
       <div className="container">
         <div className="box" id="lrg-box">
-          <div className="home-link" id="smaller-link">
+          <div className="home-link" id="large-link">
             HELPING YOU CUT CROWDS & MINIMIZE WASTE
           </div>
           <div style={{ margin: '60px 0px 30px 0px' }}>

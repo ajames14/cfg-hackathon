@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import { Switch, Route, HashRouter } from 'react-router-dom'
 import axios from 'axios'
 import Auth from './lib/auth'
+import gsap from 'gsap'
 
 import 'bulma'
 import '../src/styles/app.scss'
@@ -19,6 +20,38 @@ const App = (props) => {
     userInfo,
     setUserInfo
   ])
+
+  const [dimensions, setDimensions] = useState({
+    height: window.innerHeight,
+    width: window.innerWidth
+  })
+
+  function debounce(fn, ms) {
+    let timer
+    return () => {
+      clearTimeout(timer)
+      timer = setTimeout(() => {
+        timer = null
+        fn.apply(this, arguments)
+      }, ms)
+    }
+  }
+
+  useEffect(() => {
+    // prevents flashing
+    gsap.to('body', 0, { css: { visibility: 'visible' } })
+    const debouncedHandleResize = debounce(function handleResize() {
+      setDimensions({
+        height: window.innerHeight,
+        width: window.innerWidth
+      })
+    }, 1000)
+
+    window.addEventListener('resize', debouncedHandleResize)
+    return () => {
+      window.removeEventListener('resize', debouncedHandleResize)
+    }
+  })
 
   useEffect(() => {
     console.log('running')
@@ -54,7 +87,7 @@ const App = (props) => {
       <UserContext.Provider value={sharedInfo}>
         <Navbar />
         <Switch>
-          <Route exact path="/" component={Home} />
+          <Route exact path="/" component={Home} dimensions={dimensions} />
           <Route exact path="/about" component={About} />
         </Switch>
       </UserContext.Provider>

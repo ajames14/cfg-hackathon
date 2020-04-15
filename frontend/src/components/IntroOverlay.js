@@ -1,6 +1,8 @@
 import React from 'react'
 
-const introOverlay = () => {
+// Allows for the overlay animation on home page
+
+const IntroOverlay = () => {
   return (
     <>
       <div className="intro-overlay">
@@ -12,11 +14,11 @@ const introOverlay = () => {
         <div className="bottom">
           <div className="overlay-bottom"></div>
           <div className="overlay-bottom"></div>
-          <div className="overlay-bottom"></div>
+          {/* <div className="overlay-bottom"></div> */}
         </div>
       </div>
     </>
   )
 }
 
-export default introOverlay
+export default IntroOverlay

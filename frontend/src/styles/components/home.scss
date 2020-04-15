@@ -9,7 +9,6 @@
     margin: 10px;
     background-color: $brightorange;
     border-radius: 0;
-    mix-blend-mode: difference;
     @include media('<=phone') {
       width: 100%;
     }
@@ -19,6 +18,7 @@
   }
 
   #lrg-box {
+    animation: changecolor 4s forwards;
     @include media('<=phone') {
       height: 50%;
     }
@@ -27,6 +27,7 @@
   #small-box {
     background-color: $lightorange;
     border-radius: 0;
+    animation: showbox 4s;
     @include media('<=phone') {
       width: 100%;
     }
@@ -48,12 +49,118 @@
     color: white;
     font-weight: 800;
     font-size: 10vh;
+    z-index: 10;
   }
 
-  #smaller-link {
-    font-size: 10vh;
-    // @include media('<=780px') {
-    //   font-size: 3rem;
+  @keyframes changecolor {
+    0% {
+      background-color: white;
+      box-shadow: none;
+    }
+    // 50% {
+    //   background-color: $lightorange;
     // }
+    100% {
+      background-color: $brightorange;
+    }
   }
+
+  @keyframes showbox {
+    0% {
+      display: none;
+      opacity: 0;
+    }
+    50% {
+      opacity: 0.5;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes change-text {
+    0% {
+      color: $brightorange;
+    }
+    50% {
+      color: $brightorange;
+    }
+    100% {
+      color: white;
+    }
+  }
+
+  #large-link {
+    // position: fixed;
+    // mix-blend-mode: lighten;
+    animation: change-text 4s;
+  }
+
+  // .intro-overlay {
+  //   .top {
+  //     height: 50vh;
+  //     // height: calc(var(--vh, 1vh) * 50);
+  //     position: absolute;
+  //     width: 100%;
+  //     z-index: 8;
+  //     left: -0.02%;
+  //     // opacity: 0.2;
+  //     .overlay-top {
+  //       position: absolute;
+  //       height: 100%;
+  //       width: 33.333vw;
+  //       background: $brightorange;
+  //       bottom: 0;
+  //       left: 0;
+  //       right: 0;
+  //       @include media('<=780px') {
+  //         width: 100vw;
+  //       }
+  //       &:nth-child(2) {
+  //         left: 33.333%;
+  //         background-color: $brightorange;
+  //         // @include media('<=tablet') {
+  //         //   width: none;
+  //         // }
+  //       }
+  //       &:nth-child(3) {
+  //         left: 66.666%;
+  //         background-color: $brightorange;
+  //         width: 50%;
+  //         @include media('<=tablet') {
+  //           width: 150%;
+  //         }
+  //       }
+  //     }
+  //   }
+  //   .bottom {
+  //     height: 50vh;
+  //     height: calc(var(--vh, 1vh) * 50);
+  //     position: absolute;
+  //     bottom: 0;
+  //     width: 110%;
+  //     z-index: 8;
+  //     .overlay-bottom {
+  //       position: absolute;
+  //       height: 100%;
+  //       width: 60vw;
+  //       background: $brightorange;
+  //       bottom: 0;
+  //       right: 50%;
+  //       @include media('<=tablet') {
+  //         right: 0;
+  //         width: 100vw;
+  //         display: none;
+  //       }
+  //       &:nth-child(2) {
+  //         left: 48%;
+  //         @include media('<=tablet') {
+  //           width: 100vw;
+  //           top: 100%;
+  //           right: 0;
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
 }
