@@ -112,10 +112,10 @@ class ProfileView(APIView):
                         print('error', chatroom.data)
 
                 except Chatroom.DoesNotExist:
-                    chatroom_data = {'postcode': request.data['postcode'], 'users': [serialized_user.data['id']]}
+                    chatroom_data = {'postcode': request.data['postcode'], 'users': [serialized_user.data['id']], 'posts': ''}
                     chatroom = ChatroomSerializer(data=chatroom_data)
                     if chatroom.is_valid():
-                        # print('CHATROOM', chatroom.data)
+                        print('CHATROOM', chatroom.data)
                         chatroom.save()
 
             return Response(initial_user.data, status=HTTP_202_ACCEPTED)

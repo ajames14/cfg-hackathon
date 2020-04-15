@@ -20,8 +20,8 @@ class Intermediary(models.Model):
 
 
 class Post(models.Model):
-    user = models.ForeignKey(User, related_name='post', on_delete=models.CASCADE)
-    chatroom = models.ForeignKey(Chatroom, related_name='chatroom', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name='posts', on_delete=models.CASCADE)
+    chatroom = models.ForeignKey(Chatroom, related_name='posts', on_delete=models.CASCADE, blank=True, null=True)
     text = models.CharField(max_length=2000)
     time_stamp = models.DateTimeField(auto_now_add=True, null=True)
     is_swapped = models.BooleanField(default=False)
