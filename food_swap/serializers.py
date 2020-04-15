@@ -8,11 +8,22 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ('id', 'username')
 
+class CommentSerializer(serializers.ModelSerializer):
+    class Meta:
+      model = Comment
+      fields = ('id', 'user', 'post', 'text', 'time_stamp')
+
 class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
-        fields = ('id', 'user', 'chatroom', 'text', 'time_stamp', 'is_swapped')
-        extra_kwargs = {'is_swapped': {'required': False}}
+        fields = ('id', 'user', 'chatroom', 'text', 'time_stamp', 'is_swapped', 'comments')
+        extra_kwargs = {'is_swapped': {'required': False}, 'comments': {'required': False}}
+
+class PopulatedPostSerializer(PostSerializer):
+    
+    user = UserSerializer()
+    comments = CommentSerializer(many=True)
+
 
 class ChatroomSerializer(serializers.ModelSerializer):
     class Meta:
@@ -23,5 +34,5 @@ class ChatroomSerializer(serializers.ModelSerializer):
 class PopulatedChatroomSerializer(ChatroomSerializer):
     
     users = UserSerializer(many=True)
-    posts = PostSerializer(many=True)
-
+    posts = PopulatedPostSerializer(many=True)
+    
