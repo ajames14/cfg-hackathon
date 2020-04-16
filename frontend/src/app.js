@@ -13,6 +13,7 @@ import Navbar from './components/Navbar'
 
 import Home from './components/Home'
 import About from './components/About'
+import Recipes from './components/Recipes'
 
 const App = (props) => {
   const [userInfo, setUserInfo] = useState(null)
@@ -89,6 +90,7 @@ const App = (props) => {
         <Switch>
           <Route exact path="/" component={Home} dimensions={dimensions} />
           <Route exact path="/about" component={About} />
+          <Route exact path="/recipes" component={Recipes} />
         </Switch>
       </UserContext.Provider>
     </HashRouter>
