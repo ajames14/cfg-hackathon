@@ -16,13 +16,15 @@ import About from './components/About'
 import UserPage from './components/UserPage'
 import Login from './components/Login'
 import Register from './components/Register'
+import FoodSwap from './components/Foodswap'
 
 const App = (props) => {
   const [userInfo, setUserInfo] = useState(null)
-  const sharedInfo = useMemo(() => ({ userInfo, setUserInfo }), [
-    userInfo,
-    setUserInfo
-  ])
+  const [userPostcode, setUserPostcode] = useState(null)
+  const sharedInfo = useMemo(
+    () => ({ userInfo, setUserInfo }, { userPostcode, setUserPostcode }),
+    [userInfo, setUserInfo, userPostcode, setUserPostcode]
+  )
 
   const [dimensions, setDimensions] = useState({
     height: window.innerHeight,
@@ -67,6 +69,7 @@ const App = (props) => {
         })
         .then((response) => {
           setUserInfo(response.data)
+          setUserPostcode(response.data.postcode)
           console.log('response', response.data)
         })
         .catch((error) => {
@@ -83,7 +86,8 @@ const App = (props) => {
     document.documentElement.style.setProperty('--vh', `${vh}px`)
   }, [])
 
-  console.log('user', userInfo)
+  console.log('app.js', userInfo)
+  console.log('app.js', userPostcode)
 
   return (
     <HashRouter>
@@ -95,6 +99,7 @@ const App = (props) => {
           {/* <Route exact path="/join" component={UserPage} /> */}
           <Route exact path="/register" component={Register} />
           <Route exact path="/login" component={Login} />
+          <Route exact path="/foodswap" component={FoodSwap} />
         </Switch>
       </UserContext.Provider>
     </HashRouter>

@@ -26,14 +26,13 @@ const Login = (props) => {
   function handleSubmit(e) {
     e.preventDefault()
     if (!form) return
+    console.log(form)
     axios
       .post('/api/login', form, { headers: { Authorization: '' } })
       .then((resp) => {
         Auth.setToken(resp.data.token)
         console.log(resp.data.token)
-        // setUserInfo(resp.data)
-        // console.log(userInfo)
-        props.history.push('/home')
+        props.history.push('/')
       })
       .catch(() => setError({ errors: 'Email or Password Incorrect' }))
   }
