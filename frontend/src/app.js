@@ -17,6 +17,7 @@ import UserPage from './components/UserPage'
 import Login from './components/Login'
 import Register from './components/Register'
 import FoodSwap from './components/Foodswap'
+import Recipes from './components/Recipes'
 
 const App = (props) => {
   const [userInfo, setUserInfo] = useState(null)
@@ -100,6 +101,7 @@ const App = (props) => {
           <Route exact path="/register" component={Register} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/foodswap" component={FoodSwap} />
+          <Route exact path="/recipes" component={Recipes} />
         </Switch>
       </UserContext.Provider>
     </HashRouter>
