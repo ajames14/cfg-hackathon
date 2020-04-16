@@ -20,12 +20,18 @@ import Chatroom from './Chatroom'
 import Register from './Register'
 import Login from './Login'
 
+const initialLoginState = {
+  email: '',
+  password: ''
+}
+
 const FoodSwap = () => {
   const { userInfo, setUserInfo } = useContext(UserContext)
   const { userPostcode, setUserPostcode } = useContext(UserContext)
 
   const [error, setError] = useState()
   const [data, setData] = useState()
+  const [form, updateForm] = useState(initialLoginState)
 
   console.log('yay', userPostcode)
   console.log('USERINFO:', userInfo)
@@ -43,6 +49,17 @@ const FoodSwap = () => {
         setError(err.response.data.errors)
         console.log(error)
       })
+  }
+
+  function loginSubmit() {
+    axios
+      .post('/api/login', form, { headers: { Authorization: '' } })
+      .then((resp) => {
+        Auth.setToken(resp.data.token)
+        console.log(resp.data.token)
+        setUserInfo(resp.data)
+      })
+      .catch(() => setError({ errors: 'Email or Password Incorrect' }))
   }
 
   function handleChange(e) {
@@ -78,14 +95,14 @@ const FoodSwap = () => {
         )}
         {!Auth.isAuthorized() && (
           <div className="container">
-            {/* <Link className="join-link" to="/register">
+            <Link className="join-link" to="/register">
               Sign Up
             </Link>
             <Link className="join-link" to="/register">
               Sign In
-            </Link> */}
-            <Register />
-            <Login />
+            </Link>
+            {/* <Register />
+            <Login onSubmit={loginSubmit} /> */}
           </div>
         )}
       </div>

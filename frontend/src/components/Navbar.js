@@ -45,12 +45,12 @@ const Navbar = () => {
       <div id="navDrop" className="navbar-menu">
         <div className="navbar-end">
           <div className="navbar-item has-dropdown is-hoverable">
-            <Link className="navbar-link is-arrowless" to="/brands">
+            <Link className="navbar-link is-arrowless" to="/recipes">
               Recipe Book
             </Link>
           </div>
           <div className="navbar-item has-dropdown is-hoverable">
-            <Link className="navbar-link is-arrowless" to="/clothesswap">
+            <Link className="navbar-link is-arrowless" to="/foodswap">
               Food Swap
             </Link>
           </div>
