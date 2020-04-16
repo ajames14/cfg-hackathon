@@ -13,6 +13,9 @@ import Navbar from './components/Navbar'
 
 import Home from './components/Home'
 import About from './components/About'
+import UserPage from './components/UserPage'
+import Login from './components/Login'
+import Register from './components/Register'
 
 const App = (props) => {
   const [userInfo, setUserInfo] = useState(null)
@@ -89,6 +92,9 @@ const App = (props) => {
         <Switch>
           <Route exact path="/" component={Home} dimensions={dimensions} />
           <Route exact path="/about" component={About} />
+          {/* <Route exact path="/join" component={UserPage} /> */}
+          <Route exact path="/register" component={Register} />
+          <Route exact path="/login" component={Login} />
         </Switch>
       </UserContext.Provider>
     </HashRouter>
