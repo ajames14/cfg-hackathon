@@ -25,8 +25,8 @@ const Login = (props) => {
 
   function handleSubmit(e) {
     e.preventDefault()
-    if (!form) return
     console.log(form)
+    if (!form) return
     axios
       .post('/api/login', form, { headers: { Authorization: '' } })
       .then((resp) => {

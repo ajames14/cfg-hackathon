@@ -78,7 +78,7 @@ const Register = (props) => {
               <small className="help is-danger">{error.errors.email}</small>
             )}
           </div>
-          <div className="field">
+          {/* <div className="field">
             <label htmlFor="" className="label">
               Postcode
             </label>
@@ -86,14 +86,14 @@ const Register = (props) => {
               <input
                 onChange={(e) => handleInput(e)}
                 type="text"
-                name="email"
+                name="postcode"
                 className="input"
               />
             </div>
             {error.errors.postcode && (
               <small className="help is-danger">{error.errors.postcode}</small>
             )}
-          </div>
+          </div> */}
           <div className="field">
             <label htmlFor="" className="label">
               Password

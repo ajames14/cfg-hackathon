@@ -41,6 +41,7 @@
     "bulma": "^0.8.2",
     "gsap": "^3.2.6",
     "include-media": "^1.4.9",
+    "moment": "^2.24.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-gsap": "^1.2.0",
