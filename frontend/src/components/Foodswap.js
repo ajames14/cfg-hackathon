@@ -43,7 +43,7 @@ const FoodSwap = () => {
       })
       .then((res) => {
         setUserInfo(res.data.user)
-        console.log(data)
+        console.log('foodswapdata', data)
       })
       .catch((err) => {
         setError(err.response.data.errors)
@@ -98,7 +98,7 @@ const FoodSwap = () => {
             <Link className="join-link" to="/register">
               Sign Up
             </Link>
-            <Link className="join-link" to="/register">
+            <Link className="join-link" to="/login">
               Sign In
             </Link>
             {/* <Register />
