@@ -22,7 +22,7 @@ const FilteredRecipeForm = ({ setRecipes }) => {
     axios.get('https://api.spoonacular.com/recipes/findByIngredients', {
       params: {
         //make secret - don't commit your key:
-        'apiKey': 'INSERT YOUR API KEY',
+        'apiKey': process.env.REACT_APP_SPOON_API_KEY
         'ingredients': ingredients,
         'number': 2 // number of recipes you want returned
       }
