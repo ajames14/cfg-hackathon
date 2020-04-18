@@ -16,7 +16,6 @@ const Navbar = () => {
 
   function handleLogout() {
     Auth.logout()
-    // setUserInfo(null)
   }
 
   return (

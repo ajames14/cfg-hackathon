@@ -4,7 +4,7 @@ from .views import ChatroomView, AllChatroomsView, PostDetailView, PostListView,
 urlpatterns = [
     path('chatrooms', AllChatroomsView.as_view()),
     path('chatrooms/<str:postcode>/', ChatroomView.as_view()),
-    path('posts', PostListView.as_view()),
+    path('<int:pk>/posts/', PostListView.as_view()),
     path('posts/<int:pk>/', PostDetailView.as_view()),
     path('comments', CommentListView.as_view()),
     path('posts/<int:post_pk>/comments/<int:pk>/', CommentDetailView.as_view())

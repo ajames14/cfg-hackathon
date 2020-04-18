@@ -28,37 +28,37 @@ const App = (props) => {
     [userInfo, setUserInfo, userPostcode, setUserPostcode]
   )
 
-  const [dimensions, setDimensions] = useState({
-    height: window.innerHeight,
-    width: window.innerWidth
-  })
+  // const [dimensions, setDimensions] = useState({
+  //   height: window.innerHeight,
+  //   width: window.innerWidth
+  // })
 
-  function debounce(fn, ms) {
-    let timer
-    return () => {
-      clearTimeout(timer)
-      timer = setTimeout(() => {
-        timer = null
-        fn.apply(this, arguments)
-      }, ms)
-    }
-  }
+  // function debounce(fn, ms) {
+  //   let timer
+  //   return () => {
+  //     clearTimeout(timer)
+  //     timer = setTimeout(() => {
+  //       timer = null
+  //       fn.apply(this, arguments)
+  //     }, ms)
+  //   }
+  // }
 
-  useEffect(() => {
-    // prevents flashing
-    gsap.to('body', 0, { css: { visibility: 'visible' } })
-    const debouncedHandleResize = debounce(function handleResize() {
-      setDimensions({
-        height: window.innerHeight,
-        width: window.innerWidth
-      })
-    }, 1000)
+  // useEffect(() => {
+  //   // prevents flashing
+  //   gsap.to('body', 0, { css: { visibility: 'visible' } })
+  //   const debouncedHandleResize = debounce(function handleResize() {
+  //     setDimensions({
+  //       height: window.innerHeight,
+  //       width: window.innerWidth
+  //     })
+  //   }, 1000)
 
-    window.addEventListener('resize', debouncedHandleResize)
-    return () => {
-      window.removeEventListener('resize', debouncedHandleResize)
-    }
-  })
+  //   window.addEventListener('resize', debouncedHandleResize)
+  //   return () => {
+  //     window.removeEventListener('resize', debouncedHandleResize)
+  //   }
+  // })
 
   useEffect(() => {
     console.log('running')
@@ -88,15 +88,15 @@ const App = (props) => {
     document.documentElement.style.setProperty('--vh', `${vh}px`)
   }, [])
 
-  console.log('app.js', userInfo)
-  console.log('app.js', userPostcode)
+  console.log('app.js user', userInfo)
+  console.log('app.js postcode', userPostcode)
 
   return (
     <HashRouter>
       <UserContext.Provider value={sharedInfo}>
         <Navbar />
         <Switch>
-          <Route exact path="/" component={Home} dimensions={dimensions} />
+          <Route exact path="/" component={Home} />
           <Route exact path="/about" component={About} />
           {/* <Route exact path="/join" component={UserPage} /> */}
           <Route exact path="/register" component={Register} />

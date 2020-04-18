@@ -43,10 +43,10 @@ const FoodSwap = () => {
       })
       .then((res) => {
         setUserInfo(res.data.user)
-        console.log(data)
+        console.log('foodswapdata', data)
       })
-      .catch((err) => {
-        setError(err.response.data.errors)
+      .catch((error) => {
+        setError(error.response.data.errors)
         console.log(error)
       })
   }
@@ -74,7 +74,9 @@ const FoodSwap = () => {
         <div className="info">Chunk of text goes here</div>
       </div>
       <div className="container">
-        {userPostcode && Auth.isAuthorized() && <Chatroom />}
+        {userPostcode && Auth.isAuthorized() && (
+          <Chatroom postcode={userPostcode} />
+        )}
         {!userPostcode && Auth.isAuthorized() && (
           <form action="" className="form" onSubmit={handleSubmit}>
             <div className="field">
@@ -98,7 +100,7 @@ const FoodSwap = () => {
             <Link className="join-link" to="/register">
               Sign Up
             </Link>
-            <Link className="join-link" to="/register">
+            <Link className="join-link" to="/login">
               Sign In
             </Link>
             {/* <Register />
