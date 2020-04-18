@@ -66,6 +66,7 @@ class ProfileView(APIView):
             updated_user.save()
 
             if 'postcode' in request.data.keys():
+                print('yup')
                 try:
                   # remove user from other chatroom:
                     chatrooms_all = Chatroom.objects.all()
@@ -113,7 +114,7 @@ class ProfileView(APIView):
                     if chatroom.is_valid():
                         chatroom.save()
 
-            return Response({'id': updated_user.data['id'], 'username': updated_user.data['username'], 'postcode': updated_user.data['postcode'], 'chatroom_id': chatroom.data['id']}, status=HTTP_202_ACCEPTED)
+            return Response({'id': updated_user.data['id'], 'username': updated_user.data['username'], 'postcode': updated_user.data['postcode'] }, status=HTTP_202_ACCEPTED)
 
         return Response(updated_user.errors, status=HTTP_422_UNPROCESSABLE_ENTITY)
 
