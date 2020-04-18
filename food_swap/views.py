@@ -32,13 +32,14 @@ class PostListView(APIView):
 
     permission_classes = (IsAuthenticatedOrReadOnly, )
 
-    def get(self, _request):
+    def get(self, _request, pk):
         posts = Post.objects.all()
         serialized_posts = PostSerializer(posts, many=True)
         return Response(serialized_posts.data)
 
-    def post(self, request):
+    def post(self, request, pk):
         request.data['user'] = request.user.id
+        request.data['chatroom'] = pk
         post = PostSerializer(data=request.data)
         if post.is_valid():
             post.save()
