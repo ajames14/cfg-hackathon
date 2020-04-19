@@ -1,4 +1,5 @@
 #home-section {
+  font-family: $family-secondary;
   box-sizing: border-box;
 
   @include media('<=460px') {

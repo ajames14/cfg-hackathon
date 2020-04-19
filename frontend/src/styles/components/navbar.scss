@@ -1,0 +1,32 @@
+.navbar {
+  font-family: $family-secondary;
+  padding: 0px 20px;
+  text-transform: uppercase;
+  font-weight: 800;
+
+  .navbar-end {
+    font-weight: 400;
+  }
+
+  .navbar-item:focus,
+  .navbar-item.is-hoverable:focus, 
+  a.navbar-link.is-arrowless:focus {
+    background-color: white !important;
+  }
+
+  .navbar-item:hover,
+  .navbar-item.is-hoverable:hover,
+  a.navbar-link.is-arrowless:hover {
+    background-color: $lightorange !important;
+  }
+
+
+
+  .navbar-brand {
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    .thin {
+      font-weight: 200;
+    }
+  }
+}

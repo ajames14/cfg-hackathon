@@ -33,14 +33,17 @@ const FilteredRecipeForm = ({ setRecipes }) => {
 
   return (
     <div>
-      <form>
-        <input type="text" name="food1" onChange={(e) => handleInput(e)} />
-        <input type="text" name="food2" onChange={(e) => handleInput(e)} />
-        <input type="text" name="food3" onChange={(e) => handleInput(e)} />
-        <input type="text" name="food4" onChange={(e) => handleInput(e)} />
-        <input type="text" name="food5" onChange={(e) => handleInput(e)} />
+      <div className="search-title">
+        Enter up to five ingredients from your cupboard...
+      </div>
+      <form className="form">
+        <input className="ingredient-input" type="text" name="food1" onChange={(e) => handleInput(e)} />
+        <input className="ingredient-input" type="text" name="food2" onChange={(e) => handleInput(e)} />
+        <input className="ingredient-input" type="text" name="food3" onChange={(e) => handleInput(e)} />
+        <input className="ingredient-input" type="text" name="food4" onChange={(e) => handleInput(e)} />
+        <input className="ingredient-input" type="text" name="food5" onChange={(e) => handleInput(e)} />
       </form>
-      <button onClick={(e) => handleSubmit(e)}>Submit</button>
+      <button className="button searchbutton is-primary" onClick={(e) => handleSubmit(e)}><i className="fas fa-search"></i></button>
     </div>
 
   )

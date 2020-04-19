@@ -26,7 +26,10 @@ const Navbar = () => {
     >
       <div className="navbar-brand">
         <Link id="homeicon" className="navbar-item has-text-centered" to="/">
-          wastenotwantnot
+          waste
+          <span className="thin">not</span>
+          want
+          <span className="thin">not</span>
         </Link>
         <a
           role="button"
@@ -43,12 +46,12 @@ const Navbar = () => {
       </div>
       <div id="navDrop" className="navbar-menu">
         <div className="navbar-end">
-          <div className="navbar-item has-dropdown is-hoverable">
+          <div className="navbar-item is-hoverable">
             <Link className="navbar-link is-arrowless" to="/recipes">
               Recipe Book
             </Link>
           </div>
-          <div className="navbar-item has-dropdown is-hoverable">
+          <div className="navbar-item is-hoverable">
             <Link className="navbar-link is-arrowless" to="/foodswap">
               Food Swap
             </Link>
