@@ -3,8 +3,12 @@ import React from 'react'
 
 const Recipes = ({ props, res }) => {
 
+  function handleClick(id) {
+    props.history.push(`/recipe/${id}`)
+  }
+
   return (
-    <div className='recipe' onClick={() => null}>
+    <div className='recipe' onClick={() => handleClick(res.id)}>
       <div className="card">
         <div className="card-image">
           <figure className="image is-4by3">
