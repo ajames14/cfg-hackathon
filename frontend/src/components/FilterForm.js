@@ -4,15 +4,9 @@ import Select from 'react-select'
 
 import jsonOptions from '../db/top-1k-ingredients.json'
 
-const options = [
-  { value: 'chocolate', label: 'Chocolate' },
-  { value: 'strawberry', label: 'Strawberry' },
-  { value: 'vanilla', label: 'Vanilla' }
-]
-
 const FilteredRecipeForm = ({ setRecipes }) => {
 
-  const [form, updateForm] = useState()
+  // const [form, updateForm] = useState()
   const [error, setError] = useState()
 
   const [tags, setTags] = useState([])
@@ -78,6 +72,19 @@ const FilteredRecipeForm = ({ setRecipes }) => {
               isMulti
               options={options} 
               onChange={handleSelect}
+              theme={theme => ({
+                ...theme,
+                borderRadius: 0,
+                colors: {
+                  ...theme.colors,
+                  primary25: '#ffd6a5',
+                  primary: '#fa9012',
+                  danger: '#fa9012',
+                  dangerLight: '#ffd6a5',
+                  neutral10: '#ffd6a5',
+                  neutral80: '#fa9012'
+                }
+              })}
             />         
           </div>
         </div>
