@@ -20,7 +20,7 @@ const Navbar = () => {
 
   return (
     <nav
-      className="navbar is-white is-fixed-top"
+      className="navbar is-white is-fixed-top is-transparent"
       role="navigation"
       aria-label="main navigation"
     >
