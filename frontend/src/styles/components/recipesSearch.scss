@@ -36,6 +36,7 @@
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
+    margin: 0 3vw;
   }
 
   #recipe-results {
@@ -43,10 +44,12 @@
     flex-direction: row;
     justify-content: flex-start;
     flex-wrap: wrap;
+    
 
     .recipe {
-      width: 33%;
+      width: 30%;
       margin: 5px;
+      cursor: pointer;
     
 
     .card-image {
@@ -66,9 +69,13 @@
         background-color: rgba(white, 0.6);
         font-family: $family-secondary;
         padding: 5px;
-        word-break: break-word;
         opacity: 0;
         transition: opacity 0.5s ease-in-out;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;  
       }
     }
 

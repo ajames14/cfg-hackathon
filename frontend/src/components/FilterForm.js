@@ -24,7 +24,7 @@ const FilteredRecipeForm = ({ setRecipes }) => {
         //make secret - don't commit your key:
         'apiKey': process.env.REACT_APP_SPOON_API_KEY,
         'ingredients': ingredients,
-        'number': 2 // number of recipes you want returned
+        'number': 20 // number of recipes you want returned
       }
     })
       .then(resp => console.log(resp) + setRecipes(resp.data))
