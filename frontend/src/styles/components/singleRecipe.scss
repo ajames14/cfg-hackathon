@@ -1,0 +1,91 @@
+
+#single-recipe {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+
+  
+  h1 {
+    width: 100%;
+    margin: 30px 0 0 0;
+    color: white;
+    background-color: $lightorange;
+    line-height: 110px;
+  }
+
+  .diets {
+    justify-content: center;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    // background-color: $lightorange;
+
+    img {
+      margin: 10px 1%;
+    }
+  }
+
+  .recipeImage {
+    margin-bottom: 30px;
+  }
+
+  .favButton {
+    background-color: $lightorange;
+    color: white;
+    font-size: 20px;
+    padding: 12px 0;
+    width: 20%;
+    margin-bottom: 16px;
+    border: 2px solid $brightorange;
+    cursor: pointer;
+
+      &:hover {
+        opacity: 0.8;
+        background-color: #f1ad59;
+      }
+
+      &:focus {
+        outline: none;
+      }
+  }
+
+  .ingredientSection {
+    background-color: #f0af60;
+    border: 20px solid $lightorange;
+    border-radius: 1%;
+    color: white;
+    width: 55%;
+    padding: 16px 10px;
+    margin-bottom: 30px;
+
+      h2 {
+        font-size: 33px;
+        margin-bottom: 12px;
+      }
+
+      div {
+        font-size: 18px;
+      }
+  }
+
+  .allSteps {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .stepInfo {
+    display: flex;
+    text-align: left;
+    width: 80%;
+    margin-bottom: 3px;
+
+    :nth-child(1) {
+      margin-right: 20px;
+    }
+  }
+
+
+}
