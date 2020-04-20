@@ -81,9 +81,7 @@ const FilteredRecipeForm = ({ setRecipes }) => {
                   primary: '#fa9012',
                   danger: '#fa9012',
                   dangerLight: '#ffd6a5',
-                  neutral10: '#ffd6a5',
-                  neutral80: '#fa9012'
-                }
+                  neutral10: '#ffd6a5'                }
               })}
             />         
           </div>
