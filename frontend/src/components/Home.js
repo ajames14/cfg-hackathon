@@ -12,8 +12,12 @@ const Home = () => {
           <div className="home-link" id="large-link">
             HELPING YOU CUT CROWDS & MINIMIZE WASTE
           </div>
-          <div style={{ margin: '60px 0px 30px 0px' }}>
-            <Link to="/about" style={{ paddingLeft: '8px', color: 'white' }}>
+          <div style={{ margin: '40px 0px 30px 0px' }}>
+            <Link
+              to="/about"
+              className="small-link"
+              style={{ paddingLeft: '8px', color: 'white' }}
+            >
               Find out more...
             </Link>
           </div>
