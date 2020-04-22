@@ -1,0 +1,150 @@
+#food-swap {
+
+  height: 100vh;
+  @include media('<=phone') {
+    height: 100%;
+  }
+  margin-top: 30px;
+
+  
+  .columns, .column {
+    height: 100%;
+    text-align: center;
+
+    #sign-up{
+     font-family: $family-secondary;
+     font-size: 16px;
+     background-color: white;
+     padding: 5%;
+    .join-link{
+      color: $brightorange;
+      margin: 0 20px;
+      text-transform: uppercase;
+    }
+  }
+    .container{
+      padding: 0% 2%;
+    }
+    #intro{
+      .container{
+        width: 80%;
+      }
+      padding: 4%;
+      color: $brightorange;
+      font-family: $family-primary;
+      #intro-title{
+        color: $brightorange;
+        font-family: $family-primary;
+        font-size: 1.8rem;
+        margin-bottom: 8%;
+        font-weight: bold;
+      }
+      #intro-subtitle{
+        font-weight: bold;
+        font-size: 1.2rem;
+        margin-bottom: 10%;
+      }
+      .info{
+        text-align: justify;
+        span{
+          font-weight: bold;
+        }
+      }
+    }
+
+    #chatroom{
+      overflow: scroll;
+      background-color: $lightorange;
+      color: $brightorange;
+      padding: 4%;
+
+      .chatroom-title{
+        margin-top: 6%;
+        text-transform: uppercase;
+        font-family: $family-secondary;
+        font-size: 1rem;
+        font-weight: bold;
+        color: white;
+      }
+      .post-container{
+        margin: 2% 10%;
+        background-color: white;
+        padding: 5%;
+        color: $brightorange;
+        @include media('<=phone') {
+          margin: 5%;
+        }
+        .media + .media {
+          border-top: 1px solid $brightorange;
+          margin-top: 1rem;
+          padding-top: 1rem;
+      }
+
+      }
+
+      .post-form{
+        margin: 2% 10%;
+      }
+      .post-label{
+        font-family: $family-secondary;
+        color: $brightorange;
+      }
+
+      .post-button{
+        background-color: $brightorange;
+        border: none;
+        font-size: 12px;
+        font-weight: bold;
+        font-family: $family-secondary;
+        color: white;
+      }
+
+      #photo-box{
+        justify-content: center;
+        align-items: center;
+        display: flex;
+      }
+
+      .profile-pic{
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+      }
+
+      .post-content{
+        color: $brightorange;
+        font-family: $family-secondary;
+        .username{
+          color: $brightorange;
+        }
+        .time{
+          font-style: italic;
+          font-size: 12px;
+          margin-left: 2%;
+        }
+        .post-text{
+          margin-top: 10px;
+          margin-bottom: 2px;
+          font-size: 13px;
+        }
+        .reply-button{
+          background-color: none;
+          border: none;
+          padding: 0px;
+          color: $brightorange;
+          font-family: $family-secondary;
+          font-weight: bold;
+          font-size: 12px;
+        }
+      }
+    }
+
+
+    
+  }
+
+
+
+
+
+}

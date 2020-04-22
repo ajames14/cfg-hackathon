@@ -6,6 +6,6 @@ urlpatterns = [
     path('chatrooms/<str:postcode>/', ChatroomView.as_view()),
     path('<int:pk>/posts/', PostListView.as_view()),
     path('posts/<int:pk>/', PostDetailView.as_view()),
-    path('comments', CommentListView.as_view()),
+    path('<int:pk>/comments', CommentListView.as_view()),
     path('posts/<int:post_pk>/comments/<int:pk>/', CommentDetailView.as_view())
 ]
