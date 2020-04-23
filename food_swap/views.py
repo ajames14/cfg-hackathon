@@ -80,13 +80,14 @@ class CommentListView(APIView):
 
     permission_classes = (IsAuthenticatedOrReadOnly, )
 
-    def get(self, _request):
+    def get(self, _request, pk):
         comments = Comment.objects.all()
         serialized_comments = CommentSerializer(comments, many=True)
         return Response(serialized_comments.data)
 
-    def post(self, request):
+    def post(self, request, pk):
         request.data['user'] = request.user.id
+        request.data['post'] = pk
         comment = CommentSerializer(data=request.data)
         if comment.is_valid():
             comment.save()

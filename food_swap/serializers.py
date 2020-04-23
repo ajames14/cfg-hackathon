@@ -15,6 +15,9 @@ class CommentSerializer(serializers.ModelSerializer):
         model = Comment
         fields = ('id', 'user', 'post', 'text', 'time_stamp')
 
+class PopulatedCommentSerializer(CommentSerializer):
+
+    user = UserSerializer()
 
 class PostSerializer(serializers.ModelSerializer):
     class Meta:
@@ -28,7 +31,7 @@ class PostSerializer(serializers.ModelSerializer):
 class PopulatedPostSerializer(PostSerializer):
 
     user = UserSerializer()
-    comments = CommentSerializer(many=True)
+    comments = PopulatedCommentSerializer(many=True)
 
 
 class ChatroomSerializer(serializers.ModelSerializer):

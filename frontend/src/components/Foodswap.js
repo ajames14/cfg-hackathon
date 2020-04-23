@@ -1,15 +1,3 @@
-/************
- * 
- * METHOD:
- * if statement or '? :' line of code that checks if userInfo.postcode !== null  
- * if null --> show form to enter postcode --> PUT request to user profile 
- * if userInfo = null, then show a register form 
- * this will then refresh/update userInfo (if possible without refreshing the page)
- * if postcode exists show <Chatroom /> - similar logic to buttons in my side project
- * in chatroom component, the check to match user postcode to chat postcode will be here 
- 
- ***********/
-
 import React, { useState, useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
@@ -26,6 +14,7 @@ const initialLoginState = {
 }
 
 const FoodSwap = () => {
+
   const { userInfo, setUserInfo } = useContext(UserContext)
   const { userPostcode, setUserPostcode } = useContext(UserContext)
 
@@ -68,45 +57,64 @@ const FoodSwap = () => {
   }
 
   return (
-    <div className="section">
-      <div className="container">
-        <div className="title">How things work</div>
-        <div className="info">Chunk of text goes here</div>
-      </div>
-      <div className="container">
-        {userPostcode && Auth.isAuthorized() && (
-          <Chatroom postcode={userPostcode} />
-        )}
-        {!userPostcode && Auth.isAuthorized() && (
-          <form action="" className="form" onSubmit={handleSubmit}>
-            <div className="field">
-              <label htmlFor="" className="label">
-                Enter postcode
-              </label>
-              <div className="control">
-                <input
-                  type="text"
-                  name="postcode"
-                  className="input"
-                  onChange={handleChange}
-                />
-              </div>
-            </div>
-            <button className="button is-black">Enter</button>
-          </form>
-        )}
-        {!Auth.isAuthorized() && (
+    <div className="section" id="food-swap">
+      <div className="columns">
+        <div className="column is-half" id="intro">
           <div className="container">
-            <Link className="join-link" to="/register">
-              Sign Up
-            </Link>
-            <Link className="join-link" to="/login">
-              Sign In
-            </Link>
-            {/* <Register />
-            <Login onSubmit={loginSubmit} /> */}
+            <div id="intro-title">The Food Community</div>
+            <div id="intro-subtitle">{'Share Food, Waste Less, Stay Home.'}</div>
+            <p className="info">
+              <span>Short on ingredients? </span>In these tough times, it's important to be able to turn to your neighbours.
+              We've created a chatroom for you to link up with other users in your local area and help each other out.
+              The aim is to avoid unnecessary trips to the shops, particularly if you're unwell or unable to leave the house.
+              <br/>
+              <br/>
+              <span>How does it work? </span>Simply sign up with your postcode to join your chatroom, post what you need and wait for a friendly neighbour to lend a hand. 
+              Sharing is caring - play an active part in the community by sharing your food too!
+              <br/>
+              <br />
+              <span>And remember, </span>always follow the social distancing guidelines when dropping off supplies.
+            </p>
           </div>
-        )}
+        </div>
+        <div className="column is-half" id="chatroom">
+          {userPostcode && Auth.isAuthorized() && (
+            <Chatroom postcode={userPostcode} />
+          )}
+          {!userPostcode && Auth.isAuthorized() && (
+            <form action="" className="form" onSubmit={handleSubmit}>
+              <div className="field">
+                <label htmlFor="" className="label">
+                  Enter postcode
+              </label>
+                <div className="control">
+                  <input
+                    type="text"
+                    name="postcode"
+                    className="input"
+                    onChange={handleChange}
+                  />
+                </div>
+              </div>
+              <button className="button is-black">Enter</button>
+            </form>
+          )}
+          {!Auth.isAuthorized() && (
+            <div className="container" id='sign-up'>
+              You must be logged in to join the Community:
+              <br></br>
+              <br></br>
+              <Link className="join-link" to="/register">
+                Sign Up
+            </Link>
+              <Link className="join-link" to="/login">
+                Sign In
+            </Link>
+              {/* <Register />
+            <Login onSubmit={loginSubmit} /> */}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   )
