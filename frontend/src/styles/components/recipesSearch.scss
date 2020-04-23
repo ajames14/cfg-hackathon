@@ -20,6 +20,7 @@
     .form {
       display: flex;
       flex-direction: column;
+      margin-bottom: 1rem;
 
       .ingredient-input {
         margin: 5px 0;
@@ -28,6 +29,14 @@
         padding: 10px;
         background-color: rgba($lightorange, 0.3);
         font-size: 1rem
+      }
+
+      .ranking {
+        margin: 0.4rem 0;
+
+        .checkradio-label {
+          margin-left: 0.6rem;
+        }
       }
     }
 
@@ -84,12 +93,22 @@
       }
     }
 
-  &:hover {
-    .card-title {
-      opacity: 1;
+    &:hover {
+      .card-title {
+        opacity: 1;
+      }
     }
-  }
 
   }
+
+  .recipes-placeholder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $brightorange;
+    font-family: $family-secondary;
+    margin: 5vw;
+  }
 }
+
 }

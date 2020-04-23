@@ -58,7 +58,7 @@ const Navbar = () => {
           </div>
           <div className="navbar-item is-hoverable">
             <Link className="navbar-link is-arrowless" to="/foodswap">
-              Food Swap
+              Food Community
             </Link>
           </div>
           <div className="navbar-item has-dropdown is-hoverable">

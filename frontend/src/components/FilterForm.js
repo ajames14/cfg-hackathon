@@ -12,8 +12,9 @@ const FilteredRecipeForm = ({ setRecipes }) => {
   const [tags, setTags] = useState([])
   const [options, setOptions] = useState([])
 
+  const [ranking, setRanking] = useState('1')
+
   useEffect(() => {
-    console.log(jsonOptions)
     const newOptions = jsonOptions.map(option => {
       return { value: option.ingredient, label: option.ingredient }
     })
@@ -26,11 +27,6 @@ const FilteredRecipeForm = ({ setRecipes }) => {
 
   function handleSubmit(e) {
     e.preventDefault()
-    // console.log(form)
-    // const foodArray = []
-    // for (const food in form) {
-    //   form[food] ? foodArray.push(form[food]) : null
-    // }
     const ingredients = tags.toString()
     console.log(ingredients)
 
@@ -39,6 +35,8 @@ const FilteredRecipeForm = ({ setRecipes }) => {
         //make secret - don't commit your key:
         'apiKey': process.env.REACT_APP_SPOON_API_KEY,
         'ingredients': ingredients,
+        'ranking': parseInt(ranking),
+        'ignorePantry': true,
         'number': 12 // number of recipes you want returned
       }
     })
@@ -53,23 +51,22 @@ const FilteredRecipeForm = ({ setRecipes }) => {
     setTags(newSelection)
   }
 
+  function handleRanking(e) {
+    setRanking(e.target.id)
+  }
+
   return (
     <div>
       {console.log('OPTIONS', options)}
       {console.log('SELECTION', tags)}
       <div className="search-title">
-        Enter up to five ingredients from your cupboard...
+        Enter some ingredients from your cupboard...
       </div>
       <form className="form">
-        {/* <input className="ingredient-input" type="text" name="food1" onChange={(e) => handleInput(e)} />
-        <input className="ingredient-input" type="text" name="food2" onChange={(e) => handleInput(e)} />
-        <input className="ingredient-input" type="text" name="food3" onChange={(e) => handleInput(e)} />
-        <input className="ingredient-input" type="text" name="food4" onChange={(e) => handleInput(e)} />
-        <input className="ingredient-input" type="text" name="food5" onChange={(e) => handleInput(e)} /> */}
         <div className="field">
           <div className="control">
             <Select 
-              isMulti
+              isMulti 
               options={options} 
               onChange={handleSelect}
               theme={theme => ({
@@ -85,6 +82,14 @@ const FilteredRecipeForm = ({ setRecipes }) => {
               })}
             />         
           </div>
+        </div>
+        <div className="field ranking">
+          <input className="is-checkradio" id="1" type="radio" name="exampleRadioInline" checked={ranking === '1'} onChange={e => handleRanking(e)} />
+          <label className="checkradio-label is-size-6" htmlFor="exampleRadioInline1">Maximise used ingredients</label>
+        </div>
+        <div className="field ranking">
+          <input className="is-checkradio" id="2" type="radio" name="exampleRadioInline" checked={ranking === '2'} onChange={e => handleRanking(e)} />
+          <label className="checkradio-label is-size-6" htmlFor="exampleRadioInline2">Minimise missing ingredients</label>
         </div>
       </form>
       <button className="button searchbutton is-primary" onClick={(e) => handleSubmit(e)}><i className="fas fa-search"></i></button>
