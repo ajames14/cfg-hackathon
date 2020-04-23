@@ -16,11 +16,6 @@ const SingleRecipe = (props) => {
   const [saveText, setText] = useState('Save To Favourites')
   const [disabled, setDisable] = useState()
 
-  //temporarily added this since was hidden by navbar
-  const styles = {
-    fontSize: '90px'
-  }
-
   useEffect(() => {
     axios.get(`https://api.spoonacular.com/recipes/${props.match.params.id}/information`, {
       params: {
@@ -28,7 +23,7 @@ const SingleRecipe = (props) => {
         'apiKey': process.env.REACT_APP_SPOON_API_KEY
       }
     })
-      .then(resp => console.log(resp) + setRecipe(resp.data))
+      .then(resp => console.log(resp) + setRecipe(resp.data) + checkId(props.user.favourites, resp.data.id))
       .catch(err => console.log(err))
   }, [props.user])
 
@@ -43,14 +38,14 @@ const SingleRecipe = (props) => {
   function save(choice) {
     setDisable(choice)
     choice ? setText('Saved') : setText('Save To Favourites')
-    const favArray = [...props.user.favourites]
+    const favArray = props.user.favourites ? [...props.user.favourites] : []
     if (!choice) {
       const index = favArray.indexOf(recipe.id)
       favArray.splice(index, 1)
     } else {
-      props.user.favourites ? favArray.push(recipe.id) : [recipe.id]
+      favArray.push(recipe.id)
     }
-    const form = { 'favourites': favArray }
+    const form = { 'postcode': props.user.postcode ,'favourites': favArray }
     console.log('array after', favArray)
 
     axios.put('http://localhost:8000/api/profile', form, { headers: { Authorization: `Bearer ${Auth.getToken()}` } })
@@ -61,7 +56,7 @@ const SingleRecipe = (props) => {
 
   return (
     <div className="section has-text-centered" id="single-recipe">
-      <h1 style={styles}> {recipe.title} </h1>
+      <h1> {recipe.title} </h1>
       <div className="level diets">
         {recipe.vegeterian && <img width='60px' src={veg} />}
         {recipe.vegan && <img width='75px' src={vegan} />}
