@@ -11,7 +11,7 @@ import gluten from './images/glut.png'
 const SingleRecipe = (props) => {
 
   const [recipe, setRecipe] = useState({
-    title: 'Pork belly'
+    // title: 'Pork belly'
   })
   const [saveText, setText] = useState('Save To Favourites')
   const [disabled, setDisable] = useState()
@@ -28,7 +28,7 @@ const SingleRecipe = (props) => {
         'apiKey': process.env.REACT_APP_SPOON_API_KEY
       }
     })
-      .then(resp => console.log(resp) + setRecipe(resp.data) + checkId(props.user.favourites, resp.data.id))
+      .then(resp => console.log(resp) + setRecipe(resp.data))
       .catch(err => console.log(err))
   }, [props.user])
 
@@ -84,9 +84,9 @@ const SingleRecipe = (props) => {
           return <div className='ingredient' key={id}>{ing.original}</div>
         }) : null}</div>
       </div>
-      <div className='allSteps'>{recipe.analyzedInstructions ? recipe.analyzedInstructions[0].steps.map((step, id) => {
+      {recipe.analyzedInstructions && <div className='allSteps'>{recipe.analyzedInstructions[0] ? recipe.analyzedInstructions[0].steps.map((step, id) => {
         return <div className='stepInfo' key={id}><p className='stepNum'>{`${step.number}.`}</p><p>{step.step}</p></div>
-      }) : null}</div>
+      }) : 'No steps provided by this recipe'}</div>}
     </div>
   )
 }
