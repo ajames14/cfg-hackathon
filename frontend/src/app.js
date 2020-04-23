@@ -103,7 +103,11 @@ const App = (props) => {
           <Route exact path="/login" component={Login} />
           <Route exact path="/foodswap" component={FoodSwap} />
           <Route exact path="/recipes" component={Recipes} />
-          <Route exact path="/recipe/:id" render={(props) => <SingleRecipe {...props} user={userInfo} />} />
+          <Route
+            exact
+            path="/recipe/:id"
+            render={(props) => <SingleRecipe {...props} user={userInfo} />}
+          />
         </Switch>
       </UserContext.Provider>
     </HashRouter>

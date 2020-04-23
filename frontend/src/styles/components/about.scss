@@ -1,0 +1,48 @@
+.tween {
+  width: 100px;
+  height: 100px;
+  background-color: red;
+  margin: 0 !important;
+  position: relative;
+  left: calc(50% - 50px);
+}
+
+.stagger {
+  width: 50px;
+  height: 50px;
+  left: 700px;
+  background-color: green;
+  position: relative;
+}
+
+.section {
+  position: relative;
+  margin: 0 auto;
+  display: flex;
+  // justify-content: center;
+  height: 100vh;
+  .container {
+    padding: 20px;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100vh;
+    width: 100vh;
+  }
+  .page-title {
+    font-size: 102px;
+    letter-spacing: 0.1rem;
+    font-weight: 800;
+    margin-left: 80px;
+    color: $brightorange;
+    .line-wrap {
+      overflow: hidden;
+      height: 130px;
+    }
+  }
+  p.other {
+    margin: 50px 0px 0px 500px;
+    width: 80vh;
+  }
+}
