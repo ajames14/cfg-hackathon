@@ -15,12 +15,13 @@
   position: relative;
 }
 
-.section {
+#about-section {
   position: relative;
   margin: 0 auto;
   display: flex;
   // justify-content: center;
   height: 100vh;
+  flex-direction: column;
   .container {
     padding: 20px;
     position: absolute;
@@ -29,20 +30,32 @@
     justify-content: center;
     height: 100vh;
     width: 100vh;
+    @include media('<=phone') {
+      height: 100%;
+    }
   }
   .page-title {
-    font-size: 102px;
+    font-size: 100px;
     letter-spacing: 0.1rem;
     font-weight: 800;
-    margin-left: 80px;
+    margin-left: 100px;
     color: $brightorange;
+    @include media('<=desktop') {
+      font-size: 80px;
+    }
     .line-wrap {
       overflow: hidden;
-      height: 130px;
+      height: 138px;
     }
   }
   p.other {
     margin: 50px 0px 0px 500px;
     width: 80vh;
+    font-size: 1rem;
+
+    @include media('<=desktop') {
+      margin: 50px 0px 0px 320px;
+      width: 50vh;
+    }
   }
 }

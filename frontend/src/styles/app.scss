@@ -7,12 +7,13 @@
 @import './components/home.scss';
 @import './components/recipesSearch.scss';
 @import './components/about.scss';
-@import './components/title.scss';
 
 // Import only what you need from Bulma
 @import '../../../node_modules/bulma/sass/utilities/_all.sass';
 @import '../../../node_modules/bulma/sass/base/_all.sass';
 @import '../../../node_modules/bulma/sass/elements/button.sass';
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;400;500;600&display=swap');
 
 body,
 html {

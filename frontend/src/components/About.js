@@ -2,19 +2,36 @@ import React, { useRef, useEffect, useState } from 'react'
 import { useSpring, animated } from 'react-spring'
 
 import Title from './Title'
+import AboutChallenges from './Challenges'
+import AboutContent from './Concept'
 
 const About = () => {
+  const [currentSlide, setCurrentSlide] = useState(AboutChallenges)
+  const slide1 = AboutChallenges
+  const slide2 = AboutContent
+  const Components = [AboutChallenges, AboutContent]
+
+  function nextSlide() {
+    setCurrentSlide(slide2)
+    console.log(currentSlide)
+  }
+
+  function prevSlide() {
+    setCurrentSlide(slide1)
+    console.log(currentSlide)
+  }
+
+  console.log(currentSlide)
+
   return (
-    <div className="section">
+    <div className="section" id="about-section">
       <div className="container">
-        <Title lineContent="Todays" lineContent2="challenges" />
-        <p className="other">
-          Due to COVID-19 measures, food shopping has become increasingly
-          difficult. Consumers face challenges due to reduced stocks in
-          supermarkets, whilst also having to deal with health anxieties
-          associated with leaving the house. For the most vulnerable, leaving
-          the house simply isnt an option. That's why we are here to help.
-        </p>
+        {/* {Components.map((Component, i) => {
+          return <Component key={i} />
+        })} */}
+        {currentSlide === slide2 ? <AboutContent /> : <AboutChallenges />}
+        <button onClick={nextSlide}>More</button>
+        <button onClick={prevSlide}>Back</button>
       </div>
     </div>
   )
