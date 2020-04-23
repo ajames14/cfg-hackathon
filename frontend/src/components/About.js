@@ -7,13 +7,17 @@ import AboutContent from './Concept'
 
 const About = () => {
   const [currentSlide, setCurrentSlide] = useState(AboutChallenges)
+  const [visibleSlide2, showVisibleSlide2] = useState(false)
+
   const slide1 = AboutChallenges
   const slide2 = AboutContent
   const Components = [AboutChallenges, AboutContent]
 
   function nextSlide() {
     setCurrentSlide(slide2)
+    showVisibleSlide2(true)
     console.log(currentSlide)
+    console.log(showVisibleSlide2)
   }
 
   function prevSlide() {
