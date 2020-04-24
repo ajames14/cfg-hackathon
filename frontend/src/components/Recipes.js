@@ -16,22 +16,23 @@ const Recipes = (props) => {
 
   return (
     <div className="section" id="recipes-search">
-      <div className="columns">
+      <div className="container">
+        <div className="columns">
 
-        <div className="column is-one-quarter" id="searchbar">
-          <FilterForm setRecipes={setRecipes} />
-        </div>
+          <div className="column is-one-quarter" id="searchbar">
+            <FilterForm setRecipes={setRecipes} />
+          </div>
 
-        <div className="column is-one-quarter" id="image"></div>
+          <div className="column is-one-quarter" id="image"></div>
 
-        <div className="column" id="recipe-results">
-          {recipes ? recipes.map((res, id) => {
-            return <RecipeCard key={id} res={res} props={props} />
-          }) : <div className="recipes-placeholder is-size-4">Search for some ingredients and recipes will appear here...</div>}
-        </div>
+          <div className="column" id="recipe-results">
+            {recipes ? recipes.map((res, id) => {
+              return <RecipeCard key={id} res={res} props={props} />
+            }) : <div className="recipes-placeholder is-size-4">Search for some ingredients and recipes will appear here...</div>}
+          </div>
 
       </div>
-
+      </div>
     </div>
 
   )
