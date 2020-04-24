@@ -11,7 +11,10 @@ import gluten from './images/glut.png'
 const SingleRecipe = (props) => {
 
   const [recipe, setRecipe] = useState({
-    // title: 'Pork belly'
+    title: 'Pork belly',
+    vegeterian: true,
+    vegan: true,
+    glutenFree: true
   })
   const [saveText, setText] = useState('Save To Favourites')
   const [disabled, setDisable] = useState()
@@ -66,12 +69,12 @@ const SingleRecipe = (props) => {
         {/* <p>{`Gluten Free: ${recipe.glutenFree ? '✅' : '❌' }`}</p> */}
       </div>
       <img className="recipeImage" width='500px' src={recipe.image}></img>
-      {/* <div className="colum"> */}
-      {!disabled && <button className="favButton" disabled={disabled} onClick={() => save(true)}>{saveText}</button>}
-      {disabled && <button className="favButton" onClick={() => save(false)}>{'Remove From Favourites'}</button>}
-      {/* </div> */}
+
+      {!disabled && Auth.isAuthorized() && <button className="favButton" disabled={disabled} onClick={() => save(true)}>{saveText}</button>}
+      {disabled && Auth.isAuthorized() && <button className="favButton" onClick={() => save(false)}>{'Remove From Favourites'}</button>}
+
       <div className="columns is-centered">
-        <div className="column is-three-quarters" dangerouslySetInnerHTML={{ __html: recipe.summary }}></div>
+        <div className="column is-three-quarters dangerHtml" dangerouslySetInnerHTML={{ __html: recipe.summary }}></div>
       </div>
       <div className='ingredientSection'>
         <h2 className=''>Ingredients:</h2>
