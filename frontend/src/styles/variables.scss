@@ -1,11 +1,12 @@
 $lightorange: #ffd6a5;
-$brightorange: #fa9012; 
+$brightorange: #fa9012;
 
 // BULMA VARIABLES
-$family-primary: 'Gelasio', serif;
+// $family-primary: 'Gelasio', serif;
+$family-primary: 'Poppins', sans-serif;
 $family-secondary: 'Josefin Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI',
-'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
-'Helvetica Neue', sans-serif;
+  'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+  'Helvetica Neue', sans-serif;
 
 $primary: $brightorange;
 $primary-light: $brightorange;

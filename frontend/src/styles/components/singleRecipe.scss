@@ -1,0 +1,141 @@
+
+#single-recipe {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 17px;
+  @include media('<=780px') {
+    font-size: 14px;
+  }
+  @include media('<=540px') {
+    font-size: 12px;
+  }
+
+  
+  h1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 10px 0;
+    font-size: 6vw;
+    margin: 30px 0 0 0;
+    min-height: 90px;
+    color: white;
+    background-color: $lightorange;
+    line-height: 1.2em;
+
+    @include media('<=phone') {
+      font-size: 7vw;
+      padding: 0;
+    }
+  }
+
+  .diets {
+    justify-content: center;
+    align-items: flex-start;
+    margin: 10px;
+    // background-color: $lightorange;
+    img {
+      margin: 0 6px;
+    }
+    :nth-last-child(1) {
+      padding: 6px 0;
+    }
+  }
+
+  .recipeImage {
+    margin-bottom: 30px;
+  }
+
+  .favButton {
+    background-color: $lightorange;
+    color: white;
+    font-size: 20px;
+    padding: 12px 0;
+    width: 25%;
+    margin-bottom: 16px;
+    border: 2px solid $brightorange;
+    cursor: pointer;
+
+      &:hover {
+        opacity: 0.8;
+        background-color: #f1ad59;
+      }
+
+      &:focus {
+        outline: none;
+      }
+  }
+
+  .dangerHtml {
+      b {
+        font-weight: normal;
+      }
+      a {
+        color: $brightorange;
+        &:hover {
+          // opacity: 0.8;
+          color: #f1bd2d;
+        }
+      }
+  }
+
+  .ingredientSection {
+    background-color: #f0af60;
+    border: 20px solid $lightorange;
+    border-radius: 1%;
+    color: white;
+    width: 60%;
+    padding: 16px 10px;
+    margin-bottom: 40px;
+    @include media('<=780px') {
+      width: 90%;
+      border-width: 10px;
+    }
+    @include media('<=phone') {
+      width: 100%;
+    }
+
+      h2 {
+        font-size: 33px;
+        // font-size: 2.5vw;
+        margin-bottom: 12px;
+        @include media('<=780px') {
+          font-size: 1.3em;
+        }
+      }
+      div {
+        font-size: 18px;
+        @include media('<=780px') {
+          font-size: 15px;
+        }
+        @include media('<=phone') {
+          font-size: 12px;
+        }
+      }
+  }
+
+  .allSteps {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+  }
+
+  .stepInfo {
+    display: flex;
+    text-align: left;
+    width: 80%;
+    margin-bottom: 3px;
+
+    :nth-child(1) {
+      margin-right: 20px;
+    }
+  }
+
+
+}

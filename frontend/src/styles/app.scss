@@ -6,12 +6,16 @@
 @import './components/navbar.scss';
 @import './components/home.scss';
 @import './components/recipesSearch.scss';
+@import './components/about.scss';
+@import './components/singleRecipe.scss';
 @import './components/foodswap.scss';
 
 // Import only what you need from Bulma
 @import '../../../node_modules/bulma/sass/utilities/_all.sass';
 @import '../../../node_modules/bulma/sass/base/_all.sass';
 @import '../../../node_modules/bulma/sass/elements/button.sass';
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;400;500;600&display=swap');
 
 body,
 html {
@@ -57,21 +61,4 @@ html {
 .title,
 .subtitle {
   font-family: $family-secondary;
-}
-
-.tween {
-  width: 100px;
-  height: 100px;
-  background-color: red;
-  margin: 0 !important;
-  position: relative;
-  left: calc(50% - 50px);
-}
-
-.stagger {
-  width: 50px;
-  height: 50px;
-  left: 700px;
-  background-color: green;
-  position: relative;
 }

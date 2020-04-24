@@ -47,6 +47,11 @@ const Navbar = () => {
       <div id="navDrop" className="navbar-menu">
         <div className="navbar-end">
           <div className="navbar-item is-hoverable">
+            <Link className="navbar-link is-arrowless" to="/about">
+              Info
+            </Link>
+          </div>
+          <div className="navbar-item is-hoverable">
             <Link className="navbar-link is-arrowless" to="/recipes">
               Recipe Book
             </Link>
