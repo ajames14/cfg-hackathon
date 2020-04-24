@@ -59,7 +59,7 @@ const FilteredRecipeForm = ({ setRecipes }) => {
     <div>
       {console.log('OPTIONS', options)}
       {console.log('SELECTION', tags)}
-      <div className="search-title">
+      <div className="search-title is-size-5">
         Enter some ingredients from your cupboard...
       </div>
       <form className="form">
@@ -85,11 +85,11 @@ const FilteredRecipeForm = ({ setRecipes }) => {
         </div>
         <div className="field ranking">
           <input className="is-checkradio" id="1" type="radio" name="exampleRadioInline" checked={ranking === '1'} onChange={e => handleRanking(e)} />
-          <label className="checkradio-label is-size-6" htmlFor="exampleRadioInline1">Maximise used ingredients</label>
+          <label className="checkradio-label is-size-7" htmlFor="exampleRadioInline1">Maximise used ingredients</label>
         </div>
         <div className="field ranking">
           <input className="is-checkradio" id="2" type="radio" name="exampleRadioInline" checked={ranking === '2'} onChange={e => handleRanking(e)} />
-          <label className="checkradio-label is-size-6" htmlFor="exampleRadioInline2">Minimise missing ingredients</label>
+          <label className="checkradio-label is-size-7" htmlFor="exampleRadioInline2">Minimise missing ingredients</label>
         </div>
       </form>
       <button className="button searchbutton is-primary" onClick={(e) => handleSubmit(e)}><i className="fas fa-search"></i></button>
