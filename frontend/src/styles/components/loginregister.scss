@@ -1,0 +1,16 @@
+#login-register {
+  .modal-content {
+    padding: 2rem;
+    border-radius: 1rem;
+    background-color: white;
+
+    .note {
+      margin-top: 0.6rem;
+
+      .change-purpose {
+        color: $brightorange;
+        cursor: pointer;
+      }
+    }
+  }
+}
