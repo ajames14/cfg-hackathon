@@ -4,7 +4,7 @@ import Select from 'react-select'
 
 import jsonOptions from '../db/top-1k-ingredients.json'
 
-const FilteredRecipeForm = ({ setRecipes }) => {
+const FilteredRecipeForm = ({ setRecipes, pageNum }) => {
 
   // const [form, updateForm] = useState()
   const [error, setError] = useState()
@@ -37,7 +37,7 @@ const FilteredRecipeForm = ({ setRecipes }) => {
         'ingredients': ingredients,
         'ranking': parseInt(ranking),
         'ignorePantry': true,
-        'number': 12 // number of recipes you want returned
+        'number': 12 * pageNum // number of recipes you want returned
       }
     })
       .then(resp => console.log(resp) + setRecipes(resp.data))

@@ -60,9 +60,10 @@
   #recipe-results {
     display: flex;
     flex-direction: row;
-    justify-content: flex-start;
+    justify-content: space-between;
     flex-wrap: wrap;
     
+
 
     .recipe {
       width: 30%;
@@ -103,6 +104,10 @@
       }
     }
 
+  }
+
+  #recipe-pages {
+    width: 100%;
   }
 
   .recipes-placeholder {
