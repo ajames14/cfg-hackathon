@@ -81,7 +81,7 @@ const LoginRegister = ({ props, handleModal }) => {
           </div>
           <form className="form" onSubmit={(e) => handleSubmit(e)}>
             {purpose === 'register' && <div className="field">
-              <div className="control">
+              <div className="control has-icons-left">
                 <input
                   onChange={(e) => handleInput(e)}
                   type="text"
@@ -89,13 +89,16 @@ const LoginRegister = ({ props, handleModal }) => {
                   className="input"
                   placeholder="username"
                 />
+                <span className="icon is-small is-left">
+                  <i className="fas fa-user"></i>
+                </span>
               </div>
               {error.errors.username && (
                 <small className="help is-danger">{error.errors.username}</small>
               )}
             </div>}
             <div className="field">
-              <div className="control">
+              <div className="control has-icons-left">
                 <input
                   onChange={(e) => handleInput(e)}
                   type="text"
@@ -103,13 +106,16 @@ const LoginRegister = ({ props, handleModal }) => {
                   className="input"
                   placeholder="email"
                 />
+                <span className="icon is-small is-left">
+                  <i className="fas fa-envelope"></i>
+                </span>
               </div>
               {error.errors.email && (
                 <small className="help is-danger">{error.errors.email}</small>
               )}
             </div>
             <div className="field">
-              <div className="control">
+              <div className="control has-icons-left">
                 <input
                   onChange={(e) => handleInput(e)}
                   type="password"
@@ -117,13 +123,16 @@ const LoginRegister = ({ props, handleModal }) => {
                   className="input"
                   placeholder="password"
                 />
+                <span className="icon is-small is-left">
+                  <i className="fas fa-lock"></i>
+                </span>
               </div>
               {error.errors.password && (
                 <small className="help is-danger">{error.errors.password}</small>
               )}
             </div>
             {purpose === 'register' && <div className="field">
-              <div className="control">
+              <div className="control has-icons-left">
                 <input
                   onChange={(e) => handleInput(e)}
                   type="password"
@@ -131,6 +140,9 @@ const LoginRegister = ({ props, handleModal }) => {
                   className="input"
                   placeholder ="confirm password"
                 />
+                <span className="icon is-small is-left">
+                  <i className={form.password === '' ? 'fas fa-exclamation' : (form.password === form.password_confirmation) ? 'fas fa-check' : 'fas fa-times'}></i>
+                </span>
               </div>
               {error.errors && form.password_confirmation !== form.password && (
                 <small className="help is-danger">
