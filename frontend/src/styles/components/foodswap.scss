@@ -53,6 +53,14 @@
       #intro-title, #intro-subtitle, .info {
         margin: 0 2vw;
       }
+
+      i {
+        color: $lightorange;
+
+        &:hover {
+          color: $brightorange;
+        }
+      }
     }
 
     #sign-up{
@@ -80,6 +88,10 @@
 
       i {
         color: white;
+
+        &:hover {
+          color: $brightorange;
+        }
       }
 
       .chatroom-title {
