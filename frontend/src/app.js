@@ -19,6 +19,7 @@ import Register from './components/Register'
 import FoodSwap from './components/Foodswap'
 import Recipes from './components/Recipes'
 import SingleRecipe from './components/SingleRecipe'
+import LoginRegister from './components/LoginRegister'
 
 const App = (props) => {
   const [userInfo, setUserInfo] = useState(null)
@@ -27,6 +28,8 @@ const App = (props) => {
     () => ({ userInfo, setUserInfo }, { userPostcode, setUserPostcode }),
     [userInfo, setUserInfo, userPostcode, setUserPostcode]
   )
+  const [modal, setModal] = useState(false)
+  const [modalUse, setModalUse] = useState('login')
 
   // const [dimensions, setDimensions] = useState({
   //   height: window.innerHeight,
@@ -59,6 +62,13 @@ const App = (props) => {
   //     window.removeEventListener('resize', debouncedHandleResize)
   //   }
   // })
+
+  function handleLoginRegisterModal(use) {
+    if (!modal) {
+      setModalUse(use)
+    }
+    setModal(!modal) 
+  }
 
   useEffect(() => {
     console.log('running')
@@ -94,7 +104,7 @@ const App = (props) => {
   return (
     <HashRouter>
       <UserContext.Provider value={sharedInfo}>
-        <Navbar />
+        <Navbar handleLoginRegisterModal={handleLoginRegisterModal} />
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/about" component={About} />
@@ -110,6 +120,7 @@ const App = (props) => {
           />
         </Switch>
       </UserContext.Provider>
+      {modal ? <LoginRegister handleLoginRegisterModal={handleLoginRegisterModal} use={modalUse} /> : <></> }
     </HashRouter>
   )
 }
