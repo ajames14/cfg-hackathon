@@ -18,9 +18,9 @@ const errorInitialState = {
   errors: ''
 }
 
-const LoginRegister = ({ props, handleModal }) => {
+const LoginRegister = ({ props, handleLoginRegisterModal, use }) => {
 
-  const [purpose, setPurpose] = useState('login')
+  const [purpose, setPurpose] = useState(use)
   const [form, updateForm] = useState(formInitialLog)
   const [error, setError] = useState(errorInitialState)
 
@@ -53,7 +53,7 @@ const LoginRegister = ({ props, handleModal }) => {
         .post('/api/login', form, { headers: { Authorization: '' } })
         .then((resp) => {
           Auth.setToken(resp.data.token)
-          handleModal()
+          handleLoginRegisterModal()
         })
         .catch(() => setError({ errors: 'Email or Password Incorrect' }))
     }
@@ -73,7 +73,7 @@ const LoginRegister = ({ props, handleModal }) => {
   return (
     <div className="modal is-active" id="login-register">
       {console.log(form)}
-      <div className="modal-background" onClick={() => handleModal()}></div>
+      <div className="modal-background" onClick={() => handleLoginRegisterModal()}></div>
       <div className="modal-content">
         <div className="has-text-centered" >
           <div className="title is-size-2" style={{ fontSize: 100 }}>
@@ -156,7 +156,7 @@ const LoginRegister = ({ props, handleModal }) => {
           {purpose === 'register' ? <div className="note is-size-7">Already have an account? <span className="change-purpose" onClick={() => handlePurpose()}>Login here.</span></div> : <></>}
         </div>
       </div>
-      <button className="modal-close is-large" aria-label="close" onClick={() => handleModal()}></button>
+      <button className="modal-close is-large" aria-label="close" onClick={() => handleLoginRegisterModal()}></button>
     </div>
   )
 }

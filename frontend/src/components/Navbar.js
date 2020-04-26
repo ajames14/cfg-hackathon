@@ -3,7 +3,7 @@ import { Link, withRouter } from 'react-router-dom'
 import Auth from '../lib/auth'
 import UserContext from './UserContext'
 
-const Navbar = ({ handleModal }) => {
+const Navbar = ({ handleLoginRegisterModal }) => {
   const { userInfo, setUserInfo } = useContext(UserContext)
 
   const handleMenu = () => {
@@ -83,7 +83,7 @@ const Navbar = ({ handleModal }) => {
             </div>
           </>
             : 
-            <div className="navbar-item is-arrowless" onClick={() => handleModal()}><i className="fas fa-user-circle"></i></div>
+            <div className="navbar-item is-arrowless" onClick={() => handleLoginRegisterModal('login')}><i className="fas fa-user-circle"></i></div>
           }
         </div>
       </div>
