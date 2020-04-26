@@ -13,10 +13,12 @@ const initialLoginState = {
   password: ''
 }
 
-const FoodSwap = () => {
+const FoodSwap = ({ props, handleLoginRegisterModal }) => {
 
   const { userInfo, setUserInfo } = useContext(UserContext)
   const { userPostcode, setUserPostcode } = useContext(UserContext)
+
+  const [showInstructions, setShowInstructions] = useState(true)
 
   const [error, setError] = useState()
   const [data, setData] = useState()
@@ -56,14 +58,29 @@ const FoodSwap = () => {
     console.log(data)
   }
 
+  function toggleInstructions() {
+    setShowInstructions(!showInstructions)
+  }
+
   return (
     <div className="section" id="food-swap">
-      <div className="columns">
-        <div className="column is-half" id="intro">
-          <div className="container">
-            <div id="intro-title">The Food Community</div>
-            <div id="intro-subtitle">{'Share Food, Waste Less, Stay Home.'}</div>
-            <p className="info">
+      <div className="container">
+        <div className="columns">
+
+          {showInstructions && <div className="column is-half" id="intro">
+
+            <div className="level is-mobile">
+              <div className="level-left"></div>
+              <div className="level-right">
+                <div className="leve-item">
+                  {showInstructions && <i className="fas fa-times-circle is-size-5" onClick={() => toggleInstructions()}></i>}
+                </div>
+              </div>
+            </div>
+
+            <div className="title is-size-3" id="intro-title">The Food Community</div>
+            <div className="subtitle is-size-4" id="intro-subtitle">Share Food, Waste Less, Stay Home.</div>
+            <div className="info is-size-6">
               <span>Short on ingredients? </span>In these tough times, it's important to be able to turn to your neighbours.
               We've created a chatroom for you to link up with other users in your local area and help each other out.
               The aim is to avoid unnecessary trips to the shops, particularly if you're unwell or unable to leave the house.
@@ -74,46 +91,58 @@ const FoodSwap = () => {
               <br/>
               <br />
               <span>And remember, </span>always follow the social distancing guidelines when dropping off supplies.
-            </p>
-          </div>
-        </div>
-        <div className="column is-half" id="chatroom">
-          {userPostcode && Auth.isAuthorized() && (
-            <Chatroom postcode={userPostcode} />
-          )}
-          {!userPostcode && Auth.isAuthorized() && (
-            <form action="" className="form" onSubmit={handleSubmit}>
-              <div className="field">
-                <label htmlFor="" className="label">
-                  Enter postcode
-              </label>
-                <div className="control">
-                  <input
-                    type="text"
-                    name="postcode"
-                    className="input"
-                    onChange={handleChange}
-                  />
+            </div>
+          </div>}
+
+          <div className="column" id="chatroom">
+
+            <div className="level is-mobile">
+              <div className="level-left">
+                <div className="leve-item">
+                  {!showInstructions && <i className="fas fa-info-circle is-size-5" onClick={() => toggleInstructions()}></i>}
                 </div>
               </div>
-              <button className="button is-black">Enter</button>
-            </form>
-          )}
-          {!Auth.isAuthorized() && (
-            <div className="container" id='sign-up'>
-              You must be logged in to join the Community:
-              <br></br>
-              <br></br>
-              <Link className="join-link" to="/register">
-                Sign Up
-            </Link>
-              <Link className="join-link" to="/login">
-                Sign In
-            </Link>
-              {/* <Register />
-            <Login onSubmit={loginSubmit} /> */}
+              <div className="level-right"></div>
             </div>
-          )}
+
+            {userPostcode && Auth.isAuthorized() && (
+              <Chatroom postcode={userPostcode} />
+            )}
+
+            {!userPostcode && Auth.isAuthorized() && (
+              <form action="" className="form" onSubmit={handleSubmit}>
+                <div className="field">
+                  <label htmlFor="" className="label">
+                    Enter postcode
+                  </label>
+                  <div className="control">
+                    <input
+                      type="text"
+                      name="postcode"
+                      className="input"
+                      onChange={handleChange}
+                    />
+                  </div>
+                </div>
+                <button className="button is-black">Enter</button>
+              </form>
+            )}
+
+            {!Auth.isAuthorized() && (
+              <div id='sign-up'>
+                You must be logged in to join the Community:
+                <br></br>
+                <br></br>
+                <Link className="join-link" onClick={() => handleLoginRegisterModal('register')}>
+                  Register
+                </Link>
+                <Link className="join-link" onClick={() => handleLoginRegisterModal('login')}>
+                    Login
+                </Link>
+              </div>
+            )}
+
+          </div>
         </div>
       </div>
     </div>

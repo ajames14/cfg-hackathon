@@ -111,7 +111,7 @@ const App = (props) => {
           {/* <Route exact path="/join" component={UserPage} /> */}
           <Route exact path="/register" component={Register} />
           <Route exact path="/login" component={Login} />
-          <Route exact path="/foodswap" component={FoodSwap} />
+          <Route exact path="/foodswap" render={(props) => <FoodSwap props={props} handleLoginRegisterModal={handleLoginRegisterModal}/>} />
           <Route exact path="/recipes" component={Recipes} />
           <Route
             exact
