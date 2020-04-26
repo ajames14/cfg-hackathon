@@ -10,11 +10,13 @@
     height: 100%;
   }
 
+
+
   #searchbar {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background-color: $lightorange;
+    // background-color: $lightorange;
 
     .search-title {
       font-size: 1.5rem; 
@@ -34,18 +36,9 @@
         background-color: rgba($lightorange, 0.3);
         font-size: 1rem
       }
-
-      .ranking {
-        margin: 0.1rem 0;
-
-        .checkradio-label {
-          margin-left: 0.6rem;
-        }
-      }
     }
-
     .field {
-      margin: 10px 0;
+      margin-top: 10px;
     }
   }
 
@@ -62,13 +55,22 @@
     flex-direction: row;
     justify-content: space-between;
     flex-wrap: wrap;
-    
 
+    
+    &.empty-placeholder {
+      background-color: $lightorange;
+    }
 
     .recipe {
       width: 30%;
       margin: 5px;
       cursor: pointer;
+
+      .card {
+        border-radius: 3px;
+        overflow: hidden;
+      }
+      
     
 
     .card-image {
@@ -80,27 +82,35 @@
       .image {
         height: 100%;
         width: 100%;
+
       }
 
       .card-title {
+        color: white;
         position: absolute;
-        margin: 5px 5px 5px 0;
-        background-color: rgba(white, 0.6);
+        background-color: rgba($lightorange, 0.8);
+        transition: background-color ease-in-out 0.2s;
         font-family: $family-secondary;
-        padding: 5px;
-        opacity: 0;
-        transition: opacity 0.5s ease-in-out;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        display: -webkit-box;
-        -webkit-line-clamp: 3;
-        -webkit-box-orient: vertical;  
-      }
-    }
+        font-weight: 800;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-self: center;
+        
+        .title-text {
+          margin: 0 10px;
+          position: relative;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          display: -webkit-box;
+          -webkit-line-clamp: 3;
+          -webkit-box-orient: vertical; 
+        }
 
-    &:hover {
-      .card-title {
-        opacity: 1;
+        &:hover {
+          background-color: rgba($brightorange, 0.8);
+        }
       }
     }
 
@@ -114,9 +124,36 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    color: $brightorange;
+    color: white;
     margin: 5vw;
   }
 }
 
+  @include media('<=tablet') {
+
+    #searchbar {
+      height: 40vh;
+    }
+
+    #image {
+      display: none;
+    }
+
+    #recipe-results {
+      overflow: auto;
+      margin-bottom: 20vh;
+
+      &.empty-placeholder {
+        max-height: 35vh;
+      }
+
+      .recipe {
+        width: 45%;
+      }
+      
+      #recipe-pages {
+        padding-top: 5vh;
+      }
+    }
+  }
 }

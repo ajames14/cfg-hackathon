@@ -4,7 +4,7 @@ import FilterForm from './FilterForm'
 import RecipeCard from './RecipeCard'
 
 const pageNum = 3
-const pageArray = []
+let pageArray = []
 
 const Recipes = (props) => {
 
@@ -19,6 +19,7 @@ const Recipes = (props) => {
   }
 
   useEffect(() => {
+    pageArray = []
     for (let i = 1; i <= pageNum; i++) {
       pageArray.push(i)
     }
@@ -34,7 +35,7 @@ const Recipes = (props) => {
   }
 
   function handleNext() {
-    if (page < 5) {
+    if (page < pageNum) {
       setPage(page + 1)
     }
   }
@@ -56,7 +57,7 @@ const Recipes = (props) => {
 
           <div className="column is-one-quarter" id="image"></div>
 
-          <div className="column" id="recipe-results">
+          <div className={'column' + `${recipes ? '' : ' empty-placeholder'}`} id="recipe-results">
             {recipes ? 
               <>
               {filterRecipes(recipes).map((res, id) => {

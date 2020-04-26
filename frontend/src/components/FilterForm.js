@@ -12,8 +12,6 @@ const FilteredRecipeForm = ({ setRecipes, pageNum }) => {
   const [tags, setTags] = useState([])
   const [options, setOptions] = useState([])
 
-  const [ranking, setRanking] = useState('1')
-
   useEffect(() => {
     const newOptions = jsonOptions.map(option => {
       return { value: option.ingredient, label: option.ingredient }
@@ -35,7 +33,7 @@ const FilteredRecipeForm = ({ setRecipes, pageNum }) => {
         //make secret - don't commit your key:
         'apiKey': process.env.REACT_APP_SPOON_API_KEY,
         'ingredients': ingredients,
-        'ranking': parseInt(ranking),
+        'ranking': 1, // 1 = maximise used ingredients , 2 = minimise missing ingredients
         'ignorePantry': true,
         'number': 12 * pageNum // number of recipes you want returned
       }
@@ -82,14 +80,6 @@ const FilteredRecipeForm = ({ setRecipes, pageNum }) => {
               })}
             />         
           </div>
-        </div>
-        <div className="field ranking">
-          <input className="is-checkradio" id="1" type="radio" name="exampleRadioInline" checked={ranking === '1'} onChange={e => handleRanking(e)} />
-          <label className="checkradio-label is-size-7" htmlFor="exampleRadioInline1">Maximise used ingredients</label>
-        </div>
-        <div className="field ranking">
-          <input className="is-checkradio" id="2" type="radio" name="exampleRadioInline" checked={ranking === '2'} onChange={e => handleRanking(e)} />
-          <label className="checkradio-label is-size-7" htmlFor="exampleRadioInline2">Minimise missing ingredients</label>
         </div>
       </form>
       <button className="button searchbutton is-primary" onClick={(e) => handleSubmit(e)}><i className="fas fa-search"></i></button>

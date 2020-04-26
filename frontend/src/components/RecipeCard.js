@@ -8,19 +8,19 @@ const Recipes = ({ props, res }) => {
   }
 
   return (
-    <div className='recipe' onClick={() => handleClick(res.id)}>
+    <div className="recipe" onClick={() => handleClick(res.id)}>
       <div className="card">
         <div className="card-image">
           <figure className="image is-4by3">
             <img src={res.image} alt="Placeholder image" />
           </figure>
           <div className="card-title">
-            {res.title}
+            <div className="title-text">
+              {res.title}
+            </div>
           </div>
         </div>
-
       </div>
-
     </div>
   )
 }
