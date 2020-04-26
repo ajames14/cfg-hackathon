@@ -65,14 +65,14 @@ const Recipes = (props) => {
               })}
               <div className="level" id="recipe-pages">
                 <nav className="level-item pagination is-centered is-small" role="navigation" aria-label="pagination">
-                  <a className="pagination-previous" onClick={() => handlePrevious()}>Previous</a>
+                  <a className="pagination-previous" onClick={() => handlePrevious()}><i className="fas fa-chevron-left"></i></a>
                   
                   <ul className="pagination-list">
                     {pageArray.map((pageNumber, i) => {
                       return <li key={i}><a className={'pagination-link' + `${page === pageNumber ? ' is-current' : ''}`} onClick={() => handlePage(pageNumber)}>{pageNumber}</a></li>
                     })}
                   </ul>
-                  <a className="pagination-next" onClick={() => handleNext()}>Next</a>
+                  <a className="pagination-next" onClick={() => handleNext()}><i className="fas fa-chevron-right"></i></a>
                 </nav>
 
               </div>
