@@ -2,10 +2,10 @@
 
 #profile {
   
-  // display: flex;
-  // flex-direction: column;
-  // justify-content: center;
-  // align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
   font-size: 17px;
   @include media('<=780px') {
@@ -49,6 +49,19 @@
     @include media('<=phone') {
       font-size: 7vw;
       padding: 0;
+    }
+
+    h1 {
+      animation: move 3s forwards;
+    }
+
+    @keyframes move {
+      0% {
+        text-indent: -14em;
+      }
+      100% {
+        text-indent: 0;
+      }
     }
 
     span {

@@ -28,7 +28,7 @@ const Profile = (props) => {
       .then((resp) => {
         setUser(resp)
         setImg(resp.image)
-        getFavourites(resp)
+        // getFavourites(resp)
       })
       .catch((err) => console.log(err))
     addSweep()
@@ -67,7 +67,7 @@ const Profile = (props) => {
 
   return (
     <div className='section has-text-centered' id='profile'>
-      <header>{user.username}<span className='sweep slideBefore'></span></header>
+      <header><h1>{user.username}</h1><span className='sweep slideBefore'></span></header>
       <h2>Favourites</h2>
       <div>{favourites ? favourites.map((fav, id) => {
         return <div className='ingredient' key={id}><h3>{fav.title}</h3><img src={fav.image}></img></div>
