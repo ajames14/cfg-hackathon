@@ -28,7 +28,7 @@ const Profile = (props) => {
       .then((resp) => {
         setUser(resp)
         setImg(resp.image)
-        getFavourites(resp)
+        // getFavourites(resp)
       })
       .catch((err) => console.log(err))
     addSweep()
