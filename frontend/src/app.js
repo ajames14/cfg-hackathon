@@ -20,6 +20,7 @@ import FoodSwap from './components/Foodswap'
 import Recipes from './components/Recipes'
 import SingleRecipe from './components/SingleRecipe'
 import LoginRegister from './components/LoginRegister'
+import Profile from './components/Profile'
 
 const App = (props) => {
   const [userInfo, setUserInfo] = useState(null)
@@ -111,6 +112,7 @@ const App = (props) => {
           {/* <Route exact path="/join" component={UserPage} /> */}
           <Route exact path="/register" component={Register} />
           <Route exact path="/login" component={Login} />
+          <Route exact path="/profile" component={Profile} />
           <Route exact path="/foodswap" render={(props) => <FoodSwap props={props} handleLoginRegisterModal={handleLoginRegisterModal}/>} />
           <Route exact path="/recipes" component={Recipes} />
           <Route

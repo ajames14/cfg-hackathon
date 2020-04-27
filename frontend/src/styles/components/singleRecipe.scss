@@ -112,6 +112,15 @@
       }
   }
 
+  .disabled {
+    // background: grey;
+    opacity: 0.6;
+    cursor: no-drop;
+    &:hover {
+      opacity: 0.3;
+    }
+  }
+
   .dangerHtml {
       b {
         font-weight: normal;

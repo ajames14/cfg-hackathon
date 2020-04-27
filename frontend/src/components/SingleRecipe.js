@@ -18,6 +18,7 @@ const SingleRecipe = (props) => {
   })
   const [saveText, setText] = useState('Save To Favourites')
   const [disabled, setDisable] = useState()
+  const [favourited, setFavourite] = useState()
 
   useEffect(() => {
     axios.get(`https://api.spoonacular.com/recipes/${props.match.params.id}/information`, {
@@ -36,32 +37,40 @@ const SingleRecipe = (props) => {
 
   function checkId(favs, id) {
     if (favs.includes(id)) {
-      setDisable(true)
-      setText('Already Saved')
+      // setDisable(true)
+      setFavourite(false)
+      setText('Remove From Favourites')
+    } else if (favs.length >= 20) {
+      setFavourite(true)
+      setDisable('disabled')
+      setText('Too many favourites')
     }
   }
 
   function save(choice) {
-    setDisable(choice)
-    choice ? setText('Saved') : setText('Save To Favourites')
-    const favArray = props.user.favourites ? [...props.user.favourites] : []
-    if (!choice) {
-      const index = favArray.indexOf(recipe.id)
-      favArray.splice(index, 1)
-    } else {
-      favArray.push(recipe.id)
-    }
-    const form = { 'postcode': props.user.postcode, 'favourites': favArray }
-    console.log('array after', favArray)
+    if (disabled !== 'disabled') {
+      // setDisable(choice)
+      setFavourite(choice)
+      choice ? setText('Remove from favourites') : setText('Save To Favourites')
+      const favArray = props.user.favourites ? [...props.user.favourites] : []
+      if (!choice) {
+        const index = favArray.indexOf(recipe.id)
+        favArray.splice(index, 1)
+      } else {
+        favArray.push(recipe.id)
+      }
+      const form = { 'postcode': props.user.postcode, 'favourites': favArray }
+      console.log('array after', favArray)
 
-    axios.put('http://localhost:8000/api/profile', form, { headers: { Authorization: `Bearer ${Auth.getToken()}` } })
-      .then(resp => console.log(resp))
-      .catch(err => console.log(err))
+      axios.put('http://localhost:8000/api/profile', form, { headers: { Authorization: `Bearer ${Auth.getToken()}` } })
+        .then(resp => console.log(resp))
+        .catch(err => console.log(err))
+    }
   }
 
   function addSweep() {
     const sweep = document.querySelector('.sweep')
-    sweep ? sweep.classList.add('slideActive') + console.log('yaaaa') : null
+    sweep ? sweep.classList.add('slideActive') : null
   }
 
 
@@ -78,8 +87,8 @@ const SingleRecipe = (props) => {
       </div>
       <img className='recipeImage' width='500px' src={recipe.image}></img>
 
-      {!disabled && Auth.isAuthorized() && <button className='favButton' disabled={disabled} onClick={() => save(true)}>{saveText}</button>}
-      {disabled && Auth.isAuthorized() && <button className='favButton' onClick={() => save(false)}>{'Remove From Favourites'}</button>}
+      {!favourited && Auth.isAuthorized() && <button className='favButton' onClick={() => save(true)}>{saveText}</button>}
+      {favourited && Auth.isAuthorized() && <button className={'favButton' + ' ' + disabled} onClick={() => save(false)}>{saveText}</button>}
 
       <div className='columns is-centered'>
         <div className='column is-three-quarters dangerHtml' dangerouslySetInnerHTML={{ __html: recipe.summary }}></div>
