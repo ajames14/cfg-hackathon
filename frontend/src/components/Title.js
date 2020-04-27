@@ -9,7 +9,7 @@ const Title = ({ lineContent, lineContent2 }) => {
     gsap.from([line1, line2], 0.8, {
       delay: 0.8,
       ease: 'power3.out',
-      y: 110,
+      y: 300,
       stagger: {
         amount: 0.15
       }

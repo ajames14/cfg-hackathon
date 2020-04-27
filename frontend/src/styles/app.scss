@@ -23,12 +23,15 @@
 body,
 html {
   width: 100%;
-  height: 100vh;
+  height: 100%;
   font-family: $family-primary;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+.section {
+  height: 100%;
+}
 // .container {
 //   // width: 1560px;
 //   // min-width: 1560px;
