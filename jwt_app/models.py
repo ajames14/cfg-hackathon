@@ -11,3 +11,4 @@ class User(AbstractUser):
     favourites = ArrayField(models.IntegerField(
         blank=True, null=True), blank=True, null=True)
     postcode = models.CharField(max_length=4)
+    image = models.CharField(max_length=1000, blank=True, null=True)

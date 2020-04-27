@@ -43,6 +43,7 @@
     "csv-parser": "^2.3.2",
     "dotenv": "^8.2.0",
     "dotenv-webpack": "^1.7.0",
+    "filestack-react": "^3.1.0",
     "gsap": "^3.2.6",
     "include-media": "^1.4.9",
     "moment": "^2.24.0",
