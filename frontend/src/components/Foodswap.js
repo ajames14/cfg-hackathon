@@ -42,17 +42,6 @@ const FoodSwap = ({ props, handleLoginRegisterModal }) => {
       })
   }
 
-  function loginSubmit() {
-    axios
-      .post('/api/login', form, { headers: { Authorization: '' } })
-      .then((resp) => {
-        Auth.setToken(resp.data.token)
-        console.log(resp.data.token)
-        setUserInfo(resp.data)
-      })
-      .catch(() => setError({ errors: 'Email or Password Incorrect' }))
-  }
-
   function handleChange(e) {
     setData({ ...data, [e.target.name]: e.target.value })
     console.log(data)

@@ -99,8 +99,8 @@ const App = (props) => {
     document.documentElement.style.setProperty('--vh', `${vh}px`)
   }, [])
 
-  console.log('app.js user', userInfo)
-  console.log('app.js postcode', userPostcode)
+  // console.log('app.js user', userInfo)
+  // console.log('app.js postcode', userPostcode)
 
   return (
     <HashRouter>
