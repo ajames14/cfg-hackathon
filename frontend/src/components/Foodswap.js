@@ -27,7 +27,8 @@ const FoodSwap = ({ props, handleLoginRegisterModal }) => {
   console.log('yay', userPostcode)
   console.log('USERINFO:', userInfo)
 
-  function handleSubmit() {
+  function handlePostcodeSubmit(e) {
+    e.preventDefault()
     axios
       .put('api/profile', data, {
         headers: { Authorization: `Bearer ${Auth.getToken()}` }
@@ -91,7 +92,7 @@ const FoodSwap = ({ props, handleLoginRegisterModal }) => {
                   {!showInstructions && <i className="fas fa-info-circle is-size-5" onClick={() => toggleInstructions()}></i>}
                 </div>
               </div>
-              <div className="level-right"></div>
+              <div className="level-right">{userPostcode && <span className="level-postcode">Chatroom for {userPostcode}</span>}</div>
             </div>
 
             {userPostcode && Auth.isAuthorized() && (
@@ -99,7 +100,7 @@ const FoodSwap = ({ props, handleLoginRegisterModal }) => {
             )}
 
             {!userPostcode && Auth.isAuthorized() && (
-              <form action="" className="form" onSubmit={handleSubmit}>
+              <form action="" className="form">
                 <div className="field">
                   <label htmlFor="" className="label">
                     Enter postcode
@@ -113,7 +114,7 @@ const FoodSwap = ({ props, handleLoginRegisterModal }) => {
                     />
                   </div>
                 </div>
-                <button className="button is-black">Enter</button>
+                <button className="button is-black" onClick={e => handlePostcodeSubmit(e)}>Enter</button>
               </form>
             )}
 

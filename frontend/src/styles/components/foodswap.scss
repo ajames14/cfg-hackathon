@@ -97,92 +97,92 @@
         }
       }
 
-      .chatroom-title {
-        margin-top: 6%;
-        text-transform: uppercase;
-        font-family: $family-secondary;
-        font-size: 1rem;
-        font-weight: bold;
-        color: white;
-      }
+      // .chatroom-title {
+      //   margin-top: 6%;
+      //   text-transform: uppercase;
+      //   font-family: $family-secondary;
+      //   font-size: 1rem;
+      //   font-weight: bold;
+      //   color: white;
+      // }
 
-      .post-container {
-        margin: 2% 10%;
-        background-color: white;
-        padding: 5%;
-        color: $brightorange;
+      // .post-container {
+      //   margin: 2% 10%;
+      //   background-color: white;
+      //   padding: 5%;
+      //   color: $brightorange;
 
-        @include media('<=phone') {
-          margin: 5%;
-        }
+      //   @include media('<=phone') {
+      //     margin: 5%;
+      //   }
 
-        .media + .media {
-          border-top: 1px solid $brightorange;
-          margin-top: 1rem;
-          padding-top: 1rem;
-        }
-      }
+      //   .media + .media {
+      //     border-top: 1px solid $brightorange;
+      //     margin-top: 1rem;
+      //     padding-top: 1rem;
+      //   }
+      // }
 
-      .post-form {
-        margin: 2% 10%;
-      }
+      // .post-form {
+      //   margin: 2% 10%;
+      // }
 
-      .post-label {
-        font-family: $family-secondary;
-        color: $brightorange;
-      }
+      // .post-label {
+      //   font-family: $family-secondary;
+      //   color: $brightorange;
+      // }
 
-      .post-button {
-        background-color: $brightorange;
-        border: none;
-        font-size: 12px;
-        font-weight: bold;
-        font-family: $family-secondary;
-        color: white;
-      }
+      // .post-button {
+      //   background-color: $brightorange;
+      //   border: none;
+      //   font-size: 12px;
+      //   font-weight: bold;
+      //   font-family: $family-secondary;
+      //   color: white;
+      // }
 
-      #photo-box {
-        justify-content: center;
-        align-items: center;
-        display: flex;
-      }
+      // #photo-box {
+      //   justify-content: center;
+      //   align-items: center;
+      //   display: flex;
+      // }
 
-      .profile-pic {
-        border-radius: 50%;
-        width: 40px;
-        height: 40px;
-      }
+      // .profile-pic {
+      //   border-radius: 50%;
+      //   width: 40px;
+      //   height: 40px;
+      // }
 
-      .post-content {
-        color: $brightorange;
-        font-family: $family-secondary;
+      // .post-content {
+      //   color: $brightorange;
+      //   font-family: $family-secondary;
 
-        .username {
-          color: $brightorange;
-        }
+      //   .username {
+      //     color: $brightorange;
+      //   }
 
-        .time {
-          font-style: italic;
-          font-size: 12px;
-          margin-left: 2%;
-        }
+      //   .time {
+      //     font-style: italic;
+      //     font-size: 12px;
+      //     margin-left: 2%;
+      //   }
 
-        .post-text {
-          margin-top: 10px;
-          margin-bottom: 2px;
-          font-size: 13px;
-        } 
+      //   .post-text {
+      //     margin-top: 10px;
+      //     margin-bottom: 2px;
+      //     font-size: 13px;
+      //   } 
 
-        .reply-button {
-          background-color: none;
-          border: none;
-          padding: 0px;
-          color: $brightorange;
-          font-family: $family-secondary;
-          font-weight: bold;
-          font-size: 12px;
-        }
-      }
+      //   .reply-button {
+      //     background-color: none;
+      //     border: none;
+      //     padding: 0px;
+      //     color: $brightorange;
+      //     font-family: $family-secondary;
+      //     font-weight: bold;
+      //     font-size: 12px;
+      //   }
+      // }
     }
   }
 

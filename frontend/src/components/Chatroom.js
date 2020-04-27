@@ -21,6 +21,8 @@ const Chatroom = ({ postcode }) => {
   const [reply, setReply] = useState(false)
   const [id, setId] = useState('')
 
+  const [activeThread, setActiveThread] = useState(null)
+
   useEffect(() => {
     getData()
   }, [])
@@ -104,95 +106,55 @@ const Chatroom = ({ postcode }) => {
     setReply(!reply)
   }
 
+  function handleAccordion(postId) {
+    setActiveThread(postId)
+  }
+
   if (chatroom.length === 0) {
     return <div className="title">Loading</div>
-  } else if (!chatroom.posts || chatroom.posts === 0) {
-    return <div className="container">
-      <div className="title">Chatroom for {postcode}</div>
-      <div className="post-container">
-        <article className="media">
-          <div className="media-content">
-            <div className="content">
-              <form className='post-form form' onSubmit={e => handleSubmit(e)}>
-                <div className='field'>
-                  <label className='post-label label'>Post a Comment</label>
-                  <input
-                    onChange={e => handleInput(e)}
-                    type="text"
-                    className="input"
-                    value={post.text}
-                  />
-                </div>
-                {error.errors && error.errors.message === 'Unauthorized' && <small className="help is-danger">
-                  {error.errors.message} - Please log in
-                </small>}
-                <button className="post-button button is-small">Post</button>
-              </form>
-            </div>
-          </div>
-        </article>
-      </div>
-    </div>
 
-  }
-  return (
-    <div className="container">
-      <div className="chatroom-title">Your Chatroom: {postcode}</div>
-      {console.log(chatroom)}
+  } else {
+    return (
       <div className="post-container">
-        {chatroom.posts.map((elem, i) => {
-          return (
-            <article className="media" key={i}>
-              <figure className="media-left">
-                <p className="image is-64x64 photo-box">
-                  <img className="profile-pic" src={elem.user.image  || orange} />
-                </p>
-              </figure>
-              <div className="media-content">
-                <div className="content">
-                  <div className="post-content">
-                    <strong className="username">{elem.user.username}</strong>  <small className="time">{formatTimestamp(elem.time_stamp)}</small>
-                    <br />
-                    <p className="post-text">
-                      {elem.text}
+
+        {console.log(chatroom)}
+        <section className="accordions">
+          {chatroom.posts.length > 0 && chatroom.posts.map((elem, i) => {
+            return <div className={'accordion' + `${activeThread === i ? ' is-active' : ''}`} key={i} onClick={() => handleAccordion(i)}>
+
+              <div className="accordion-header" onClick={() => handleAccordion(i)}>
+                <article className="media">
+                  <figure className="media-left">
+                    <p className="image is-64x64 photo-box">
+                      <img className="profile-pic is-rounded" src={elem.user.image  || orange} />
                     </p>
-                    <small><button className="reply-button" value={elem.id} onClick={e => toggleReply(e)}>Reply</button></small>
-                  </div>
-                  <div className={reply === true ? 'modal is-active' : 'modal'}>
-                    <div className="modal-background" onClick={toggleReply}></div>
-                    <div className="modal-content">
-                      <article className="media">
-                        <div className="media-content">
-                          <div className="content">
-                            <form className='form' onSubmit={e => addComment(e)}>
-                              <div className='field'>
-                                <label className='post-label label'>Post a Comment</label>
-                                <input
-                                  onChange={e => handleInput(e)}
-                                  type="text"
-                                  className="input"
-                                  value={post.text}
-                                />
-                              </div>
-                              {error.errors && error.errors.message === 'Unauthorized' && <small className="help is-danger">
-                                {error.errors.message} - Please log in
-                              </small>}
-                              <button className="button post-button is-small">Post</button>
-                            </form>
-                          </div>
-                        </div>
-                      </article>
+                  </figure>
+                  <div className="media-content">
+                    <div className="content">
+                      <div className="post-content">
+                        <strong className="username">{elem.user.username}</strong>  <small className="time">{formatTimestamp(elem.time_stamp)}</small> {elem.is_swapped ? <i className="fas fa-sync-alt"></i> : <i className="fas fa-sync-alt"></i>}
+                        <br />
+                        <p className="post-text">
+                          {elem.text}
+                        </p>
+                      </div>
                     </div>
-                    <button className="modal-close is-large" aria-label="close"></button>
                   </div>
-                </div>
-                {commentsExist(elem) &&
-                  elem.comments.map((comment, i) => {
+                  {isOwner(elem) &&
+                  <div className="media-right">
+                    <button value={elem.id} onClick={(e) => handleDelete(e)} className="delete"></button>
+                  </div>}
+                </article>
+              </div>
+
+              <div className="accordion-body">
+                <div className="accordion-content">
+                  {elem.comments.length > 0 && elem.comments.map((comment, i) => {
                     return (
                       <article className="media" key={i}>
                         <figure className="media-left">
                           <p className="image is-64x64 photo-box">
-                            <img className="profile-pic" src={comment.user.image || orange} />
+                            <img className="profile-pic is-rounded" src={comment.user.image || orange} />
                           </p>
                         </figure>
                         <div className="media-content">
@@ -215,43 +177,81 @@ const Chatroom = ({ postcode }) => {
                         }
                       </article>
                     )
-                  })
-                }
-              </div>
-              {
-                isOwner(elem) &&
-                <div className="media-right">
-                  <button value={elem.id} onClick={(e) => handleDelete(e)} className="delete"></button>
+                  })}
+                  <form className='form' onSubmit={e => addComment(e)}>
+                    <div className='field'>
+                      <input
+                        onChange={e => handleInput(e)}
+                        type="text"
+                        className="input"
+                        value={post.text}
+                      />
+                    </div>
+                    {error.errors && error.errors.message === 'Unauthorized' && <small className="help is-danger">
+                      {error.errors.message} - Please log in
+                    </small>}
+                    <button className="button post-button is-small">Post</button>
+                  </form>
                 </div>
-              }
-            </article>
-          )
-        })}
-      </div>
-      <br />
-      <article className="media">
-        <div className="media-content">
-          <div className="content">
-            <form className='post-form form' onSubmit={e => handleSubmit(e)}>
-              <div className='field'>
-                <label className='post-label label'>Post a Comment</label>
-                <input
-                  onChange={e => handleInput(e)}
-                  type="text"
-                  className="input"
-                  value={post.text}
-                />
               </div>
-              {error.errors && error.errors.message === 'Unauthorized' && <small className="help is-danger">
-                {error.errors.message} - Please log in
-              </small>}
-              <button className="post-button button is-small">Post</button>
-            </form>
+
+
+            </div>
+          })}
+        </section>
+        
+        <article className="media">
+          <div className="media-content">
+            <div className="content">
+              <form className='post-form form' onSubmit={e => handleSubmit(e)}>
+                <div className='field'>
+                  <label className='post-label label'>Post a Comment</label>
+                  <input
+                    onChange={e => handleInput(e)}
+                    type="text"
+                    className="input"
+                    value={post.text}
+                  />
+                </div>
+                {error.errors && error.errors.message === 'Unauthorized' && <small className="help is-danger">
+                  {error.errors.message} - Please log in
+                </small>}
+                <button className="post-button button is-small">Post</button>
+              </form>
+            </div>
           </div>
-        </div>
-      </article>
-    </div>
-  )
+        </article>
+
+        {/* <div className={reply === true ? 'modal is-active' : 'modal'}>
+          <div className="modal-background" onClick={toggleReply}></div>
+          <div className="modal-content">
+            <article className="media">
+              <div className="media-content">
+                <div className="content">
+                  <form className='form' onSubmit={e => addComment(e)}>
+                    <div className='field'>
+                      <label className='post-label label'>Post a Comment</label>
+                      <input
+                        onChange={e => handleInput(e)}
+                        type="text"
+                        className="input"
+                        value={post.text}
+                      />
+                    </div>
+                    {error.errors && error.errors.message === 'Unauthorized' && <small className="help is-danger">
+                      {error.errors.message} - Please log in
+                    </small>}
+                    <button className="button post-button is-small">Post</button>
+                  </form>
+                </div>
+              </div>
+            </article>
+          </div>
+          <button className="modal-close is-large" aria-label="close"></button>
+        </div> */}
+      </div>
+    )
+  }
 }
 
 export default Chatroom
