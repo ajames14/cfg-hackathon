@@ -11,19 +11,53 @@
     margin: 10px;
     background-color: $brightorange;
     border-radius: 0;
+<<<<<<< HEAD
+=======
+    @include media('<=phone') {
+      margin: 10px 0;
+      font-size: 5rem;
+    }
+    @include media('<=780px') {
+      font-size: 5rem;
+    }
+  }
+
+  .hvr-shrink {
+    display: inline-block;
+    vertical-align: middle;
+    -webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-property: transform;
+    transition-property: transform;
+  }
+  .hvr-shrink:hover, .hvr-shrink:focus, .hvr-shrink:active {
+    -webkit-transform: scale(0.97);
+    transform: scale(0.97);
+  }
+  
+  #lrg-box {
+>>>>>>> development
     animation: changecolor 4s forwards;
     width: 50vw;
     height: 84vh;
     // background-image: url('https://images.squarespace-cdn.com/content/v1/5281873ae4b05f093cd13878/1519934664878-C4611AORCT6NS186HTJE/ke17ZwdGBToddI8pDm48kPJXHKy2-mnvrsdpGQjlhod7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z5QHyNOqBUUEtDDsRWrJLTmihaE5rlzFBImxTetd_yW5btdZx37rH5fuWDtePBPDaHF5LxdCVHkNEqSYPsUQCdT/veggie+pattern.jpg');
     @include media('<=phone') {
+<<<<<<< HEAD
       font-size: 5rem;
       width: 90vw;
+=======
+      width: 100%;
+>>>>>>> development
       height: 50vh;
     }
     @include media('<=780px') {
       font-size: 5rem;
     }
 
+<<<<<<< HEAD
     .title {
       color: white;
       font-weight: 800;
@@ -44,6 +78,16 @@
       @include media('<=780px') {
         font-size: 0.2em;
       }
+=======
+  #small-box {
+    background-color: $lightorange;
+    border-radius: 0;
+    animation: showbox 4s;
+    height: 40.5vh;
+    @include media('<=phone') {
+      width: 100%;
+      height: 25vh;
+>>>>>>> development
     }
   }
 
@@ -57,6 +101,7 @@
     @include media('<=phone') {
       height: 50%;
     }
+<<<<<<< HEAD
     #small-box {
       background-color: $lightorange;
       border-radius: 0;
@@ -81,6 +126,29 @@
           font-size: 0.5em;
         }
       }
+=======
+  }
+
+  .home-link {
+    color: white;
+    font-weight: 800;
+    font-size: 10vh;
+    z-index: 10;
+    @include media('<=1300px') {
+      font-size: 4em;
+    }
+    @include media('<=780px') {
+      font-size: 0.6em;
+    }
+    @include media('<=540px') {
+      font-size: 0.5em;
+    }
+  }
+
+  .small-link {
+    @include media('<=780px') {
+      font-size: 0.2em;
+>>>>>>> development
     }
   }
 }
