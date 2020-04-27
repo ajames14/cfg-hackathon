@@ -1,29 +1,90 @@
 
+@mixin sweep {
+  animation: sweepIn 5s forwards;
+}
+
+@keyframes sweepIn {
+  0% {
+    position: 0 10 2;
+  }
+  100% {
+    position: 0;
+    
+  }
+}
+
 #single-recipe {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 
+  font-size: 17px;
+  @include media('<=780px') {
+    font-size: 14px;
+  }
+  @include media('<=540px') {
+    font-size: 12px;
+  }
+
+  .slideBefore {
+    z-index: -1;
+    // background: rgb(84, 107, 117);
+    background: $lightorange;
+    -webkit-transform: scaleX(0);
+    transform: scaleX(0);
+    -webkit-transform-origin: 0 50%;
+    transform-origin: 0 50%;
+    -webkit-transition-timing-function: ease-out;
+    transition-timing-function: ease-out;
+  }
+  
+  .slideActive {
+    -webkit-transform: scaleX(1);
+    transform: scaleX(1);
+    transition-duration: 1.8s;
+  }
 
   
-  h1 {
+  header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative; // required for span transtion to work
     width: 100%;
-    font-size: 90px;
+    padding: 10px 0;
+    font-size: 6vw;
     margin: 30px 0 0 0;
+    min-height: 90px;
     color: white;
-    background-color: $lightorange;
-    line-height: 110px;
+    line-height: 1.2em;
+
+    @include media('<=phone') {
+      font-size: 7vw;
+      padding: 0;
+    }
+
+    span {
+      position: absolute;
+      width: 100%;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      top: 0;
+    }
+
   }
 
   .diets {
     justify-content: center;
     align-items: flex-start;
-    margin-bottom: 20px;
+    margin: 10px;
     // background-color: $lightorange;
-
     img {
-      margin: 10px 1%;
+      margin: 0 6px;
+    }
+    :nth-last-child(1) {
+      padding: 6px 0;
     }
   }
 
@@ -51,22 +112,51 @@
       }
   }
 
+  .dangerHtml {
+      b {
+        font-weight: normal;
+      }
+      a {
+        color: $brightorange;
+        &:hover {
+          // opacity: 0.8;
+          color: #f1bd2d;
+        }
+      }
+  }
+
   .ingredientSection {
     background-color: #f0af60;
     border: 20px solid $lightorange;
     border-radius: 1%;
     color: white;
-    width: 55%;
+    width: 60%;
     padding: 16px 10px;
-    margin-bottom: 30px;
+    margin-bottom: 40px;
+    @include media('<=780px') {
+      width: 90%;
+      border-width: 10px;
+    }
+    @include media('<=phone') {
+      width: 100%;
+    }
 
       h2 {
         font-size: 33px;
+        // font-size: 2.5vw;
         margin-bottom: 12px;
+        @include media('<=780px') {
+          font-size: 1.3em;
+        }
       }
-
       div {
         font-size: 18px;
+        @include media('<=780px') {
+          font-size: 15px;
+        }
+        @include media('<=phone') {
+          font-size: 12px;
+        }
       }
   }
 
@@ -75,6 +165,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin: 0;
   }
 
   .stepInfo {
@@ -88,5 +179,6 @@
     }
   }
 
-
 }
+
+

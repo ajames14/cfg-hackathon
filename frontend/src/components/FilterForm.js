@@ -4,15 +4,13 @@ import Select from 'react-select'
 
 import jsonOptions from '../db/top-1k-ingredients.json'
 
-const FilteredRecipeForm = ({ setRecipes }) => {
+const FilteredRecipeForm = ({ setRecipes, pageNum }) => {
 
   // const [form, updateForm] = useState()
   const [error, setError] = useState()
 
   const [tags, setTags] = useState([])
   const [options, setOptions] = useState([])
-
-  const [ranking, setRanking] = useState('1')
 
   useEffect(() => {
     const newOptions = jsonOptions.map(option => {
@@ -35,9 +33,9 @@ const FilteredRecipeForm = ({ setRecipes }) => {
         //make secret - don't commit your key:
         'apiKey': process.env.REACT_APP_SPOON_API_KEY,
         'ingredients': ingredients,
-        'ranking': parseInt(ranking),
+        'ranking': 1, // 1 = maximise used ingredients , 2 = minimise missing ingredients
         'ignorePantry': true,
-        'number': 12 // number of recipes you want returned
+        'number': 12 * pageNum // number of recipes you want returned
       }
     })
       .then(resp => console.log(resp) + setRecipes(resp.data))
@@ -59,7 +57,7 @@ const FilteredRecipeForm = ({ setRecipes }) => {
     <div>
       {console.log('OPTIONS', options)}
       {console.log('SELECTION', tags)}
-      <div className="search-title">
+      <div className="search-title is-size-5">
         Enter some ingredients from your cupboard...
       </div>
       <form className="form">
@@ -82,14 +80,6 @@ const FilteredRecipeForm = ({ setRecipes }) => {
               })}
             />         
           </div>
-        </div>
-        <div className="field ranking">
-          <input className="is-checkradio" id="1" type="radio" name="exampleRadioInline" checked={ranking === '1'} onChange={e => handleRanking(e)} />
-          <label className="checkradio-label is-size-6" htmlFor="exampleRadioInline1">Maximise used ingredients</label>
-        </div>
-        <div className="field ranking">
-          <input className="is-checkradio" id="2" type="radio" name="exampleRadioInline" checked={ranking === '2'} onChange={e => handleRanking(e)} />
-          <label className="checkradio-label is-size-6" htmlFor="exampleRadioInline2">Minimise missing ingredients</label>
         </div>
       </form>
       <button className="button searchbutton is-primary" onClick={(e) => handleSubmit(e)}><i className="fas fa-search"></i></button>

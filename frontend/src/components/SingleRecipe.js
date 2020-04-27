@@ -11,7 +11,10 @@ import gluten from './images/glut.png'
 const SingleRecipe = (props) => {
 
   const [recipe, setRecipe] = useState({
-    // title: 'Pork belly'
+    title: 'Pork belly longer hppy good food',
+    vegeterian: true,
+    vegan: true,
+    glutenFree: true
   })
   const [saveText, setText] = useState('Save To Favourites')
   const [disabled, setDisable] = useState()
@@ -25,6 +28,9 @@ const SingleRecipe = (props) => {
     })
       .then(resp => console.log(resp) + setRecipe(resp.data) + checkId(props.user.favourites, resp.data.id))
       .catch(err => console.log(err))
+    setTimeout(() => {
+      addSweep()
+    }, 500)
   }, [props.user])
 
 
@@ -45,7 +51,7 @@ const SingleRecipe = (props) => {
     } else {
       favArray.push(recipe.id)
     }
-    const form = { 'postcode': props.user.postcode ,'favourites': favArray }
+    const form = { 'postcode': props.user.postcode, 'favourites': favArray }
     console.log('array after', favArray)
 
     axios.put('http://localhost:8000/api/profile', form, { headers: { Authorization: `Bearer ${Auth.getToken()}` } })
@@ -53,11 +59,16 @@ const SingleRecipe = (props) => {
       .catch(err => console.log(err))
   }
 
+  function addSweep() {
+    const sweep = document.querySelector('.sweep')
+    sweep ? sweep.classList.add('slideActive') + console.log('yaaaa') : null
+  }
+
 
   return (
-    <div className="section has-text-centered" id="single-recipe">
-      <h1> {recipe.title} </h1>
-      <div className="level diets">
+    <div className='section has-text-centered' id='single-recipe'>
+      <header>{recipe.title}<span className='sweep slideBefore'></span></header>
+      <div className='level diets'>
         {recipe.vegeterian && <img width='60px' src={veg} />}
         {recipe.vegan && <img width='75px' src={vegan} />}
         {recipe.glutenFree && <img width='65px' src={gluten} />}
@@ -65,13 +76,13 @@ const SingleRecipe = (props) => {
         {/* <p>{`Vegan: ${recipe.vegan ? '✅' : '❌' }`}</p> */}
         {/* <p>{`Gluten Free: ${recipe.glutenFree ? '✅' : '❌' }`}</p> */}
       </div>
-      <img className="recipeImage" width='500px' src={recipe.image}></img>
-      {/* <div className="colum"> */}
-      {!disabled && <button className="favButton" disabled={disabled} onClick={() => save(true)}>{saveText}</button>}
-      {disabled && <button className="favButton" onClick={() => save(false)}>{'Remove From Favourites'}</button>}
-      {/* </div> */}
-      <div className="columns is-centered">
-        <div className="column is-three-quarters" dangerouslySetInnerHTML={{ __html: recipe.summary }}></div>
+      <img className='recipeImage' width='500px' src={recipe.image}></img>
+
+      {!disabled && Auth.isAuthorized() && <button className='favButton' disabled={disabled} onClick={() => save(true)}>{saveText}</button>}
+      {disabled && Auth.isAuthorized() && <button className='favButton' onClick={() => save(false)}>{'Remove From Favourites'}</button>}
+
+      <div className='columns is-centered'>
+        <div className='column is-three-quarters dangerHtml' dangerouslySetInnerHTML={{ __html: recipe.summary }}></div>
       </div>
       <div className='ingredientSection'>
         <h2 className=''>Ingredients:</h2>
