@@ -26,10 +26,9 @@ const Profile = (props) => {
     fetch('/api/profile', { headers: { Authorization: `Bearer ${Auth.getToken()}` } })
       .then(resp => resp.json())
       .then((resp) => {
-        console.log('dataaa', resp)
         setUser(resp)
         setImg(resp.image)
-        // getFavourites(resp)
+        getFavourites(resp)
       })
       .catch((err) => console.log(err))
     addSweep()
@@ -57,7 +56,6 @@ const Profile = (props) => {
 
   const handleImageUpload = (res) => {
     console.log('UPLOAD', res.filesUploaded[0].url)
-    // setEditableData({ ...editableData, image: res.filesUploaded[0].url })
     setImg(res.filesUploaded[0].url)
     const form = { 'postcode': user.postcode, 'image': res.filesUploaded[0].url }
 
@@ -72,7 +70,7 @@ const Profile = (props) => {
       <header>{user.username}<span className='sweep slideBefore'></span></header>
       <h2>Favourites</h2>
       <div>{favourites ? favourites.map((fav, id) => {
-        return <div className='ingredient' key={id}><h3>{fav.title + console.log(fav)}</h3><img src={fav.image}></img></div>
+        return <div className='ingredient' key={id}><h3>{fav.title}</h3><img src={fav.image}></img></div>
       }) : null}</div>
 
       <div className="hero-body group-page">
