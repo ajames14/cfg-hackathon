@@ -19,7 +19,7 @@ const Profile = (props) => {
 
   const [user, setUser] = useState({})
   // const { userInfo, setUserInfo } = useContext(UserContext)
-  const [favourites, setFav] = useState([])
+  const [favourites, setFav] = useState([{ 'title': 'flapjack', 'image': 'https://bulma.io/images/placeholders/128x128.png' }, { 'title': 'flapjack', 'image': 'https://bulma.io/images/placeholders/128x128.png' }, { 'title': 'flapjack', 'image': 'https://bulma.io/images/placeholders/128x128.png' }, { 'title': 'flapjack', 'image': 'https://bulma.io/images/placeholders/128x128.png' }, { 'title': 'flapjack', 'image': 'https://bulma.io/images/placeholders/128x128.png' }, { 'title': 'flapjack', 'image': 'https://bulma.io/images/placeholders/128x128.png' }, { 'title': 'flapjack', 'image': 'https://bulma.io/images/placeholders/128x128.png' }, { 'title': 'flapjack', 'image': 'https://bulma.io/images/placeholders/128x128.png' }])
   const [image, setImg] = useState()
 
   useEffect(() => {
@@ -36,6 +36,8 @@ const Profile = (props) => {
 
 
   function addSweep() {
+    // const pic = document.querySelector('.profilePic')
+    // console.log(pic)
     const sweep = document.querySelector('.sweep')
     sweep ? sweep.classList.add('slideActive') : null
   }
@@ -67,28 +69,32 @@ const Profile = (props) => {
 
   return (
     <div className='section has-text-centered' id='profile'>
-      <header><h1>{user.username}</h1><span className='sweep slideBefore'></span></header>
-      <h2>Favourites</h2>
-      <div>{favourites ? favourites.map((fav, id) => {
-        return <div className='ingredient' key={id}><h3>{fav.title}</h3><img src={fav.image}></img></div>
-      }) : null}</div>
+      <header><h1>This is longer</h1><span className='sweep slideBefore'></span></header>
 
-      <div className="hero-body group-page">
+      <div className="">
         <ReactFilestack
           preload={true}
           apikey={process.env.REACT_APP_IMG_API_KEY}
           options={options}
           customRender={({ onPick }) => (
-            <div id="profile-banner-center" onClick={onPick}>
-              <figure className="image is-128x128">
-                <img className="is-rounded" src={!image ? 'https://bulma.io/images/placeholders/128x128.png' : image} />
+            <div className='picContent' >
+              <figure className="image is-128x128 profilePic" >
+                <img className="is-rounded" onClick={onPick} src={!image ? 'https://bulma.io/images/placeholders/128x128.png' : image} />
+                <div className="middle" onClick={onPick}>
+                  <div className="text">Change profile picture</div>
+                </div>
               </figure>
-              <div className={scroll < 100 ? 'down-arrow down bounce' : 'down-arrow down gone'}></div>
+              <button onClick={onPick}>Change profile picture</button>
             </div>
           )}
           onSuccess={handleImageUpload}
         />
       </div>
+
+      <h2>Your Favourite Recipes</h2>
+      <div className="favourites">{favourites ? favourites.map((fav, id) => {
+        return <div className='ingredient' key={id}><h3>{fav.title}</h3><img src={fav.image}></img></div>
+      }) : null}</div>
     </div>
   )
 }
