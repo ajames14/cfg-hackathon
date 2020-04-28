@@ -19,7 +19,7 @@ const Profile = (props) => {
 
   const [user, setUser] = useState({})
   // const { userInfo, setUserInfo } = useContext(UserContext)
-  const [favourites, setFav] = useState([{ 'title': 'flapjack', 'image': 'https://bulma.io/images/placeholders/128x128.png' }, { 'title': 'flapjack', 'image': 'https://bulma.io/images/placeholders/128x128.png' }, { 'title': 'flapjack', 'image': 'https://bulma.io/images/placeholders/128x128.png' }, { 'title': 'flapjack', 'image': 'https://bulma.io/images/placeholders/128x128.png' }, { 'title': 'flapjack', 'image': 'https://bulma.io/images/placeholders/128x128.png' }, { 'title': 'flapjack', 'image': 'https://bulma.io/images/placeholders/128x128.png' }, { 'title': 'flapjack', 'image': 'https://bulma.io/images/placeholders/128x128.png' }, { 'title': 'flapjack', 'image': 'https://bulma.io/images/placeholders/128x128.png' }])
+  const [favourites, setFav] = useState([])
   const [image, setImg] = useState()
 
   useEffect(() => {
@@ -93,7 +93,7 @@ const Profile = (props) => {
 
       <h2>Your Favourite Recipes</h2>
       <div className="favourites">{favourites ? favourites.map((fav, id) => {
-        return <div className='recipe' key={id}>
+        return <div className='recipe' key={id}  onClick={() => props.history.push(`/recipe/${fav.id}`)}>
           <div className="middle">
             <div className="text">{fav.title}</div>
           </div><img src={fav.image}></img></div>
