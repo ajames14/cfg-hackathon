@@ -69,7 +69,7 @@ const Profile = (props) => {
 
   return (
     <div className='section has-text-centered' id='profile'>
-      <header><h1>This is longer</h1><span className='sweep slideBefore'></span></header>
+      <header><h1>{user.username}</h1><span className='sweep slideBefore'></span></header>
 
       <div className="">
         <ReactFilestack
