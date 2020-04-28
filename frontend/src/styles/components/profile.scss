@@ -9,10 +9,10 @@
 
   font-size: 17px;
   @include media('<=780px') {
-    font-size: 14px;
+    font-size: 16px;
   }
   @include media('<=540px') {
-    font-size: 12px;
+    font-size: 14px;
   }
 
   .slideBefore {
@@ -39,7 +39,7 @@
     align-items: center;
     position: relative; // required for span transtion to work
     width: 100%;
-    padding: 10px 0;
+    padding: 10px 0 60px 0;
     font-size: 6vw;
     margin: 30px 0 0 0;
     min-height: 90px;
@@ -47,12 +47,19 @@
     line-height: 1.2em;
 
     @include media('<=phone') {
-      font-size: 7vw;
-      padding: 0;
+      font-size: 9vw;
+      padding: 0px 0 40px 0;
     }
 
     h1 {
+      font-weight: 500;
       animation: move 3s forwards;
+      padding-bottom: 8px;
+      border-bottom: 4px solid white;
+
+      @include media('<=phone') {
+        border-bottom: 3px solid white;
+      }
     }
 
     @keyframes move {
@@ -72,6 +79,187 @@
       left: 0;
       top: 0;
     }
-
   }
+
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  .picContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+
+  .profilePic {
+    z-index: 1;
+    opacity: 0;
+    margin-top: -60px;
+    margin-bottom: 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    width: 210px;
+    height: 210px;
+    border: 15px solid $lightorange;
+    border-radius: 50%;
+    cursor: pointer;
+    animation: fadeIn 3s forwards;
+    animation-delay: 1s;
+
+      @include media('<=phone') {
+        width: 140px;
+        height: 140px;
+        border-width: 10px;
+        margin-top: -30px;
+        margin-bottom: 0px;
+      }
+
+      img {
+        opacity: 1;
+        // display: block;
+        // height: auto;
+        transition: .5s ease;
+        backface-visibility: hidden;
+      }
+      .middle {
+        transition: .5s ease;
+        opacity: 0;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 60%;
+        height: 60%;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        text-align: center;
+        display: flex;
+        align-items: center;
+      }
+      
+      &:hover img {
+        opacity: 0.5;
+      }
+      
+      &:hover .middle {
+        opacity: 1;
+        background: $lightorange;
+      }
+      
+      .text {
+        color: white;
+        font-size: 14px;
+        font-weight: 600;
+        padding: 10px;
+      }
+  }
+
+  button {
+    opacity: 0;
+    display: none;
+    margin-top: -20px;
+    margin-bottom: 18px;
+    padding: 15px 15px 12px 15px;
+    border-radius: 5%;
+    color: white;
+    font-weight: 600;
+    font-size: 13px;
+    background-color: $lightorange;
+    border: 1px solid $lightorange;
+    animation: fadeIn 3s forwards;
+    animation-delay: 0.9s;
+
+    &:focus {
+      outline: none;
+      opacity: 0.7;
+    }
+
+    @include media('<=phone') {
+        display: block;
+    }
+  }
+
+  h2 {
+    font-size: 40px;
+    margin-bottom: 20px;
+    color: $lightorange;
+    font-weight: 800;
+
+    @include media('<=phone') {
+      font-size: 25px;
+    }
+  }
+
+
+  
+  .favourites {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    color: white;
+    // align-items: flex-end;
+
+    .recipe {
+      width: 15%;
+      min-width: 180px;
+      min-height: 180px;
+      position: relative;
+      margin-bottom: 20px;
+      cursor: pointer;
+      margin-right: 20px;
+
+      &:hover .middle{
+        background-color: rgba($brightorange, 1);
+      }
+
+      @include media('<=540px') {
+        min-width: 100px;
+        min-height: 100px;
+      }
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+
+    .middle {
+      transition: .5s ease;
+      position: absolute;
+      background-color: rgba($lightorange, 0.8);
+      top: 50%;
+      left: 50%;
+      width: 100%;
+      height: 100%;
+      transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .text {
+      font-weight: 800;
+      font-family: $family-secondary;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin: 0 10px;
+      position: relative;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical; 
+    }
+  }
+  
+
 }

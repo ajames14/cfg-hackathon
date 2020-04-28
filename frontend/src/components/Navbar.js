@@ -2,9 +2,11 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import Auth from '../lib/auth'
 import UserContext from './UserContext'
+import PostcodeContext from './PostcodeContext'
 
 const Navbar = ({ handleLoginRegisterModal }) => {
   const { userInfo, setUserInfo } = useContext(UserContext)
+  const { userPostcode, setUserPostcode } = useContext(PostcodeContext)
 
   const handleMenu = () => {
     const burger = document.querySelector('.burger')
@@ -16,6 +18,8 @@ const Navbar = ({ handleLoginRegisterModal }) => {
 
   function handleLogout() {
     Auth.logout()
+    setUserInfo(null)
+    setUserPostcode(null)
   }
 
   return (
@@ -61,30 +65,35 @@ const Navbar = ({ handleLoginRegisterModal }) => {
               Food Community
             </Link>
           </div>
-          {Auth.isAuthorized() ? 
-          <>
-            <div className="navbar-item is-hoverable">
-              <Link
-                className="navbar-link is-arrowless"
-                id="profile"
-                to="/profile"
-              >
-                <i className="fas fa-user-circle"></i>
-              </Link>
+          {Auth.isAuthorized() ? (
+            <>
+              <div className="navbar-item is-hoverable">
+                <Link
+                  className="navbar-link is-arrowless"
+                  id="profile"
+                  to="/profile"
+                >
+                  <i className="fas fa-user-circle"></i>
+                </Link>
+              </div>
+              <div className="navbar-item is-hoverable">
+                <Link
+                  className="navbar-link is-arrowless"
+                  to="/"
+                  onClick={handleLogout}
+                >
+                  <i className="fas fa-sign-out-alt"></i>
+                </Link>
+              </div>
+            </>
+          ) : (
+            <div
+              className="navbar-item is-arrowless"
+              onClick={() => handleLoginRegisterModal('login')}
+            >
+              <i className="fas fa-user-circle"></i>
             </div>
-            <div className="navbar-item is-hoverable">
-              <Link
-                className="navbar-link is-arrowless" 
-                to="/"
-                onClick={handleLogout}
-              >
-                <i className="fas fa-sign-out-alt"></i>
-              </Link>
-            </div>
-          </>
-            : 
-            <div className="navbar-item is-arrowless" onClick={() => handleLoginRegisterModal('login')}><i className="fas fa-user-circle"></i></div>
-          }
+          )}
         </div>
       </div>
     </nav>

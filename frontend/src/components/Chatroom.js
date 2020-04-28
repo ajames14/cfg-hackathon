@@ -3,8 +3,6 @@ import axios from 'axios'
 import Auth from '../lib/auth'
 const moment = require('moment')
 
-import orange from '../images/orange.jpg'
-
 const postInitialState = {
   text: ''
 }
@@ -116,6 +114,7 @@ const Chatroom = ({ postcode }) => {
   } else {
     return (
       <div className="post-container">
+<<<<<<< HEAD
 
         {console.log(chatroom)}
         <section className="accordions">
@@ -127,6 +126,23 @@ const Chatroom = ({ postcode }) => {
                   <figure className="media-left">
                     <p className="image is-64x64 photo-box">
                       <img className="profile-pic is-rounded" src={elem.user.image  || orange} />
+=======
+        {chatroom.posts.map((elem, i) => {
+          return (
+            <article className="media" key={i}>
+              <figure className="media-left">
+                <p className="image is-64x64 photo-box">
+                  <img className="profile-pic" src={elem.user.image} />
+                </p>
+              </figure>
+              <div className="media-content">
+                <div className="content">
+                  <div className="post-content">
+                    <strong className="username">{elem.user.username}</strong>  <small className="time">{formatTimestamp(elem.time_stamp)}</small>
+                    <br />
+                    <p className="post-text">
+                      {elem.text}
+>>>>>>> development
                     </p>
                   </figure>
                   <div className="media-content">
@@ -154,7 +170,11 @@ const Chatroom = ({ postcode }) => {
                       <article className="media" key={i}>
                         <figure className="media-left">
                           <p className="image is-64x64 photo-box">
+<<<<<<< HEAD
                             <img className="profile-pic is-rounded" src={comment.user.image || orange} />
+=======
+                            <img className="profile-pic" src={comment.user.image} />
+>>>>>>> development
                           </p>
                         </figure>
                         <div className="media-content">

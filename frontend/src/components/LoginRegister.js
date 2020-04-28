@@ -18,8 +18,7 @@ const errorInitialState = {
   errors: ''
 }
 
-const LoginRegister = ({ props, handleLoginRegisterModal, use }) => {
-
+const LoginRegister = ({ props, handleLoginRegisterModal, use, checkUser }) => {
   const [purpose, setPurpose] = useState(use)
   const [form, updateForm] = useState(formInitialLog)
   const [error, setError] = useState(errorInitialState)
@@ -54,6 +53,7 @@ const LoginRegister = ({ props, handleLoginRegisterModal, use }) => {
         .then((resp) => {
           Auth.setToken(resp.data.token)
           handleLoginRegisterModal()
+          checkUser()
         })
         .catch(() => setError({ errors: 'Email or Password Incorrect' }))
     }
@@ -73,30 +73,37 @@ const LoginRegister = ({ props, handleLoginRegisterModal, use }) => {
   return (
     <div className="modal is-active" id="login-register">
       {console.log(form)}
-      <div className="modal-background" onClick={() => handleLoginRegisterModal()}></div>
+      <div
+        className="modal-background"
+        onClick={() => handleLoginRegisterModal()}
+      ></div>
       <div className="modal-content">
-        <div className="has-text-centered" >
+        <div className="has-text-centered">
           <div className="title is-size-2" style={{ fontSize: 100 }}>
             {purpose === 'login' ? 'Login' : 'Register'}
           </div>
           <form className="form" onSubmit={(e) => handleSubmit(e)}>
-            {purpose === 'register' && <div className="field">
-              <div className="control has-icons-left">
-                <input
-                  onChange={(e) => handleInput(e)}
-                  type="text"
-                  name="username"
-                  className="input"
-                  placeholder="username"
-                />
-                <span className="icon is-small is-left">
-                  <i className="fas fa-user"></i>
-                </span>
+            {purpose === 'register' && (
+              <div className="field">
+                <div className="control has-icons-left">
+                  <input
+                    onChange={(e) => handleInput(e)}
+                    type="text"
+                    name="username"
+                    className="input"
+                    placeholder="username"
+                  />
+                  <span className="icon is-small is-left">
+                    <i className="fas fa-user"></i>
+                  </span>
+                </div>
+                {error.errors.username && (
+                  <small className="help is-danger">
+                    {error.errors.username}
+                  </small>
+                )}
               </div>
-              {error.errors.username && (
-                <small className="help is-danger">{error.errors.username}</small>
-              )}
-            </div>}
+            )}
             <div className="field">
               <div className="control has-icons-left">
                 <input
@@ -128,35 +135,72 @@ const LoginRegister = ({ props, handleLoginRegisterModal, use }) => {
                 </span>
               </div>
               {error.errors.password && (
-                <small className="help is-danger">{error.errors.password}</small>
-              )}
-            </div>
-            {purpose === 'register' && <div className="field">
-              <div className="control has-icons-left">
-                <input
-                  onChange={(e) => handleInput(e)}
-                  type="password"
-                  name="password_confirmation"
-                  className="input"
-                  placeholder ="confirm password"
-                />
-                <span className="icon is-small is-left">
-                  <i className={form.password === '' ? 'fas fa-exclamation' : (form.password === form.password_confirmation) ? 'fas fa-check' : 'fas fa-times'}></i>
-                </span>
-              </div>
-              {error.errors && form.password_confirmation !== form.password && (
                 <small className="help is-danger">
-                  {error.errors.password_confirmation}
+                  {error.errors.password}
                 </small>
               )}
-            </div>}
-            <button className="button is-black">{purpose === 'register' ? 'Register' : 'Login'}</button>
+            </div>
+            {purpose === 'register' && (
+              <div className="field">
+                <div className="control has-icons-left">
+                  <input
+                    onChange={(e) => handleInput(e)}
+                    type="password"
+                    name="password_confirmation"
+                    className="input"
+                    placeholder="confirm password"
+                  />
+                  <span className="icon is-small is-left">
+                    <i
+                      className={
+                        form.password === ''
+                          ? 'fas fa-exclamation'
+                          : form.password === form.password_confirmation
+                          ? 'fas fa-check'
+                          : 'fas fa-times'
+                      }
+                    ></i>
+                  </span>
+                </div>
+                {error.errors &&
+                  form.password_confirmation !== form.password && (
+                    <small className="help is-danger">
+                      {error.errors.password_confirmation}
+                    </small>
+                  )}
+              </div>
+            )}
+            <button className="button is-black">
+              {purpose === 'register' ? 'Register' : 'Login'}
+            </button>
           </form>
-          {purpose === 'login' ? <div className="note is-size-7">Don&apos;t have an account? <span className="change-purpose" onClick={() => handlePurpose()}>Create one here.</span></div> : <></>}
-          {purpose === 'register' ? <div className="note is-size-7">Already have an account? <span className="change-purpose" onClick={() => handlePurpose()}>Login here.</span></div> : <></>}
+          {purpose === 'login' ? (
+            <div className="note is-size-7">
+              Don&apos;t have an account?{' '}
+              <span className="change-purpose" onClick={() => handlePurpose()}>
+                Create one here.
+              </span>
+            </div>
+          ) : (
+            <></>
+          )}
+          {purpose === 'register' ? (
+            <div className="note is-size-7">
+              Already have an account?{' '}
+              <span className="change-purpose" onClick={() => handlePurpose()}>
+                Login here.
+              </span>
+            </div>
+          ) : (
+            <></>
+          )}
         </div>
       </div>
-      <button className="modal-close is-large" aria-label="close" onClick={() => handleLoginRegisterModal()}></button>
+      <button
+        className="modal-close is-large"
+        aria-label="close"
+        onClick={() => handleLoginRegisterModal()}
+      ></button>
     </div>
   )
 }

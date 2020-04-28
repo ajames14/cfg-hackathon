@@ -12,7 +12,7 @@ const errorInitialState = {
   errors: ''
 }
 
-const Login = (props) => {
+const Login = (props, checkUser) => {
   const [form, updateForm] = useState(initialLoginState)
   const [error, setError] = useState(errorInitialState)
   const { userInfo, setUserInfo } = useContext(UserContext)
@@ -32,6 +32,7 @@ const Login = (props) => {
       .then((resp) => {
         Auth.setToken(resp.data.token)
         console.log(resp.data.token)
+        checkUser()
         props.history.push('/')
       })
       .catch(() => setError({ errors: 'Email or Password Incorrect' }))
