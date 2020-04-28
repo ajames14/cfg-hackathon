@@ -100,22 +100,9 @@ const FoodSwap = ({ props, handleLoginRegisterModal }) => {
           )}
 
           <div className="column" id="chatroom">
-            <div className="level is-mobile">
-              <div className="level-left">
-                <div className="leve-item">
-                  {!showInstructions && (
-                    <i
-                      className="fas fa-info-circle is-size-5"
-                      onClick={() => toggleInstructions()}
-                    ></i>
-                  )}
-                </div>
-              </div>
-              <div className="level-right">{userPostcode && <span className="level-postcode">Chatroom for {userPostcode}</span>}</div>
-            </div>
 
             {userPostcode && Auth.isAuthorized() && (
-              <Chatroom postcode={userPostcode} />
+              <Chatroom postcode={userPostcode} showInstructions={showInstructions} toggleInstructions={toggleInstructions} />
             )}
 
             {!userPostcode && Auth.isAuthorized() && (

@@ -86,9 +86,7 @@
 
     #chatroom {
       background-color: $lightorange;
-      color: $brightorange;
-      padding: 4%;
-
+      
       i {
         color: white;
 
@@ -97,92 +95,99 @@
         }
       }
 
-      // .chatroom-title {
-      //   margin-top: 6%;
-      //   text-transform: uppercase;
-      //   font-family: $family-secondary;
-      //   font-size: 1rem;
-      //   font-weight: bold;
-      //   color: white;
-      // }
+      .post-container {
+        width: 100%; 
+        height: 100%;
 
-      // .post-container {
-      //   margin: 2% 10%;
-      //   background-color: white;
-      //   padding: 5%;
-      //   color: $brightorange;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
 
-      //   @include media('<=phone') {
-      //     margin: 5%;
-      //   }
+        #chatroom-title {
+          color: $brightorange;
+          flex-grow: 1;
+          padding-bottom: 10px;
+          margin-bottom: 0;
+        }
 
-      //   .media + .media {
-      //     border-top: 1px solid $brightorange;
-      //     margin-top: 1rem;
-      //     padding-top: 1rem;
-      //   }
-      // }
+        #chatroom-posts {
+          flex-grow: 10;
+          overflow: scroll;
+          
+          .accordions, .accordion, .accordion-header {
+            border-radius: 0;
+          }
 
-      // .post-form {
-      //   margin: 2% 10%;
-      // }
+          .accordion {
+            background-color: $lightorange;
 
-      // .post-label {
-      //   font-family: $family-secondary;
-      //   color: $brightorange;
-      // }
+            .accordion-header {
+              background-color: $brightorange;
 
-      // .post-button {
-      //   background-color: $brightorange;
-      //   border: none;
-      //   font-size: 12px;
-      //   font-weight: bold;
-      //   font-family: $family-secondary;
-      //   color: white;
-      // }
+              i:hover {
+                color: $lightorange;
+              }
+            }
 
-      // #photo-box {
-      //   justify-content: center;
-      //   align-items: center;
-      //   display: flex;
-      // }
+            .accordion-body {
+              border: 1px solid $lightorange;
 
-      // .profile-pic {
-      //   border-radius: 50%;
-      //   width: 40px;
-      //   height: 40px;
-      // }
+              .comment {
+                border-bottom: 1px solid $brightorange;
 
-      // .post-content {
-      //   color: $brightorange;
-      //   font-family: $family-secondary;
+                .content {
+                  padding-bottom: 0;
+                }
+              }
+            }
+          }
+          .media {
+            width: 100%;
 
-      //   .username {
-      //     color: $brightorange;
-      //   }
+            .delete {
+              margin-left: 10px;
+            }
+          }
 
-      //   .time {
-      //     font-style: italic;
-      //     font-size: 12px;
-      //     margin-left: 2%;
-      //   }
+          .post-comment {
+            .form {
+              width: 100%;
+              display: flex;
+              flex-direction: row;
+              padding-top: 1rem;
+  
+              .field {
+                flex-grow: 3;
+              }
+              .button {
+                flex-grow: 1;
+                margin-left: 10px;
+              }
+            }
+          }
+        }
 
-      //   .post-text {
-      //     margin-top: 10px;
-      //     margin-bottom: 2px;
-      //     font-size: 13px;
-      //   } 
+        #chatroom-comment {
+          flex-grow: 1;
+          background-color: $lightorange;
+          padding-top: 10px;
 
-      //   .reply-button {
-      //     background-color: none;
-      //     border: none;
-      //     padding: 0px;
-      //     color: $brightorange;
-      //     font-family: $family-secondary;
-      //     font-weight: bold;
-      //     font-size: 12px;
-      //   }
-      // }
+          .post-form {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+
+            .field {
+              flex-grow: 3;
+            }
+            .button {
+              flex-grow: 1;
+              margin-left: 10px;
+            }
+          }
+   
+        }
+      }
     }
   }
 

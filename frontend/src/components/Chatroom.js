@@ -13,7 +13,7 @@ const errorInitialState = {
   errors: ''
 }
 
-const Chatroom = ({ postcode }) => {
+const Chatroom = ({ postcode, showInstructions, toggleInstructions }) => {
 
   const [chatroom, setChatroom] = useState([])
   const [post, setPost] = useState(postInitialState)
@@ -114,40 +114,67 @@ const Chatroom = ({ postcode }) => {
     }
   }
 
+  function handleSwap(postId) {
+    console.log(postId)
+  }
+
+  function handleExchange(postId) {
+    console.log(postId)
+    // THIS IS WHERE THE EMAIL MECHANISM WILL NEED TO GO
+  }
+
   if (chatroom.length === 0) {
     return <div className="title">Loading</div>
 
   } else {
     return (
+      
       <div className="post-container">
 
+        <div className="level is-mobile" id="chatroom-title">
+          <div className="level-left">
+            <div className="leve-item">
+              {!showInstructions && (
+                <i
+                  className="fas fa-info-circle is-size-5"
+                  onClick={() => toggleInstructions()}
+                ></i>
+              )}
+            </div>
+          </div>
+          <div className="level-right">{postcode && <span className="level-postcode">Chatroom for {postcode}</span>}</div>
+        </div>
+
         {console.log(chatroom)}
-        <section className="accordions">
+        <section className="accordions" id="chatroom-posts">
           {chatroom.posts.length > 0 && chatroom.posts.map((elem, i) => {
-            return <div className={'accordion' + `${activeThread === i ? ' is-active' : ''}`} key={i} onClick={() => handleAccordion(i)}>
+            return <div className={'accordion' + `${activeThread === i ? ' is-active' : ''}` + `${elem.is_swapped ? ' swapped' : ''}`} key={i} onClick={() => handleAccordion(i)}>
 
               <div className="accordion-header" onClick={() => handleAccordion(i)}>
+
                 <article className="media">
                   <figure className="media-left">
                     <p className="image is-64x64 photo-box">
                       <img className="profile-pic is-rounded" src={elem.user.image  || orange} />
                     </p>
                   </figure>
+
                   <div className="media-content">
                     <div className="content">
                       <div className="post-content">
-                        <strong className="username">{elem.user.username}</strong>  <small className="time">{formatTimestamp(elem.time_stamp)}</small> {elem.is_swapped ? <i className="fas fa-sync-alt"></i> : <i className="fas fa-sync-alt"></i>}
-                        <br />
                         <p className="post-text">
                           {elem.text}
                         </p>
+                        <br />
+                        <div className="post-info"><span className="has-text-weight-bold">{elem.user.username} </span><span className="is-size-7">{formatTimestamp(elem.time_stamp)}</span></div>
                       </div>
                     </div>
                   </div>
-                  {isOwner(elem) &&
+                  
                   <div className="media-right">
-                    <button value={elem.id} onClick={(e) => handleDelete(e)} className="delete"></button>
-                  </div>}
+                    {elem.is_swapped ? <i className="fas fa-sync-alt swapped"></i> : isOwner(elem) ? <i className="fas fa-sync-alt not-swapped" onClick={() => handleSwap(elem.id)} ></i> : <i className="fas fa-envelope" onClick={() => handleExchange(elem.id)}></i>}
+                    {isOwner(elem) && <button value={elem.id} onClick={(e) => handleDelete(e)} className="delete"></button>}
+                  </div>
                 </article>
               </div>
 
@@ -155,7 +182,7 @@ const Chatroom = ({ postcode }) => {
                 <div className="accordion-content">
                   {elem.comments.length > 0 && elem.comments.map((comment, i) => {
                     return (
-                      <article className="media" key={i}>
+                      <article className="comment media" key={i}>
                         <figure className="media-left">
                           <p className="image is-64x64 photo-box">
                             <img className="profile-pic is-rounded" src={comment.user.image || orange} />
@@ -164,12 +191,11 @@ const Chatroom = ({ postcode }) => {
                         <div className="media-content">
                           <div className="content">
                             <div className="post-content">
-                              <strong className="username">{comment.user.username}</strong>  <small className="time">{formatTimestamp(comment.time_stamp)}</small>
-                              <br />
                               <p className='post-text'>
                                 {comment.text}
                               </p>
-                            </div>
+                              <br />
+                              <div className="comment-info"><span className="has-text-weight-bold">{comment.user.username} </span><span className="is-size-7">{formatTimestamp(comment.time_stamp)}</span></div>                            </div>
                             <br />
                           </div>
                         </div>
@@ -182,20 +208,23 @@ const Chatroom = ({ postcode }) => {
                       </article>
                     )
                   })}
-                  <form className='form' onSubmit={e => addComment(e)}>
-                    <div className='field'>
-                      <input
-                        onChange={e => handleInput(e)}
-                        type="text"
-                        className="input"
-                        value={post.text}
-                      />
-                    </div>
-                    {error.errors && error.errors.message === 'Unauthorized' && <small className="help is-danger">
-                      {error.errors.message} - Please log in
-                    </small>}
-                    <button className="button post-button is-small">Post</button>
-                  </form>
+                  <div className="post-comment">
+                    <form className='form' onSubmit={e => addComment(e)}>
+                      <div className='field'>
+                        <input
+                          onChange={e => handleInput(e)}
+                          type="text"
+                          className="input is-small"
+                          placeholder="Write your comment here"
+                          value={post.text}
+                        />
+                      </div>
+                      {error.errors && error.errors.message === 'Unauthorized' && <small className="help is-danger">
+                        {error.errors.message} - Please log in
+                      </small>}
+                      <button className="button is-primary is-small">Comment</button>
+                    </form>
+                  </div>
                 </div>
               </div>
 
@@ -204,55 +233,25 @@ const Chatroom = ({ postcode }) => {
           })}
         </section>
         
-        <article className="media">
-          <div className="media-content">
-            <div className="content">
-              <form className='post-form form' onSubmit={e => handleSubmit(e)}>
-                <div className='field'>
-                  <label className='post-label label'>Post a Comment</label>
-                  <input
-                    onChange={e => handleInput(e)}
-                    type="text"
-                    className="input"
-                    value={post.text}
-                  />
-                </div>
-                {error.errors && error.errors.message === 'Unauthorized' && <small className="help is-danger">
-                  {error.errors.message} - Please log in
-                </small>}
-                <button className="post-button button is-small">Post</button>
-              </form>
-            </div>
-          </div>
-        </article>
-
-        {/* <div className={reply === true ? 'modal is-active' : 'modal'}>
-          <div className="modal-background" onClick={toggleReply}></div>
-          <div className="modal-content">
-            <article className="media">
-              <div className="media-content">
-                <div className="content">
-                  <form className='form' onSubmit={e => addComment(e)}>
-                    <div className='field'>
-                      <label className='post-label label'>Post a Comment</label>
-                      <input
-                        onChange={e => handleInput(e)}
-                        type="text"
-                        className="input"
-                        value={post.text}
-                      />
-                    </div>
-                    {error.errors && error.errors.message === 'Unauthorized' && <small className="help is-danger">
-                      {error.errors.message} - Please log in
-                    </small>}
-                    <button className="button post-button is-small">Post</button>
-                  </form>
-                </div>
+        <div className="level is-mobile" id="chatroom-comment">
+          <div className="level-item">
+            <form className='post-form form' onSubmit={e => handleSubmit(e)}>
+              <div className='field'>
+                <input
+                  onChange={e => handleInput(e)}
+                  type="text"
+                  className="input"
+                  value={post.text}
+                  placeholder="Post a request"
+                />
               </div>
-            </article>
+              {error.errors && error.errors.message === 'Unauthorized' && <small className="help is-danger">
+                {error.errors.message} - Please log in
+              </small>}
+              <button className="button is-primary">Post</button>
+            </form>
           </div>
-          <button className="modal-close is-large" aria-label="close"></button>
-        </div> */}
+        </div>
       </div>
     )
   }
