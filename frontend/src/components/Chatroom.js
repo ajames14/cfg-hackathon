@@ -3,6 +3,8 @@ import axios from 'axios'
 import Auth from '../lib/auth'
 const moment = require('moment')
 
+import orange from '../images/orange.jpg'
+
 const postInitialState = {
   text: ''
 }
@@ -105,7 +107,11 @@ const Chatroom = ({ postcode }) => {
   }
 
   function handleAccordion(postId) {
-    setActiveThread(postId)
+    if (activeThread === postId) {
+      setActiveThread(null)
+    } else {
+      setActiveThread(postId)
+    }
   }
 
   if (chatroom.length === 0) {
