@@ -9,6 +9,7 @@ import 'bulma'
 import '../src/styles/app.scss'
 
 import UserContext from './components/UserContext'
+import PostcodeContext from './components/PostcodeContext'
 import Navbar from './components/Navbar'
 
 import Home from './components/Home'
@@ -25,10 +26,17 @@ import Profile from './components/Profile'
 const App = (props) => {
   const [userInfo, setUserInfo] = useState(null)
   const [userPostcode, setUserPostcode] = useState(null)
-  const sharedInfo = useMemo(
-    () => ({ userInfo, setUserInfo }, { userPostcode, setUserPostcode }),
-    [userInfo, setUserInfo, userPostcode, setUserPostcode]
-  )
+
+  const sharedInfo = useMemo(() => ({ userInfo, setUserInfo }), [
+    userInfo,
+    setUserInfo
+  ])
+
+  const postcode = useMemo(() => ({ userPostcode, setUserPostcode }), [
+    userPostcode,
+    setUserPostcode
+  ])
+
   const [modal, setModal] = useState(false)
   const [modalUse, setModalUse] = useState('login')
 
@@ -68,12 +76,10 @@ const App = (props) => {
     if (!modal) {
       setModalUse(use)
     }
-    setModal(!modal) 
+    setModal(!modal)
   }
 
-  useEffect(() => {
-    console.log('running')
-    // console.log(Auth.getToken())
+  function checkUser() {
     if (Auth.isAuthorized()) {
       console.log('setting user')
       axios
@@ -92,37 +98,62 @@ const App = (props) => {
           props.history.push('/login')
         })
     } else return
-  }, [])
+  }
 
   useEffect(() => {
-    const vh = window.innerHeight * 0.01
-    document.documentElement.style.setProperty('--vh', `${vh}px`)
+    console.log('running')
+    // console.log(Auth.getToken())
+    checkUser()
   }, [])
-
-  console.log('app.js user', userInfo)
-  console.log('app.js postcode', userPostcode)
 
   return (
     <HashRouter>
       <UserContext.Provider value={sharedInfo}>
-        <Navbar handleLoginRegisterModal={handleLoginRegisterModal} />
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/about" component={About} />
-          {/* <Route exact path="/join" component={UserPage} /> */}
-          <Route exact path="/register" component={Register} />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/profile" component={Profile} />
-          <Route exact path="/foodswap" render={(props) => <FoodSwap props={props} handleLoginRegisterModal={handleLoginRegisterModal}/>} />
-          <Route exact path="/recipes" component={Recipes} />
-          <Route
-            exact
-            path="/recipe/:id"
-            render={(props) => <SingleRecipe {...props} user={userInfo} />}
+        <PostcodeContext.Provider value={postcode}>
+          <Navbar
+            handleLoginRegisterModal={handleLoginRegisterModal}
+            checkUser={checkUser}
           />
-        </Switch>
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/about" component={About} />
+            {/* <Route exact path="/join" component={UserPage} /> */}
+            <Route exact path="/register" component={Register} />
+            <Route
+              exact
+              path="/login"
+              render={(props) => <Login {...props} checkUser={checkUser} />}
+            />
+            <Route exact path="/profile" component={Profile} />
+            <Route
+              exact
+              path="/foodswap"
+              render={(props) => (
+                <FoodSwap
+                  props={props}
+                  handleLoginRegisterModal={handleLoginRegisterModal}
+                  checkUser={checkUser}
+                />
+              )}
+            />
+            <Route exact path="/recipes" component={Recipes} />
+            <Route
+              exact
+              path="/recipe/:id"
+              render={(props) => <SingleRecipe {...props} user={userInfo} />}
+            />
+          </Switch>
+          {modal ? (
+            <LoginRegister
+              handleLoginRegisterModal={handleLoginRegisterModal}
+              use={modalUse}
+              checkUser={checkUser}
+            />
+          ) : (
+            <></>
+          )}
+        </PostcodeContext.Provider>{' '}
       </UserContext.Provider>
-      {modal ? <LoginRegister handleLoginRegisterModal={handleLoginRegisterModal} use={modalUse} /> : <></> }
     </HashRouter>
   )
 }

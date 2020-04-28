@@ -136,13 +136,14 @@ const Chatroom = ({ postcode }) => {
   return (
     <div className="container">
       <div className="chatroom-title">Your Chatroom: {postcode}</div>
+      {console.log(chatroom)}
       <div className="post-container">
         {chatroom.posts.map((elem, i) => {
           return (
             <article className="media" key={i}>
               <figure className="media-left">
                 <p className="image is-64x64 photo-box">
-                  <img className="profile-pic" src={'https://www.driverhire.co.uk/wp-content/themes/driver-hire/img/placeholder-person.jpeg'} />
+                  <img className="profile-pic" src={elem.user.image} />
                 </p>
               </figure>
               <div className="media-content">
@@ -173,7 +174,7 @@ const Chatroom = ({ postcode }) => {
                               </div>
                               {error.errors && error.errors.message === 'Unauthorized' && <small className="help is-danger">
                                 {error.errors.message} - Please log in
-                                  </small>}
+                              </small>}
                               <button className="button post-button is-small">Post</button>
                             </form>
                           </div>
@@ -189,7 +190,7 @@ const Chatroom = ({ postcode }) => {
                       <article className="media" key={i}>
                         <figure className="media-left">
                           <p className="image is-64x64 photo-box">
-                            <img className="profile-pic" src={'https://www.driverhire.co.uk/wp-content/themes/driver-hire/img/placeholder-person.jpeg'} />
+                            <img className="profile-pic" src={comment.user.image} />
                           </p>
                         </figure>
                         <div className="media-content">
@@ -241,7 +242,7 @@ const Chatroom = ({ postcode }) => {
               </div>
               {error.errors && error.errors.message === 'Unauthorized' && <small className="help is-danger">
                 {error.errors.message} - Please log in
-                </small>}
+              </small>}
               <button className="post-button button is-small">Post</button>
             </form>
           </div>
