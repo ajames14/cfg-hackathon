@@ -28,7 +28,7 @@ const Profile = (props) => {
       .then((resp) => {
         setUser(resp)
         setImg(resp.image)
-        // getFavourites(resp)
+        getFavourites(resp)
       })
       .catch((err) => console.log(err))
     addSweep()
@@ -93,7 +93,10 @@ const Profile = (props) => {
 
       <h2>Your Favourite Recipes</h2>
       <div className="favourites">{favourites ? favourites.map((fav, id) => {
-        return <div className='ingredient' key={id}><h3>{fav.title}</h3><img src={fav.image}></img></div>
+        return <div className='recipe' key={id}>
+          <div className="middle">
+            <div className="text">{fav.title}</div>
+          </div><img src={fav.image}></img></div>
       }) : null}</div>
     </div>
   )

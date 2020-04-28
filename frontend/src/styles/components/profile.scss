@@ -9,10 +9,10 @@
 
   font-size: 17px;
   @include media('<=780px') {
-    font-size: 14px;
+    font-size: 16px;
   }
   @include media('<=540px') {
-    font-size: 12px;
+    font-size: 14px;
   }
 
   .slideBefore {
@@ -168,7 +168,8 @@
     margin-bottom: 18px;
     padding: 15px 15px 12px 15px;
     border-radius: 5%;
-    color: $brightorange;
+    color: white;
+    font-weight: 600;
     font-size: 13px;
     background-color: $lightorange;
     border: 1px solid $lightorange;
@@ -189,15 +190,58 @@
     font-size: 40px;
     margin-bottom: 20px;
   }
+
+
   
   .favourites {
     display: flex;
     justify-content: space-evenly;
     flex-wrap: wrap;
+    color: white;
+    // align-items: flex-end;
 
-    div {
-      max-width: 200px;
+    .recipe {
+      width: 15%;
+      min-width: 150px;
+      min-height: 150px;
+      position: relative;
+      margin-bottom: 20px;
+      cursor: pointer;
+      margin-right: 20px;
+
+      &:hover .middle{
+        background-color: rgba($brightorange, 1);
+      }
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+
+    .middle {
+      transition: .5s ease;
+      position: absolute;
+      background-color: rgba($lightorange, 0.8);
+      top: 50%;
+      left: 50%;
+      width: 100%;
+      height: 100%;
+      transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .text {
+      font-weight: 800;
+      font-family: $family-secondary;
+      padding: 5px;
+      overflow: hidden;
     }
   }
+  
 
 }
