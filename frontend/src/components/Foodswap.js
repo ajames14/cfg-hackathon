@@ -27,11 +27,7 @@ const FoodSwap = ({ props, handleLoginRegisterModal }) => {
   console.log('yay', userPostcode)
   console.log('USERINFO:', userInfo)
 
-<<<<<<< HEAD
   function handlePostcodeSubmit(e) {
-=======
-  function handleSubmit(e) {
->>>>>>> development
     e.preventDefault()
     axios
       .put('api/profile', data, {
