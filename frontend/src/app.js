@@ -125,14 +125,7 @@ const App = (props) => {
             <Route
               exact
               path="/login"
-              render={(props) => (
-                <Login
-                  {...props}
-                  user={userInfo}
-                  postcode={postcode}
-                  checkUser={checkUser}
-                />
-              )}
+              render={(props) => <Login {...props} checkUser={checkUser} />}
             />
             <Route exact path="/profile" component={Profile} />
             <Route
@@ -142,8 +135,6 @@ const App = (props) => {
                 <FoodSwap
                   props={props}
                   handleLoginRegisterModal={handleLoginRegisterModal}
-                  postcode={postcode}
-                  userInfo={userInfo}
                   checkUser={checkUser}
                 />
               )}
@@ -159,8 +150,6 @@ const App = (props) => {
             <LoginRegister
               handleLoginRegisterModal={handleLoginRegisterModal}
               use={modalUse}
-              postcode={postcode}
-              userInfo={userInfo}
               checkUser={checkUser}
             />
           ) : (

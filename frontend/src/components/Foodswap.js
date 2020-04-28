@@ -14,7 +14,7 @@ const initialLoginState = {
   password: ''
 }
 
-const FoodSwap = ({ props, handleLoginRegisterModal, checkUser }) => {
+const FoodSwap = ({ props, handleLoginRegisterModal }) => {
   const { userInfo, setUserInfo } = useContext(UserContext)
   const { userPostcode, setUserPostcode } = useContext(PostcodeContext)
 
@@ -34,7 +34,6 @@ const FoodSwap = ({ props, handleLoginRegisterModal, checkUser }) => {
         headers: { Authorization: `Bearer ${Auth.getToken()}` }
       })
       .then((res) => {
-        // setUserInfo(res.data.user)
         setUserPostcode(res.data.postcode)
         console.log('foodswapdata', data)
       })
