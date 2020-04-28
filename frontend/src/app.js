@@ -106,9 +106,6 @@ const App = (props) => {
     checkUser()
   }, [])
 
-  // console.log('app.js user', userInfo)
-  // console.log('app.js postcode', userPostcode)
-
   return (
     <HashRouter>
       <UserContext.Provider value={sharedInfo}>

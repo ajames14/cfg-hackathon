@@ -25,6 +25,7 @@
       @include media('<=phone') {
         margin: 10px 0;
         font-size: 5rem;
+        width: auto;
       }
       @include media('<=780px') {
         font-size: 5rem;
@@ -63,18 +64,17 @@
       height: 50%;
     }
     #small-box {
-      background-color: $lightorange;
-      opacity: 0.8;
-      background-image: url('https://i.imgur.com/pQXO6AC.png');
-      background-size: auto;
+      background-position: center;
+      background-size: cover;
       background-repeat: no-repeat;
-      background-position-x: right;
-      background-position-y: 0em;
       height: 40.5vh;
-      width: 100%;
+      width: 620px;
+      @include media('<=desktop') {
+        width: 35rem;
+      }
       @include media('<=phone') {
-        width: 90vw;
-        height: 25vh;
+        width: 20rem;
+        // height: 25vh;
       }
       .home-link {
         color: $brightorange;
