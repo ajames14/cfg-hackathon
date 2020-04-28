@@ -3,8 +3,6 @@ import axios from 'axios'
 import Auth from '../lib/auth'
 const moment = require('moment')
 
-import orange from '../images/orange.jpg'
-
 const postInitialState = {
   text: ''
 }
@@ -95,17 +93,6 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions }) => {
     return newTime
   }
 
-  function commentsExist(post) {
-    return post.comments.length !== 0
-  }
-
-
-  function toggleReply(e) {
-    const id = e.target.value
-    setId(id)
-    setReply(!reply)
-  }
-
   function handleAccordion(postId) {
     if (activeThread === postId) {
       setActiveThread(null)
@@ -155,7 +142,7 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions }) => {
                 <article className="media">
                   <figure className="media-left">
                     <p className="image is-64x64 photo-box">
-                      <img className="profile-pic is-rounded" src={elem.user.image  || orange} />
+                      <img className="profile-pic is-rounded" src={elem.user.image} />
                     </p>
                   </figure>
 
@@ -185,7 +172,7 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions }) => {
                       <article className="comment media" key={i}>
                         <figure className="media-left">
                           <p className="image is-64x64 photo-box">
-                            <img className="profile-pic is-rounded" src={comment.user.image || orange} />
+                            <img className="profile-pic is-rounded" src={comment.user.image} />
                           </p>
                         </figure>
                         <div className="media-content">

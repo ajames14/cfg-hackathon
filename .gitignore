@@ -1,3 +1,5 @@
 .vscode/settings.json
 frontend/dist
 .env
+jwt_app/migrations
+food_swap/migrations
