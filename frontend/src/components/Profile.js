@@ -28,7 +28,7 @@ const Profile = (props) => {
       .then((resp) => {
         setUser(resp)
         setImg(resp.image)
-        getFavourites(resp)
+        resp.favourites.length > 0 ? getFavourites(resp) : null
       })
       .catch((err) => console.log(err))
     addSweep()
@@ -36,8 +36,6 @@ const Profile = (props) => {
 
 
   function addSweep() {
-    // const pic = document.querySelector('.profilePic')
-    // console.log(pic)
     const sweep = document.querySelector('.sweep')
     sweep ? sweep.classList.add('slideActive') : null
   }
@@ -98,6 +96,7 @@ const Profile = (props) => {
             <div className="text">{fav.title}</div>
           </div><img src={fav.image}></img></div>
       }) : null}</div>
+      {user.favourites ? user.favourites.length < 1 && <div className='redirect' onClick={() => props.history.push('/recipes')}>Go find some favourites!</div> : null}
     </div>
   )
 }

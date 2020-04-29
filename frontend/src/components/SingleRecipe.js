@@ -11,14 +11,15 @@ import gluten from './images/glut.png'
 const SingleRecipe = (props) => {
 
   const [recipe, setRecipe] = useState({
-    title: 'Pork belly with roasted carrots',
-    vegeterian: true,
-    vegan: true,
-    glutenFree: true
+    title: 'Issue with Spoonacular api',
+    // vegeterian: true,
+    // vegan: true,
+    // glutenFree: true
   })
   const [saveText, setText] = useState('Save To Favourites')
   const [disabled, setDisable] = useState()
   const [favourited, setFavourite] = useState()
+  const [user, setUser] = useState()
 
   useEffect(() => {
     axios.get(`https://api.spoonacular.com/recipes/${props.match.params.id}/information`, {
@@ -27,18 +28,29 @@ const SingleRecipe = (props) => {
         'apiKey': process.env.REACT_APP_SPOON_API_KEY
       }
     })
-      .then(resp => console.log(resp) + setRecipe(resp.data) + checkId(props.user.favourites, resp.data.id))
+      .then(resp => console.log(resp) + setRecipe(resp.data) + getUser(resp))
       .catch(err => console.log(err))
     setTimeout(() => {
       addSweep()
     }, 500)
-  }, [props.user])
+  }, [0])
+
+
+  function getUser(recipe) {
+    fetch('/api/profile', { headers: { Authorization: `Bearer ${Auth.getToken()}` } })
+      .then(resp => resp.json())
+      .then((resp) => {
+        setUser(resp)
+        checkId(resp.favourites, recipe.data.id)
+      })
+      .catch((err) => console.log(err))
+  }
 
 
   function checkId(favs, id) {
     if (favs.includes(id)) {
       // setDisable(true)
-      setFavourite(false)
+      setFavourite(true)
       setText('Remove From Favourites')
     } else if (favs.length >= 20) {
       setFavourite(true)
@@ -52,14 +64,14 @@ const SingleRecipe = (props) => {
       // setDisable(choice)
       setFavourite(choice)
       choice ? setText('Remove from favourites') : setText('Save To Favourites')
-      const favArray = props.user.favourites ? [...props.user.favourites] : []
+      const favArray = user.favourites ? [...user.favourites] : []
       if (!choice) {
         const index = favArray.indexOf(recipe.id)
         favArray.splice(index, 1)
       } else {
         favArray.push(recipe.id)
       }
-      const form = { 'postcode': props.user.postcode, 'favourites': favArray }
+      const form = { 'favourites': favArray }
       console.log('array after', favArray)
 
       axios.put('http://localhost:8000/api/profile', form, { headers: { Authorization: `Bearer ${Auth.getToken()}` } })

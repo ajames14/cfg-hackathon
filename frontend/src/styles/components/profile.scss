@@ -177,14 +177,21 @@
     border: 1px solid $lightorange;
     animation: fadeIn 3s forwards;
     animation-delay: 0.9s;
+    // border: 2px solid rgba($brightorange, 0.3);
 
     &:focus {
       outline: none;
       opacity: 0.7;
     }
 
+    @include media('<=780px') {
+      display: block;
+      margin-top: -35px;
+    }
+
     @include media('<=phone') {
         display: block;
+        margin-top: -20px;
     }
   }
 
@@ -203,22 +210,28 @@
   
   .favourites {
     display: flex;
-    justify-content: space-evenly;
+    width: 90%;
+    justify-content: flex-start;
     flex-wrap: wrap;
     color: white;
     // align-items: flex-end;
 
+    @include media('<=540px') {
+      width: 100%;
+      justify-content: center;
+    }
+
     .recipe {
       width: 15%;
       min-width: 180px;
-      min-height: 180px;
+      min-height: 163px;
       position: relative;
       margin-bottom: 20px;
       cursor: pointer;
       margin-right: 20px;
 
       &:hover .middle{
-        background-color: rgba($brightorange, 1);
+        background-color: rgba($brightorange, 0.9);
       }
 
       @include media('<=540px') {
@@ -259,6 +272,41 @@
       -webkit-line-clamp: 3;
       -webkit-box-orient: vertical; 
     }
+  }
+
+  .redirect {
+    background-color: $lightorange;
+    color: white;
+    font-size: 20px;
+    padding: 12px 0;
+    width: 25%;
+    min-width: 200px;
+    margin-bottom: 16px;
+    border: 2px solid $brightorange;
+    cursor: pointer;
+
+      &:hover {
+        opacity: 0.8;
+        background-color: #f1ad59;
+      }
+
+      &:focus {
+        outline: none;
+      }
+
+      @include media('<=1200px') {
+        font-size: 15px;
+        width: 30%;
+      }
+
+      @include media('<=780px') {
+        font-size: 15px;
+        width: 40%;
+      }
+      @include media('<=phone') {
+        font-size: 12px;
+        width: 60%;
+      }
   }
   
 

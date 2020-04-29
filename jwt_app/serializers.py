@@ -35,4 +35,4 @@ class UserSerializer(serializers.ModelSerializer):
                   'password', 'postcode', 'favourites', 'image')
         # kawrgs allow PUT requests to be made without the need to add these fields to req.
         extra_kwargs = {'email': {'required': False}, 'username': {
-            'required': False}, 'password': {'required': False}, 'image': {'required': False}}
+            'required': False}, 'password': {'required': False}, 'image': {'required': False}, 'postcode': {'required': False}}
