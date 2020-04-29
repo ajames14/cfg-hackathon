@@ -137,6 +137,18 @@
                 }
               }
             }
+
+            &.swapped {
+              background-color: rgba($brightorange, 0.5);
+              
+              .accordion-header {
+                background-color: rgba($brightorange, 0);
+                color: $lightorange;
+              }
+              .accordion-content {
+                color: $lightorange;
+              }
+            }
           }
           .media {
             width: 100%;
@@ -155,7 +167,7 @@
               }
 
               &.swapped {
-                background-color: $brightorange;
+                background-color: rgba($lightorange, 0);
                 border: none;
                 cursor: default;
                 i {

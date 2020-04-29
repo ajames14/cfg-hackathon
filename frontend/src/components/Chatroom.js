@@ -287,7 +287,7 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions }) => {
                       </article>
                     )
                   })}
-                  <div className="post-comment">
+                  {!elem.is_swapped && <div className="post-comment">
                     <form className='form' onSubmit={e => addComment(e, elem.id)}>
                       <div className='field'>
                         <input
@@ -304,7 +304,7 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions }) => {
                       </small>}
                       <button className="button is-primary is-small">Comment</button>
                     </form>
-                  </div>
+                  </div>}
                 </div>
               </div>
 
