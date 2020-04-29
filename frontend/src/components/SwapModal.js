@@ -24,7 +24,7 @@ const SwapModal = ({ toggleSwapModal, swapModal, getData }) => {
     {console.log(swapModal)}
     <div className="modal-background" onClick={toggleSwapModal}></div>
     <div className="modal-content">
-      <div className="text is-size-5 swapquestion">
+      <div className="text is-size-5 question">
         Can you please confirm that you successfully swapped the item relevant to this post? 
         <br />
         <div className="is-size-7">(note that this cannot be undone)</div>
