@@ -287,7 +287,7 @@
 
       &:hover {
         opacity: 0.8;
-        background-color: #f1ad59;
+        background-color: rgba($brightorange, 0.7);
       }
 
       &:focus {
@@ -308,6 +308,23 @@
         width: 60%;
       }
   }
+
+  // .whiteBox:nth-of-type(2) {
+  //   position: absolute;
+  //   width: 25%;
+  //   height: 20%;
+  //   right: 24px;
+  //   top: 185px;
+  //   background: white;
+  // }
+  // .whiteBox:first-of-type {
+  //   position: absolute;
+  //   width: 25%;
+  //   height: 20%;
+  //   left: 24px;
+  //   top: 185px;
+  //   background: white;
+  // }
   
 
 }
