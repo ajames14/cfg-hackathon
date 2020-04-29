@@ -19,7 +19,7 @@ const Profile = (props) => {
 
   const [user, setUser] = useState({})
   // const { userInfo, setUserInfo } = useContext(UserContext)
-  const [favourites, setFav] = useState([])
+  const [favourites, setFav] = useState([{ 'title': 'food title', 'image': 'https://imgur.com/ViVXJFY.png' }, { 'title': 'food title', 'image': 'https://imgur.com/ViVXJFY.png' }, { 'title': 'food title', 'image': 'https://imgur.com/ViVXJFY.png' }])
   const [image, setImg] = useState()
 
   useEffect(() => {
@@ -74,7 +74,7 @@ const Profile = (props) => {
     <div className='section has-text-centered' id='profile'>
       <header><h1>{user.username}</h1><span className='sweep slideBefore'></span></header>
 
-      <div className=''>
+      <div>
         <ReactFilestack
           preload={true}
           apikey={process.env.REACT_APP_IMG_API_KEY}
@@ -94,15 +94,23 @@ const Profile = (props) => {
         />
       </div>
 
-      <h2>Your Favourite Recipes</h2>
-      <div className='favourites'>{favourites ? favourites.map((fav, id) => {
-        return <div className='recipe' key={id} onClick={() => props.history.push(`/recipe/${fav.id}`)}>
-          <div className='middle'>
-            <div className='text'>{fav.title}</div>
-          </div><img src={fav.image}></img></div>
-      }) : null}</div>
-      {user.favourites ? user.favourites.length < 1 && <div className='redirect' onClick={() => props.history.push('/recipes')}>Go find some favourites!</div> : null}
+      <div className='halves'>
+        <div className='half'>
+          <h2 className='favTitle'> Favourite Recipes</h2>
+          <div className='favourites'>{favourites ? favourites.map((fav, id) => {
+            return <div className='recipe' key={id} onClick={() => props.history.push(`/recipe/${fav.id}`)}>
+              <div className='middle'>
+                <div className='text'>{fav.title}</div>
+              </div><img src={fav.image}></img></div>
+          }) : null}</div>
+          {user.favourites ? user.favourites.length < 1 && <div className='redirect' onClick={() => props.history.push('/recipes')}>Go find some favourites!</div> : null}
+        </div>
+        <div className='half'>
+          <h2 className='accountTitle'>Account Details</h2>
+        </div>
+      </div>
     </div>
+
   )
 }
 export default Profile
