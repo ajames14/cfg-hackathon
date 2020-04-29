@@ -43,9 +43,14 @@ const Profile = (props) => {
   function getFavourites(resp) {
     console.log('FAVS', resp.favourites.toString())
 
-    axios.get('https://api.spoonacular.com/recipes/informationBulk', {
+    axios.get('https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/informationBulk', {
+      headers: {
+        'content-type': 'application/octet-stream',
+        'x-rapidapi-host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com',
+        'x-rapidapi-key': process.env.REACT_APP_SPOON_API_KEY
+      },
       params: {
-        'apiKey': process.env.REACT_APP_SPOON_API_KEY,
+        // 'apiKey': process.env.REACT_APP_SPOON_API_KEY,
         'ids': resp.favourites.toString(),
         'includeNutrition': false
       }
@@ -69,17 +74,17 @@ const Profile = (props) => {
     <div className='section has-text-centered' id='profile'>
       <header><h1>{user.username}</h1><span className='sweep slideBefore'></span></header>
 
-      <div className="">
+      <div className=''>
         <ReactFilestack
           preload={true}
           apikey={process.env.REACT_APP_IMG_API_KEY}
           options={options}
           customRender={({ onPick }) => (
             <div className='picContent' >
-              <figure className="image is-128x128 profilePic" >
-                <img className="is-rounded" onClick={onPick} src={!image ? 'https://bulma.io/images/placeholders/128x128.png' : image} />
-                <div className="middle" onClick={onPick}>
-                  <div className="text">Change profile picture</div>
+              <figure className='image is-128x128 profilePic' >
+                <img className='is-rounded' onClick={onPick} src={!image ? 'https://bulma.io/images/placeholders/128x128.png' : image} />
+                <div className='middle' onClick={onPick}>
+                  <div className='text'>Change profile picture</div>
                 </div>
               </figure>
               <button onClick={onPick}>Change profile picture</button>
@@ -90,10 +95,10 @@ const Profile = (props) => {
       </div>
 
       <h2>Your Favourite Recipes</h2>
-      <div className="favourites">{favourites ? favourites.map((fav, id) => {
-        return <div className='recipe' key={id}  onClick={() => props.history.push(`/recipe/${fav.id}`)}>
-          <div className="middle">
-            <div className="text">{fav.title}</div>
+      <div className='favourites'>{favourites ? favourites.map((fav, id) => {
+        return <div className='recipe' key={id} onClick={() => props.history.push(`/recipe/${fav.id}`)}>
+          <div className='middle'>
+            <div className='text'>{fav.title}</div>
           </div><img src={fav.image}></img></div>
       }) : null}</div>
       {user.favourites ? user.favourites.length < 1 && <div className='redirect' onClick={() => props.history.push('/recipes')}>Go find some favourites!</div> : null}
