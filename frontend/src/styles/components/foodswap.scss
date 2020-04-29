@@ -147,6 +147,10 @@
               }
               .accordion-content {
                 color: $lightorange;
+
+                .comment {
+                  border-bottom: 1px solid $lightorange;
+                }
               }
             }
           }
