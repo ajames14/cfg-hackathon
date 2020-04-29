@@ -91,6 +91,7 @@ const FoodSwap = ({ props, handleLoginRegisterModal }) => {
                 to join your forum, post what you need and wait for a
                 friendly neighbour to lend a hand. Sharing is caring - play an
                 active part in the community by sharing your food too!
+                <span className="has-font-weight-bold has-text-danger"> ADD SOMETHING ABOUT EMAIL MECHANISM</span>
                 <br />
                 <br />
                 <span>And remember, </span>always follow the social distancing
