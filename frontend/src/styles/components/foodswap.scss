@@ -153,6 +153,16 @@
                   color: $lightorange;
                 }
               }
+
+              &.swapped {
+                background-color: $brightorange;
+                border: none;
+                cursor: default;
+                i {
+                  color: $lightorange;
+                  cursor: default;
+                }
+              }
             }
           }
 
@@ -200,11 +210,15 @@
 
 }
 
-#delete-modal {
+#delete-modal, #swap-modal {
   .modal-content {
     padding: 2rem;
     border-radius: 1rem;
     background-color: white;
+
+    .swapquestion {
+      margin-bottom: 1rem;
+    }
 
     .button {
       margin: 0.2rem;
