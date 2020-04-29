@@ -6,7 +6,7 @@
 
   height: 100vh;
 
-  .container, .columns, .colmn {
+  .container, .columns, .column {
     height: 100%;
   }
 
@@ -209,5 +209,12 @@
     .button {
       margin: 0.2rem;
     }
+  }
+}
+
+#edit-modal {
+  .textarea {
+    width: 100%;
+    margin: 0.5rem 0;
   }
 }
