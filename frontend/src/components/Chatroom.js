@@ -1,7 +1,9 @@
 import React, { useState, useContext, useEffect } from 'react'
 import axios from 'axios'
 import Auth from '../lib/auth'
-const moment = require('moment')
+import moment from 'moment'
+
+import DeleteModal from './DeleteModal'
 
 const postInitialState = {
   text: ''
@@ -18,6 +20,8 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions }) => {
   const [comment, setComment] = useState(postInitialState)
   const [error, setError] = useState(errorInitialState)
   const [activeThread, setActiveThread] = useState(null)
+  const [deleteModal, setDeleteModal] = useState({ state: false, type: null, postId: null, commentId: null })
+
 
   useEffect(() => {
     getData()
@@ -62,7 +66,10 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions }) => {
     axios.delete(`/api/posts/${postId}`, {
       headers: { Authorization: `Bearer ${Auth.getToken()}` }
     })
-      .then(() => getData())
+      .then(() => {
+        getData()
+        setDeleteModal({ ...deleteModal, state: false })
+      })
       .catch((err) => setError({ errors: err.response.data }))
   }
 
@@ -90,7 +97,10 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions }) => {
     axios.delete(`/api/posts/${postId}/comments/${commentId}/`, {
       headers: { Authorization: `Bearer ${Auth.getToken()}` }
     })
-      .then(() => getData())
+      .then(() => {
+        getData()
+        setDeleteModal({ ...deleteModal, state: false })
+      })
       .catch((err) => setError({ errors: err.response.data }))
   }
 
@@ -110,6 +120,11 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions }) => {
     const newString = time.substring(0, time.indexOf('.'))
     const newTime = moment(newString).fromNow()
     return newTime
+  }
+
+  function toggleDelete(e, type, postId, commentId) {
+    e.preventDefault()
+    setDeleteModal({ state: !deleteModal.state, type, postId, commentId })
   }
 
 
@@ -178,9 +193,9 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions }) => {
                   </div>
                   
                   <div className="media-right">
-                    {elem.is_swapped ? <i className="icon fas fa-sync-alt swapped"></i> : isOwner(elem) ? <button className="button is-small is-warning" onClick={() => handleSwap(elem.id)}><i className="fas fa-sync-alt not-swapped" onClick={() => handleSwap(elem.id)} ></i></button> : <button className="button is-small is-warning" onClick={() => handleExchange(elem.id)}><i className="fas fa-envelope" onClick={() => handleExchange(elem.id)}></i></button>}
+                    {elem.is_swapped ? <i className="icon fas fa-sync-alt swapped"></i> : isOwner(elem) ? <button className="button is-small is-warning" onClick={() => handleSwap(elem.id)}><i className="icon fas fa-sync-alt not-swapped" onClick={() => handleSwap(elem.id)} ></i></button> : <button className="button is-small is-warning" onClick={() => handleExchange(elem.id)}><i className="icon fas fa-envelope" onClick={() => handleExchange(elem.id)}></i></button>}
                     {isOwner(elem) && <button className="button is-small is-warning" onClick={(e) => handleEdit(e, elem.id)}><i className="icon fas fa-pencil-alt" onClick={(e) => handleEdit(e, elem.id)} ></i></button>}
-                    {isOwner(elem) && <button className="button is-small is-warning" onClick={(e) => handleDelete(e, elem.id)}><i className="icon far fa-trash-alt" onClick={(e) => handleDelete(e, elem.id)} ></i></button>}
+                    {isOwner(elem) && <button className="button is-small is-warning" onClick={(e) => toggleDelete(e, 'post', elem.id, null)}><i className="icon far fa-trash-alt" onClick={(e) => toggleDelete(e, 'post', elem.id, null)} ></i></button>}
                   </div>
                 </article>
               </div>
@@ -209,8 +224,8 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions }) => {
                         {
                           isOwner(comment) &&
                           <div className="media-right">
-                            {isOwner(elem) && <button className="button is-small is-primary" onClick={(e) => editComment(e, comment.id, comment.post)}><i className="icon fas fa-pencil-alt" onClick={(e) => editComment(e, comment.id, comment.post)} ></i></button>}
-                            {isOwner(elem) && <button className="button is-small is-primary" onClick={(e) => deleteComment(e, comment.id, comment.post)}><i className="icon far fa-trash-alt" onClick={(e) => deleteComment(e, comment.id, comment.post)} ></i></button>}
+                            {<button className="button is-small is-primary" onClick={(e) => editComment(e, comment.id, comment.post)}><i className="icon fas fa-pencil-alt" onClick={(e) => editComment(e, comment.id, comment.post)} ></i></button>}
+                            {<button className="button is-small is-primary" onClick={(e) => toggleDelete(e, 'comment', comment.post, comment.id)}><i className="icon far fa-trash-alt" onClick={(e) => toggleDelete(e, 'comment', comment.post, comment.id)} ></i></button>}
                           </div>
                         }
                       </article>
@@ -262,6 +277,8 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions }) => {
             </form>
           </div>
         </div>
+
+        {deleteModal.state && <DeleteModal toggleDelete={toggleDelete} deleteModal={deleteModal} deleteComment={deleteComment} handleDelete={handleDelete} />}
       </div>
     )
   }
