@@ -198,5 +198,16 @@
     }
   }
 
+}
 
+#delete-modal {
+  .modal-content {
+    padding: 2rem;
+    border-radius: 1rem;
+    background-color: white;
+
+    .button {
+      margin: 0.2rem;
+    }
+  }
 }
