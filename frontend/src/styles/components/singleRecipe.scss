@@ -1,4 +1,3 @@
-
 @mixin sweep {
   animation: sweepIn 5s forwards;
 }
@@ -9,15 +8,15 @@
   }
   100% {
     position: 0;
-    
   }
 }
 
 #single-recipe {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  // display: flex;
+  // flex-direction: column;
+  // justify-content: center;
+  // align-items: center;
+  // background-color: $lightorange;
 
   font-size: 17px;
   @include media('<=780px') {
@@ -27,182 +26,388 @@
     font-size: 12px;
   }
 
-  .slideBefore {
-    z-index: -1;
-    // background: rgb(84, 107, 117);
-    background: $lightorange;
-    -webkit-transform: scaleX(0);
-    transform: scaleX(0);
-    -webkit-transform-origin: 0 50%;
-    transform-origin: 0 50%;
-    -webkit-transition-timing-function: ease-out;
-    transition-timing-function: ease-out;
-  }
-  
-  .slideActive {
-    -webkit-transform: scaleX(1);
-    transform: scaleX(1);
-    transition-duration: 1.8s;
-  }
+  .columns {
+    height: 700px;
+    .column {
+      .diets {
+        // justify-content: center;
+        // align-items: flex-start;
+        margin: 10px;
+        font-size: 10px;
+        text-transform: uppercase;
+        // background-color: $lightorange;
+        img {
+          margin: 0 6px;
+        }
+        :nth-last-child(1) {
+          padding: 6px 0;
+        }
+        h2 {
+          font-weight: 800;
+        }
+      }
+      header {
+        // display: flex;
+        // justify-content: center;
+        // align-items: center;
+        position: relative; // required for span transtion to work
+        width: 100%;
+        height: 700px;
+        padding: 10px 10px;
+        font-size: 5.5em;
+        margin: 30px 0 0 0;
+        min-height: 90px;
+        color: white;
+        line-height: 1.2em;
+        text-align: left;
+        @include media('<=tablet') {
+          font-size: 5em;
+          padding: 0;
+        }
 
-  
-  header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative; // required for span transtion to work
-    width: 100%;
-    padding: 10px 0;
-    font-size: 6vw;
-    margin: 30px 0 0 0;
-    min-height: 90px;
-    color: white;
-    line-height: 1.2em;
+        @include media('<=phone') {
+          font-size: 7vw;
+          padding: 0;
+        }
 
-    @include media('<=phone') {
-      font-size: 7vw;
-      padding: 0;
+        span {
+          position: absolute;
+          width: 100%;
+          bottom: 0;
+          right: 0;
+          left: 0;
+          top: 0;
+        }
+      }
+      .slideBefore {
+        z-index: -1;
+        // background: rgb(84, 107, 117);
+        background: $brightorange;
+        -webkit-transform: scaleX(0);
+        transform: scaleX(0);
+        -webkit-transform-origin: 0 50%;
+        transform-origin: 0 50%;
+        -webkit-transition-timing-function: ease-out;
+        transition-timing-function: ease-out;
+      }
+
+      .slideActive {
+        -webkit-transform: scaleX(1);
+        transform: scaleX(1);
+        transition-duration: 1.8s;
+      }
     }
-
-    span {
-      position: absolute;
-      width: 100%;
-      bottom: 0;
-      right: 0;
-      left: 0;
-      top: 0;
-    }
-
-  }
-
-  .diets {
-    justify-content: center;
-    align-items: flex-start;
-    margin: 10px;
-    // background-color: $lightorange;
-    img {
-      margin: 0 6px;
-    }
-    :nth-last-child(1) {
-      padding: 6px 0;
-    }
-  }
-
-  .recipeImage {
-    margin-bottom: 30px;
-  }
-
-  .favButton {
-    background-color: $lightorange;
-    color: white;
-    font-size: 20px;
-    padding: 12px 0;
-    width: 25%;
-    min-width: 200px;
-    margin-bottom: 16px;
-    border: 2px solid $brightorange;
-    cursor: pointer;
-
-      &:hover {
-        opacity: 0.8;
-        background-color: rgba($brightorange, 0.7);
+    #column-2 {
+      overflow: scroll;
+      height: 700px;
+      margin-top: 40px;
+      .recipeImage {
+        margin-bottom: 30px;
       }
-
-      &:focus {
-        outline: none;
+      .dangerHtml {
+        color: black;
+        font-size: 16px;
+        b {
+          font-weight: normal;
+        }
+        a {
+          color: $brightorange;
+          &:hover {
+            // opacity: 0.8;
+            color: #f1bd2d;
+          }
+        }
       }
+      .ingredientSection {
+        // background-color: #f0af60;
+        border: 2px solid $lightorange;
 
-      @include media('<=1200px') {
-        font-size: 15px;
-        width: 30%;
-      }
-
-      @include media('<=780px') {
-        font-size: 15px;
-        width: 40%;
-      }
-      @include media('<=phone') {
-        font-size: 12px;
-        width: 60%;
-      }
-  }
-
-  .disabled {
-    // background: grey;
-    opacity: 0.6;
-    cursor: no-drop;
-    &:hover {
-      opacity: 0.3;
-    }
-  }
-
-  .dangerHtml {
-      b {
-        font-weight: normal;
-      }
-      a {
         color: $brightorange;
-        &:hover {
-          // opacity: 0.8;
-          color: #f1bd2d;
-        }
-      }
-  }
-
-  .ingredientSection {
-    background-color: #f0af60;
-    border: 20px solid $lightorange;
-    border-radius: 1%;
-    color: white;
-    width: 60%;
-    padding: 16px 10px;
-    margin-bottom: 40px;
-    @include media('<=780px') {
-      width: 90%;
-      border-width: 10px;
-    }
-    @include media('<=phone') {
-      width: 100%;
-    }
-
-      h2 {
-        font-size: 33px;
-        // font-size: 2.5vw;
-        margin-bottom: 12px;
+        // width: 60%;
+        padding: 16px 10px;
+        margin: 35px;
+        box-shadow: 5px 5px 5px rgb(250, 157, 70);
+        text-align: center;
         @include media('<=780px') {
-          font-size: 1.3em;
-        }
-      }
-      div {
-        font-size: 18px;
-        @include media('<=780px') {
-          font-size: 15px;
+          width: 90%;
+          border-width: 10px;
         }
         @include media('<=phone') {
-          font-size: 12px;
+          width: 100%;
+        }
+
+        h2 {
+          font-size: 33px;
+          // font-size: 2.5vw;
+          margin-bottom: 12px;
+          @include media('<=780px') {
+            font-size: 1.3em;
+          }
+        }
+        div {
+          font-size: 18px;
+          @include media('<=780px') {
+            font-size: 15px;
+          }
+          @include media('<=phone') {
+            font-size: 12px;
+          }
+        }
+        .favButton {
+          background-color: $lightorange;
+          color: white;
+          font-size: 11px;
+          padding: 12px 0;
+          // width: 4em;
+          min-width: 200px;
+          margin: 16px 0px;
+          border: 2px solid $brightorange;
+          border-radius: 2%;
+          font-weight: 800;
+          cursor: pointer;
+
+          &:hover {
+            opacity: 0.8;
+            background-color: rgba($brightorange, 0.7);
+          }
+
+          &:focus {
+            outline: none;
+          }
+
+          @include media('<=1200px') {
+            font-size: 15px;
+            width: 30%;
+          }
+
+          @include media('<=780px') {
+            font-size: 15px;
+            width: 40%;
+          }
+          @include media('<=phone') {
+            font-size: 12px;
+            width: 60%;
+          }
+        }
+
+        .disabled {
+          // background: grey;
+          opacity: 0.6;
+          cursor: no-drop;
+          &:hover {
+            opacity: 0.3;
+          }
         }
       }
-  }
+      .allSteps {
+        // display: flex;
+        // flex-direction: column;
+        // justify-content: center;
+        // align-items: center;
+        margin: 0;
+        text-align: center;
 
-  .allSteps {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: 0;
-  }
+        .stepInfo {
+          display: flex;
+          text-align: left;
+          width: 80%;
+          margin-bottom: 3px;
 
-  .stepInfo {
-    display: flex;
-    text-align: left;
-    width: 80%;
-    margin-bottom: 3px;
-
-    :nth-child(1) {
-      margin-right: 20px;
+          :nth-child(1) {
+            margin-right: 20px;
+          }
+        }
+      }
     }
   }
-
 }
 
+//   .slideBefore {
+//     z-index: -1;
+//     // background: rgb(84, 107, 117);
+//     background: $brightorange;
+//     -webkit-transform: scaleX(0);
+//     transform: scaleX(0);
+//     -webkit-transform-origin: 0 50%;
+//     transform-origin: 0 50%;
+//     -webkit-transition-timing-function: ease-out;
+//     transition-timing-function: ease-out;
+//   }
 
+//   .slideActive {
+//     -webkit-transform: scaleX(1);
+//     transform: scaleX(1);
+//     transition-duration: 1.8s;
+//   }
+
+//   header {
+//     // display: flex;
+//     // justify-content: center;
+//     // align-items: center;
+//     position: relative; // required for span transtion to work
+//     width: 100%;
+//     height: 100%;
+//     padding: 10px 10px;
+//     font-size: 6vw;
+//     margin: 30px 0 0 0;
+//     min-height: 90px;
+//     color: white;
+//     line-height: 1.2em;
+//     text-align: left;
+
+//     @include media('<=phone') {
+//       font-size: 7vw;
+//       padding: 0;
+//     }
+
+//     span {
+//       position: absolute;
+//       width: 100%;
+//       bottom: 0;
+//       right: 0;
+//       left: 0;
+//       top: 0;
+//     }
+//   }
+
+//   .diets {
+//     // justify-content: center;
+//     // align-items: flex-start;
+//     margin: 10px;
+//     font-size: 10px;
+//     text-transform: uppercase;
+//     // background-color: $lightorange;
+//     img {
+//       margin: 0 6px;
+//     }
+//     :nth-last-child(1) {
+//       padding: 6px 0;
+//     }
+//     h2 {
+//       font-weight: 800;
+//     }
+//   }
+
+//   .recipeImage {
+//     margin-bottom: 30px;
+//   }
+
+//   .column {
+//     align-items: center;
+//     justify-content: center;
+//   }
+
+//   .favButton {
+//     background-color: $lightorange;
+//     color: white;
+//     font-size: 12px;
+//     padding: 12px 0;
+//     width: 8em;
+//     min-width: 200px;
+//     margin-bottom: 16px;
+//     border: 2px solid $brightorange;
+//     border-radius: 2%;
+//     font-weight: 800;
+//     cursor: pointer;
+
+//     &:hover {
+//       opacity: 0.8;
+//       background-color: rgba($brightorange, 0.7);
+//     }
+
+//     &:focus {
+//       outline: none;
+//     }
+
+//     @include media('<=1200px') {
+//       font-size: 15px;
+//       width: 30%;
+//     }
+
+//     @include media('<=780px') {
+//       font-size: 15px;
+//       width: 40%;
+//     }
+//     @include media('<=phone') {
+//       font-size: 12px;
+//       width: 60%;
+//     }
+//   }
+
+//   .disabled {
+//     // background: grey;
+//     opacity: 0.6;
+//     cursor: no-drop;
+//     &:hover {
+//       opacity: 0.3;
+//     }
+//   }
+
+//   .dangerHtml {
+//     b {
+//       font-weight: normal;
+//     }
+//     a {
+//       color: $brightorange;
+//       &:hover {
+//         // opacity: 0.8;
+//         color: #f1bd2d;
+//       }
+//     }
+//   }
+
+//   .ingredientSection {
+//     background-color: #f0af60;
+//     border: 20px solid $lightorange;
+//     border-radius: 1%;
+//     color: white;
+//     // width: 60%;
+//     padding: 16px 10px;
+//     margin-bottom: 40px;
+//     box-shadow: 5px 5px 5px rgb(250, 157, 70);
+
+//     @include media('<=780px') {
+//       width: 90%;
+//       border-width: 10px;
+//     }
+//     @include media('<=phone') {
+//       width: 100%;
+//     }
+
+//     h2 {
+//       font-size: 33px;
+//       // font-size: 2.5vw;
+//       margin-bottom: 12px;
+//       @include media('<=780px') {
+//         font-size: 1.3em;
+//       }
+//     }
+//     div {
+//       font-size: 18px;
+//       @include media('<=780px') {
+//         font-size: 15px;
+//       }
+//       @include media('<=phone') {
+//         font-size: 12px;
+//       }
+//     }
+//   }
+
+//   .allSteps {
+//     // display: flex;
+//     // flex-direction: column;
+//     // justify-content: center;
+//     // align-items: center;
+//     margin: 0;
+
+//   .stepInfo {
+//     display: flex;
+//     text-align: left;
+//     width: 80%;
+//     margin-bottom: 3px;
+
+//     :nth-child(1) {
+//       margin-right: 20px;
+//     }
+// 	}
+// }
