@@ -273,6 +273,41 @@
       -webkit-box-orient: vertical; 
     }
   }
+
+  .redirect {
+    background-color: $lightorange;
+    color: white;
+    font-size: 20px;
+    padding: 12px 0;
+    width: 25%;
+    min-width: 200px;
+    margin-bottom: 16px;
+    border: 2px solid $brightorange;
+    cursor: pointer;
+
+      &:hover {
+        opacity: 0.8;
+        background-color: #f1ad59;
+      }
+
+      &:focus {
+        outline: none;
+      }
+
+      @include media('<=1200px') {
+        font-size: 15px;
+        width: 30%;
+      }
+
+      @include media('<=780px') {
+        font-size: 15px;
+        width: 40%;
+      }
+      @include media('<=phone') {
+        font-size: 12px;
+        width: 60%;
+      }
+  }
   
 
 }

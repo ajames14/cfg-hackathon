@@ -11,10 +11,10 @@ import gluten from './images/glut.png'
 const SingleRecipe = (props) => {
 
   const [recipe, setRecipe] = useState({
-    title: 'Pork belly with roasted carrots',
-    vegeterian: true,
-    vegan: true,
-    glutenFree: true
+    title: 'Issue with Spoonacular api',
+    // vegeterian: true,
+    // vegan: true,
+    // glutenFree: true
   })
   const [saveText, setText] = useState('Save To Favourites')
   const [disabled, setDisable] = useState()
