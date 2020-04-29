@@ -48,6 +48,7 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions }) => {
   }
 
   function handleInput(e) {
+    console.log(e.target.id)
     if (e.target.id === 'post') {
       setPost({ ...post, text: e.target.value })
     } else if (e.target.id === 'comment') {
@@ -296,7 +297,7 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions }) => {
                           className="input is-small"
                           placeholder="Write your comment here"
                           id="comment"
-                          value={editModal ? '' : comment.text}
+                          value={editModal.state ? '' : comment.text}
                         />
                       </div>
                       {error.errors && error.errors.message === 'Unauthorized' && <small className="help is-danger">

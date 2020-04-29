@@ -95,6 +95,21 @@
         }
       }
 
+      #postcode-form {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .form {
+          width: 80%;
+          .label {
+            text-align: justify;
+          }
+        }
+      }
+
       .post-container {
         width: 100%; 
         height: 100%;
@@ -147,6 +162,10 @@
               }
               .accordion-content {
                 color: $lightorange;
+
+                .comment {
+                  border-bottom: 1px solid $lightorange;
+                }
               }
             }
           }
