@@ -22,10 +22,11 @@ const SingleRecipe = (props) => {
   const [user, setUser] = useState()
 
   useEffect(() => {
-    axios.get(`https://api.spoonacular.com/recipes/${props.match.params.id}/information`, {
-      params: {
-        //make secret - don't commit your key:
-        'apiKey': process.env.REACT_APP_SPOON_API_KEY
+    axios.get(`https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/${props.match.params.id}/information`, {
+      headers: {
+        'content-type': 'application/octet-stream',
+        'x-rapidapi-host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com',
+        'x-rapidapi-key': process.env.REACT_APP_SPOON_API_KEY
       }
     })
       .then(resp => console.log(resp) + setRecipe(resp.data) + getUser(resp))
