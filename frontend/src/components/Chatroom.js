@@ -15,10 +15,8 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions }) => {
 
   const [chatroom, setChatroom] = useState([])
   const [post, setPost] = useState(postInitialState)
+  const [comment, setComment] = useState(postInitialState)
   const [error, setError] = useState(errorInitialState)
-  const [reply, setReply] = useState(false)
-  const [id, setId] = useState('')
-
   const [activeThread, setActiveThread] = useState(null)
 
   useEffect(() => {
@@ -36,13 +34,20 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions }) => {
   }
 
   function handleInput(e) {
-    setPost({ ...post, text: e.target.value })
+    if (e.target.id === 'post') {
+      setPost({ ...post, text: e.target.value })
+    } else if (e.target.id === 'comment') {
+      setComment({ ...comment, text: e.target.value })
+    }
+    
     setError({ ...error, errors: '' })
   }
 
+  //********************  POST FEATURES
+
   function handleSubmit(e) {
     e.preventDefault()
-    if (!post) return
+    if (!post.text) return
     axios.post(`/api/${chatroom.id}/posts/`, post, {
       headers: { Authorization: `Bearer ${Auth.getToken()}` }
     })
@@ -51,37 +56,39 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions }) => {
       .catch((err) => setError({ errors: err.resp.data }))
   }
 
-  function addComment(e) {
+  function handleDelete(e, postId) {
     e.preventDefault()
-    console.log(id)
-    if (!post) return
-    axios.post(`/api/${id}/comments`, post, {
+    axios.delete(`/api/posts/${postId}`, {
       headers: { Authorization: `Bearer ${Auth.getToken()}` }
     })
       .then(() => getData())
-      .then(() => setPost({ ...post, text: '' }))
-      .then(() => setReply(!reply))
+      .catch((err) => setError({ errors: err.response.data }))
+  }
+
+  //********************  COMMENT FEATURES
+
+  function addComment(e, postId) {
+    e.preventDefault()
+    if (!comment.text) return
+    axios.post(`/api/${postId}/comments`, comment, {
+      headers: { Authorization: `Bearer ${Auth.getToken()}` }
+    })
+      .then(() => getData())
+      .then(() => setComment({ ...comment, text: '' }))
       .catch((err) => setError({ errors: err.resp.data }))
   }
 
-  function handleDelete(e) {
-    axios.delete(`/api/posts/${e.target.value}`, {
+  function deleteComment(e, commentId, postId) {
+    e.preventDefault()
+    axios.delete(`/api/posts/${postId}/comments/${commentId}/`, {
       headers: { Authorization: `Bearer ${Auth.getToken()}` }
     })
       .then(() => getData())
       .catch((err) => setError({ errors: err.response.data }))
   }
 
-  function deleteComment(e) {
-    console.log(e.target.name)
-    console.log(e.target.value)
-    axios.delete(`/api/posts/${e.target.name}/comments/${e.target.value}/`, {
-      headers: { Authorization: `Bearer ${Auth.getToken()}` }
-    })
-      .then(() => getData())
-      .catch((err) => setError({ errors: err.response.data }))
-  }
-
+  //********************  GENERAL UTILS
+  
   function isOwner(elem) {
     return Auth.getUserId() === elem.user.id
   }
@@ -93,14 +100,13 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions }) => {
     return newTime
   }
 
-  function handleAccordion(postId) {
-    if (activeThread === postId) {
-      setActiveThread(null)
-    } else {
-      setActiveThread(postId)
-    }
-  }
 
+  //********************  ACCORDION FEATURES
+  function handleAccordion(postId) {
+    setActiveThread(postId)
+    
+  }
+  
   function handleSwap(postId) {
     console.log(postId)
   }
@@ -117,7 +123,7 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions }) => {
     return (
       
       <div className="post-container">
-
+        {console.log(activeThread)}
         <div className="level is-mobile" id="chatroom-title">
           <div className="level-left">
             <div className="leve-item">
@@ -160,7 +166,7 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions }) => {
                   
                   <div className="media-right">
                     {elem.is_swapped ? <i className="fas fa-sync-alt swapped"></i> : isOwner(elem) ? <i className="fas fa-sync-alt not-swapped" onClick={() => handleSwap(elem.id)} ></i> : <i className="fas fa-envelope" onClick={() => handleExchange(elem.id)}></i>}
-                    {isOwner(elem) && <button value={elem.id} onClick={(e) => handleDelete(e)} className="delete"></button>}
+                    {isOwner(elem) && <button value={elem.id} onClick={(e) => handleDelete(e, elem.id)} className="delete"></button>}
                   </div>
                 </article>
               </div>
@@ -189,21 +195,22 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions }) => {
                         {
                           isOwner(comment) &&
                           <div className="media-right">
-                            <button value={comment.id} name={comment.post} onClick={(e) => deleteComment(e)} className="delete"></button>
+                            <button onClick={(e) => deleteComment(e, comment.id, comment.post)} className="delete"></button>
                           </div>
                         }
                       </article>
                     )
                   })}
                   <div className="post-comment">
-                    <form className='form' onSubmit={e => addComment(e)}>
+                    <form className='form' onSubmit={e => addComment(e, elem.id)}>
                       <div className='field'>
                         <input
                           onChange={e => handleInput(e)}
                           type="text"
                           className="input is-small"
                           placeholder="Write your comment here"
-                          value={post.text}
+                          id="comment"
+                          value={comment.text}
                         />
                       </div>
                       {error.errors && error.errors.message === 'Unauthorized' && <small className="help is-danger">
@@ -230,6 +237,7 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions }) => {
                   className="input"
                   value={post.text}
                   placeholder="Post a request"
+                  id="post"
                 />
               </div>
               {error.errors && error.errors.message === 'Unauthorized' && <small className="help is-danger">
