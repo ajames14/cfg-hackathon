@@ -229,6 +229,7 @@
       margin-bottom: 20px;
       cursor: pointer;
       margin-right: 20px;
+      animation: fadeIn 1s forwards;
 
       &:hover .middle{
         background-color: rgba($brightorange, 0.9);
@@ -308,23 +309,6 @@
         width: 60%;
       }
   }
-
-  // .whiteBox:nth-of-type(2) {
-  //   position: absolute;
-  //   width: 25%;
-  //   height: 20%;
-  //   right: 24px;
-  //   top: 185px;
-  //   background: white;
-  // }
-  // .whiteBox:first-of-type {
-  //   position: absolute;
-  //   width: 25%;
-  //   height: 20%;
-  //   left: 24px;
-  //   top: 185px;
-  //   background: white;
-  // }
   
 
 }
