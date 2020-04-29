@@ -5,6 +5,7 @@ import moment from 'moment'
 
 import DeleteModal from './DeleteModal'
 import EditModal from './EditModal'
+import SwapModal from './SwapModal'
 
 const postInitialState = {
   text: ''
@@ -30,6 +31,7 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions }) => {
   const [activeThread, setActiveThread] = useState(null)
   const [deleteModal, setDeleteModal] = useState(modalInitialState)
   const [editModal, setEditModal] = useState(modalInitialState)
+  const [swapModal, setSwapModal] = useState({ state: false, postId: null, postText: '' })
 
   useEffect(() => {
     getData()
@@ -176,9 +178,11 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions }) => {
     // TODO: figure out a good way to collapse back without collapsing also when interacting with comments
   }
   
-  function handleSwap(postId) {
-    console.log(postId)
-    // TODO
+  function toggleSwapModal(e, postId, postText) {
+    if (e !== 'modal') {
+      e.preventDefault()
+    } 
+    setSwapModal({ state: !swapModal.state, postId, postText })
   }
 
   function handleExchange(postId) {
@@ -235,9 +239,19 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions }) => {
                   </div>
                   
                   <div className="media-right">
-                    {elem.is_swapped ? <i className="icon fas fa-sync-alt swapped"></i> : isOwner(elem) ? <button className="button is-small is-warning" onClick={() => handleSwap(elem.id)}><i className="icon fas fa-sync-alt not-swapped" onClick={() => handleSwap(elem.id)} ></i></button> : <button className="button is-small is-warning" onClick={() => handleExchange(elem.id)}><i className="icon fas fa-envelope" onClick={() => handleExchange(elem.id)}></i></button>}
-                    {isOwner(elem) && <button className="button is-small is-warning" onClick={(e) => toggleEditModal(e, 'post', elem.id, null, elem.text)}><i className="icon fas fa-pencil-alt" onClick={(e) => toggleEditModal(e, 'post', elem.id, null, elem.text)} ></i></button>}
-                    {isOwner(elem) && <button className="button is-small is-warning" onClick={(e) => toggleDelete(e, 'post', elem.id, null)}><i className="icon far fa-trash-alt" onClick={(e) => toggleDelete(e, 'post', elem.id, null)} ></i></button>}
+                    {elem.is_swapped ? 
+                      <button className="button is-large swapped" disabled><i className="icon fas fa-sync-alt"></i></button> 
+                      : 
+                      isOwner(elem) ? 
+                        <>
+                          <button className="button is-small is-warning" onClick={(e) => toggleSwapModal(e, elem.id, elem.text)}><i className="icon fas fa-sync-alt not-swapped" onClick={(e) => toggleSwapModal(e, elem.id, elem.text)} ></i></button>
+                          <button className="button is-small is-warning" onClick={(e) => toggleEditModal(e, 'post', elem.id, null, elem.text)}><i className="icon fas fa-pencil-alt" onClick={(e) => toggleEditModal(e, 'post', elem.id, null, elem.text)} ></i></button>
+                          <button className="button is-small is-warning" onClick={(e) => toggleDelete(e, 'post', elem.id, null)}><i className="icon far fa-trash-alt" onClick={(e) => toggleDelete(e, 'post', elem.id, null)} ></i></button> 
+                        </>
+                        : 
+                        <button className="button is-small is-warning" onClick={() => handleExchange(elem.id)}><i className="icon fas fa-envelope" onClick={() => handleExchange(elem.id)}></i></button>
+                    }
+         
                   </div>
                 </article>
               </div>
@@ -264,7 +278,7 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions }) => {
                           </div>
                         </div>
                         {
-                          isOwner(comment) &&
+                          !elem.is_swapped && isOwner(comment) &&
                           <div className="media-right">
                             {<button className="button is-small is-primary" onClick={(e) => toggleEditModal(e, 'comment', comment.post, comment.id, comment.text)}><i className="icon fas fa-pencil-alt" onClick={(e) => toggleEditModal(e, 'comment', comment.post, comment.id, comment.text)} ></i></button>}
                             {<button className="button is-small is-primary" onClick={(e) => toggleDelete(e, 'comment', comment.post, comment.id)}><i className="icon far fa-trash-alt" onClick={(e) => toggleDelete(e, 'comment', comment.post, comment.id)} ></i></button>}
@@ -321,6 +335,7 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions }) => {
         </div>
         {editModal.state && <EditModal toggleEditModal={toggleEditModal} editModal={editModal} error={error} handleInput={handleInput} post={post} comment={comment} handleEditSubmit={handleEditSubmit} />}
         {deleteModal.state && <DeleteModal toggleDelete={toggleDelete} deleteModal={deleteModal} deleteComment={deleteComment} handleDelete={handleDelete} />}
+        {swapModal.state && <SwapModal toggleSwapModal={toggleSwapModal} swapModal={swapModal} getData={getData} />}
       </div>
     )
   }
