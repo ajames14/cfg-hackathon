@@ -123,10 +123,6 @@
 
             .accordion-header {
               background-color: $brightorange;
-
-              i:hover {
-                color: $lightorange;
-              }
             }
 
             .accordion-body {
@@ -145,8 +141,18 @@
           .media {
             width: 100%;
 
-            .delete {
-              margin-left: 10px;
+            .button {
+              margin: 0 0.1rem;
+              &.is-warning:hover {
+                i {
+                  color: $brightorange;
+                }
+              }
+              &.is-primary:hover {
+                i {
+                  color: $lightorange;
+                }
+              }
             }
           }
 

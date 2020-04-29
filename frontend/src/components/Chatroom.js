@@ -57,12 +57,18 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions }) => {
   }
 
   function handleDelete(e, postId) {
+    // TODO: Add modal for asking whether sure
     e.preventDefault()
     axios.delete(`/api/posts/${postId}`, {
       headers: { Authorization: `Bearer ${Auth.getToken()}` }
     })
       .then(() => getData())
       .catch((err) => setError({ errors: err.response.data }))
+  }
+
+  function handleEdit(e, postId) {
+    console.log(postId)
+    // TODO
   }
 
   //********************  COMMENT FEATURES
@@ -79,12 +85,18 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions }) => {
   }
 
   function deleteComment(e, commentId, postId) {
+    // TODO: Add modal for asking whether sure
     e.preventDefault()
     axios.delete(`/api/posts/${postId}/comments/${commentId}/`, {
       headers: { Authorization: `Bearer ${Auth.getToken()}` }
     })
       .then(() => getData())
       .catch((err) => setError({ errors: err.response.data }))
+  }
+
+  function editComment(e, commentId, postId) {
+    console.log(commentId, postId)
+    // TODO
   }
 
   //********************  GENERAL UTILS
@@ -104,11 +116,12 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions }) => {
   //********************  ACCORDION FEATURES
   function handleAccordion(postId) {
     setActiveThread(postId)
-    
+    // TODO: figure out a good way to collapse back without collapsing also when interacting with comments
   }
   
   function handleSwap(postId) {
     console.log(postId)
+    // TODO
   }
 
   function handleExchange(postId) {
@@ -135,7 +148,7 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions }) => {
               )}
             </div>
           </div>
-          <div className="level-right">{postcode && <span className="level-postcode">Chatroom for {postcode}</span>}</div>
+          <div className="level-right">{postcode && <span className="level-postcode is-size-4 is-family-secondary">Chatroom for {postcode}</span>}</div>
         </div>
 
         {console.log(chatroom)}
@@ -165,8 +178,9 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions }) => {
                   </div>
                   
                   <div className="media-right">
-                    {elem.is_swapped ? <i className="fas fa-sync-alt swapped"></i> : isOwner(elem) ? <i className="fas fa-sync-alt not-swapped" onClick={() => handleSwap(elem.id)} ></i> : <i className="fas fa-envelope" onClick={() => handleExchange(elem.id)}></i>}
-                    {isOwner(elem) && <button value={elem.id} onClick={(e) => handleDelete(e, elem.id)} className="delete"></button>}
+                    {elem.is_swapped ? <i className="icon fas fa-sync-alt swapped"></i> : isOwner(elem) ? <button className="button is-small is-warning" onClick={() => handleSwap(elem.id)}><i className="fas fa-sync-alt not-swapped" onClick={() => handleSwap(elem.id)} ></i></button> : <button className="button is-small is-warning" onClick={() => handleExchange(elem.id)}><i className="fas fa-envelope" onClick={() => handleExchange(elem.id)}></i></button>}
+                    {isOwner(elem) && <button className="button is-small is-warning" onClick={(e) => handleEdit(e, elem.id)}><i className="icon fas fa-pencil-alt" onClick={(e) => handleEdit(e, elem.id)} ></i></button>}
+                    {isOwner(elem) && <button className="button is-small is-warning" onClick={(e) => handleDelete(e, elem.id)}><i className="icon far fa-trash-alt" onClick={(e) => handleDelete(e, elem.id)} ></i></button>}
                   </div>
                 </article>
               </div>
@@ -195,7 +209,8 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions }) => {
                         {
                           isOwner(comment) &&
                           <div className="media-right">
-                            <button onClick={(e) => deleteComment(e, comment.id, comment.post)} className="delete"></button>
+                            {isOwner(elem) && <button className="button is-small is-primary" onClick={(e) => editComment(e, comment.id, comment.post)}><i className="icon fas fa-pencil-alt" onClick={(e) => editComment(e, comment.id, comment.post)} ></i></button>}
+                            {isOwner(elem) && <button className="button is-small is-primary" onClick={(e) => deleteComment(e, comment.id, comment.post)}><i className="icon far fa-trash-alt" onClick={(e) => deleteComment(e, comment.id, comment.post)} ></i></button>}
                           </div>
                         }
                       </article>
