@@ -36,8 +36,6 @@ const Profile = (props) => {
 
 
   function addSweep() {
-    // const pic = document.querySelector('.profilePic')
-    // console.log(pic)
     const sweep = document.querySelector('.sweep')
     sweep ? sweep.classList.add('slideActive') : null
   }

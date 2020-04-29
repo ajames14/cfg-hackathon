@@ -177,14 +177,21 @@
     border: 1px solid $lightorange;
     animation: fadeIn 3s forwards;
     animation-delay: 0.9s;
+    // border: 2px solid rgba($brightorange, 0.3);
 
     &:focus {
       outline: none;
       opacity: 0.7;
     }
 
+    @include media('<=780px') {
+      display: block;
+      margin-top: -35px;
+    }
+
     @include media('<=phone') {
         display: block;
+        margin-top: -20px;
     }
   }
 
@@ -203,15 +210,21 @@
   
   .favourites {
     display: flex;
-    justify-content: space-evenly;
+    width: 90%;
+    justify-content: flex-start;
     flex-wrap: wrap;
     color: white;
     // align-items: flex-end;
 
+    @include media('<=540px') {
+      width: 100%;
+      justify-content: center;
+    }
+
     .recipe {
       width: 15%;
       min-width: 180px;
-      min-height: 170px;
+      min-height: 163px;
       position: relative;
       margin-bottom: 20px;
       cursor: pointer;
