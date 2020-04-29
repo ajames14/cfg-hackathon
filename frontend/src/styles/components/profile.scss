@@ -211,14 +211,14 @@
     .recipe {
       width: 15%;
       min-width: 180px;
-      min-height: 180px;
+      min-height: 170px;
       position: relative;
       margin-bottom: 20px;
       cursor: pointer;
       margin-right: 20px;
 
       &:hover .middle{
-        background-color: rgba($brightorange, 1);
+        background-color: rgba($brightorange, 0.9);
       }
 
       @include media('<=540px') {

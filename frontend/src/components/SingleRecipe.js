@@ -59,7 +59,7 @@ const SingleRecipe = (props) => {
       } else {
         favArray.push(recipe.id)
       }
-      const form = { 'postcode': props.user.postcode, 'favourites': favArray }
+      const form = { 'favourites': favArray }
       console.log('array after', favArray)
 
       axios.put('http://localhost:8000/api/profile', form, { headers: { Authorization: `Bearer ${Auth.getToken()}` } })
