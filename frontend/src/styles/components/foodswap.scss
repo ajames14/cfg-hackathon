@@ -95,6 +95,21 @@
         }
       }
 
+      #postcode-form {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .form {
+          width: 80%;
+          .label {
+            text-align: justify;
+          }
+        }
+      }
+
       .post-container {
         width: 100%; 
         height: 100%;
@@ -137,6 +152,22 @@
                 }
               }
             }
+
+            &.swapped {
+              background-color: rgba($brightorange, 0.5);
+              
+              .accordion-header {
+                background-color: rgba($brightorange, 0);
+                color: $lightorange;
+              }
+              .accordion-content {
+                color: $lightorange;
+
+                .comment {
+                  border-bottom: 1px solid $lightorange;
+                }
+              }
+            }
           }
           .media {
             width: 100%;
@@ -155,7 +186,7 @@
               }
 
               &.swapped {
-                background-color: $brightorange;
+                background-color: rgba($lightorange, 0);
                 border: none;
                 cursor: default;
                 i {

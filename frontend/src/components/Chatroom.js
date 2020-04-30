@@ -51,6 +51,7 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions, userInfo }) 
   }
 
   function handleInput(e) {
+    console.log(e.target.id)
     if (e.target.id === 'post') {
       setPost({ ...post, text: e.target.value })
     } else if (e.target.id === 'comment') {
@@ -293,7 +294,7 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions, userInfo }) 
                       </article>
                     )
                   })}
-                  <div className="post-comment">
+                  {!elem.is_swapped && <div className="post-comment">
                     <form className='form' onSubmit={e => addComment(e, elem.id)}>
                       <div className='field'>
                         <input
@@ -302,7 +303,7 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions, userInfo }) 
                           className="input is-small"
                           placeholder="Write your comment here"
                           id="comment"
-                          value={editModal ? '' : comment.text}
+                          value={editModal.state ? '' : comment.text}
                         />
                       </div>
                       {error.errors && error.errors.message === 'Unauthorized' && <small className="help is-danger">
@@ -310,7 +311,7 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions, userInfo }) 
                       </small>}
                       <button className="button is-primary is-small">Comment</button>
                     </form>
-                  </div>
+                  </div>}
                 </div>
               </div>
 
