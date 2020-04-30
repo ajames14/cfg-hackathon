@@ -170,11 +170,11 @@ const Profile = (props) => {
         <div className='half'>
           <h2 className='accountTitle'>Account Details</h2>
           <div className="accDetails">
-            <div><h3>Username:</h3><input value={name.username} name='name' placeholder='Enter new username' onChange={(e) => handleInput(e)}></input><button name='name' onClick={(e) => handleSubmit(e)}>Submit</button></div>
+            <div><h3>Username:</h3><input value={name.username} name='name' placeholder='Enter new username' onChange={(e) => handleInput(e)}></input><button className='submit' name='name' onClick={(e) => handleSubmit(e)}>Submit</button></div>
             <p className='error'>{errors.username}</p>
-            <div><h3>Email:</h3><input type="text" value={email.email} name='email' placeholder='Enter new email' onChange={(e) => handleInput(e)} ></input><button name='email' onClick={(e) => handleSubmit(e)}>Submit</button></div>
+            <div><h3>Email:</h3><input type="text" value={email.email} name='email' placeholder='Enter new email' onChange={(e) => handleInput(e)} ></input><button className='submit' name='email' onClick={(e) => handleSubmit(e)}>Submit</button></div>
             <p className='error'>{errors.email}</p>
-            <div><h3>Postcode:</h3><input type="text" value={postcode.postcode} name='postcode' placeholder='Enter new postcode' onChange={(e) => handleInput(e)}></input><button name='postcode' onClick={(e) => handleSubmit(e)}>Submit</button></div>
+            <div><h3>Postcode:</h3><input type="text" value={postcode.postcode} name='postcode' placeholder='Enter new postcode' onChange={(e) => handleInput(e)}></input><button className='submit' name='postcode' onClick={(e) => handleSubmit(e)}>Submit</button></div>
             <p className='error'>{errors.postcode}</p>
             <p className='note'>note: If you change your postcode you will be moved to a new chatroom</p>
           </div>
