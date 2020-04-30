@@ -9,8 +9,8 @@ by [Abigail James](https://github.com/ajames14), [Charlotte Thomas](https://gith
 
 You can launch the app on Heroku [here](), or find the GitHub repo [here](https://github.com/ajames14/cfg-hackathon).
 
-## To run:
-First, make a local copy by cloning the repo.
+## Local installation
+First, make a local copy by cloning or downloading the repo.
 
 For the front-end:
 1. `npm install`
