@@ -22,7 +22,7 @@ For the back-end, in a new terminal:
 3. `createdb hackathon`
 4. `python manage.py makemigrations`
 5. `python manage.py migrate`
-6. `npm run serve:frontend`
+6. `npm run serve:backend`
 
 You should now be able to access the page at `localhost:8000`.
 
