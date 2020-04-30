@@ -1,7 +1,11 @@
 import React, { useState, useContext, useEffect } from 'react'
 import axios from 'axios'
 import Auth from '../lib/auth'
-const moment = require('moment')
+import moment from 'moment'
+
+import DeleteModal from './DeleteModal'
+import EditModal from './EditModal'
+import SwapModal from './SwapModal'
 
 const postInitialState = {
   text: ''
@@ -11,6 +15,13 @@ const errorInitialState = {
   errors: ''
 }
 
+const modalInitialState = {
+  state: false, 
+  type: null, 
+  postId: null, 
+  commentId: null
+}
+
 const Chatroom = ({ postcode, showInstructions, toggleInstructions }) => {
 
   const [chatroom, setChatroom] = useState([])
@@ -18,6 +29,9 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions }) => {
   const [comment, setComment] = useState(postInitialState)
   const [error, setError] = useState(errorInitialState)
   const [activeThread, setActiveThread] = useState(null)
+  const [deleteModal, setDeleteModal] = useState(modalInitialState)
+  const [editModal, setEditModal] = useState(modalInitialState)
+  const [swapModal, setSwapModal] = useState({ state: false, postId: null, postText: '' })
 
   useEffect(() => {
     getData()
@@ -34,6 +48,7 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions }) => {
   }
 
   function handleInput(e) {
+    console.log(e.target.id)
     if (e.target.id === 'post') {
       setPost({ ...post, text: e.target.value })
     } else if (e.target.id === 'comment') {
@@ -41,6 +56,50 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions }) => {
     }
     
     setError({ ...error, errors: '' })
+  }
+
+  function handleEditSubmit(e, type, postId, commentId) {
+    e.preventDefault()
+    if (type === 'post') {
+      if (!post.text) return
+      axios.put(`/api/posts/${postId}/`, post, {
+        headers: { Authorization: `Bearer ${Auth.getToken()}` }
+      })
+        .then(() => { 
+          getData()
+          setEditModal({ ...editModal, state: false })
+        })
+        .then(() => setPost({ ...post, text: '' }))
+        .catch((err) => setError({ errors: err.resp.data }))
+    } else if (type === 'comment') {
+      if (!comment.text) return
+      axios.put(`/api/posts/${postId}/comments/${commentId}/`, comment, {
+        headers: { Authorization: `Bearer ${Auth.getToken()}` }
+      })
+        .then(() => {
+          getData()
+          setEditModal({ ...editModal, state: false })
+        })
+        .then(() => setComment({ ...comment, text: '' }))
+        .catch((err) => setError({ errors: err.resp.data }))
+    }
+  }
+
+  function toggleEditModal(e, type, postId, commentId, text) {
+    e.preventDefault()
+    setEditModal({ state: !editModal.state, type, postId, commentId })
+
+    if (text) {
+      if (type === 'post') {
+        setPost({ ...post, text })
+      } else if (type === 'comment') {
+        setComment({ ...comment, text })
+      }
+    } else {
+      setPost(postInitialState)
+      setComment(postInitialState)
+    }
+
   }
 
   //********************  POST FEATURES
@@ -62,13 +121,11 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions }) => {
     axios.delete(`/api/posts/${postId}`, {
       headers: { Authorization: `Bearer ${Auth.getToken()}` }
     })
-      .then(() => getData())
+      .then(() => {
+        getData()
+        setDeleteModal({ ...deleteModal, state: false })
+      })
       .catch((err) => setError({ errors: err.response.data }))
-  }
-
-  function handleEdit(e, postId) {
-    console.log(postId)
-    // TODO
   }
 
   //********************  COMMENT FEATURES
@@ -90,13 +147,11 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions }) => {
     axios.delete(`/api/posts/${postId}/comments/${commentId}/`, {
       headers: { Authorization: `Bearer ${Auth.getToken()}` }
     })
-      .then(() => getData())
+      .then(() => {
+        getData()
+        setDeleteModal({ ...deleteModal, state: false })
+      })
       .catch((err) => setError({ errors: err.response.data }))
-  }
-
-  function editComment(e, commentId, postId) {
-    console.log(commentId, postId)
-    // TODO
   }
 
   //********************  GENERAL UTILS
@@ -112,6 +167,11 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions }) => {
     return newTime
   }
 
+  function toggleDelete(e, type, postId, commentId) {
+    e.preventDefault()
+    setDeleteModal({ state: !deleteModal.state, type, postId, commentId })
+  }
+
 
   //********************  ACCORDION FEATURES
   function handleAccordion(postId) {
@@ -119,9 +179,11 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions }) => {
     // TODO: figure out a good way to collapse back without collapsing also when interacting with comments
   }
   
-  function handleSwap(postId) {
-    console.log(postId)
-    // TODO
+  function toggleSwapModal(e, postId, postText) {
+    if (e !== 'modal') {
+      e.preventDefault()
+    } 
+    setSwapModal({ state: !swapModal.state, postId, postText })
   }
 
   function handleExchange(postId) {
@@ -136,7 +198,7 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions }) => {
     return (
       
       <div className="post-container">
-        {console.log(activeThread)}
+        {console.log(comment)}
         <div className="level is-mobile" id="chatroom-title">
           <div className="level-left">
             <div className="leve-item">
@@ -178,9 +240,19 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions }) => {
                   </div>
                   
                   <div className="media-right">
-                    {elem.is_swapped ? <i className="icon fas fa-sync-alt swapped"></i> : isOwner(elem) ? <button className="button is-small is-warning" onClick={() => handleSwap(elem.id)}><i className="fas fa-sync-alt not-swapped" onClick={() => handleSwap(elem.id)} ></i></button> : <button className="button is-small is-warning" onClick={() => handleExchange(elem.id)}><i className="fas fa-envelope" onClick={() => handleExchange(elem.id)}></i></button>}
-                    {isOwner(elem) && <button className="button is-small is-warning" onClick={(e) => handleEdit(e, elem.id)}><i className="icon fas fa-pencil-alt" onClick={(e) => handleEdit(e, elem.id)} ></i></button>}
-                    {isOwner(elem) && <button className="button is-small is-warning" onClick={(e) => handleDelete(e, elem.id)}><i className="icon far fa-trash-alt" onClick={(e) => handleDelete(e, elem.id)} ></i></button>}
+                    {elem.is_swapped ? 
+                      <button className="button is-large swapped" disabled><i className="icon fas fa-sync-alt"></i></button> 
+                      : 
+                      isOwner(elem) ? 
+                        <>
+                          <button className="button is-small is-warning" onClick={(e) => toggleSwapModal(e, elem.id, elem.text)}><i className="icon fas fa-sync-alt not-swapped" onClick={(e) => toggleSwapModal(e, elem.id, elem.text)} ></i></button>
+                          <button className="button is-small is-warning" onClick={(e) => toggleEditModal(e, 'post', elem.id, null, elem.text)}><i className="icon fas fa-pencil-alt" onClick={(e) => toggleEditModal(e, 'post', elem.id, null, elem.text)} ></i></button>
+                          <button className="button is-small is-warning" onClick={(e) => toggleDelete(e, 'post', elem.id, null)}><i className="icon far fa-trash-alt" onClick={(e) => toggleDelete(e, 'post', elem.id, null)} ></i></button> 
+                        </>
+                        : 
+                        <button className="button is-small is-warning" onClick={() => handleExchange(elem.id)}><i className="icon fas fa-envelope" onClick={() => handleExchange(elem.id)}></i></button>
+                    }
+         
                   </div>
                 </article>
               </div>
@@ -207,16 +279,16 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions }) => {
                           </div>
                         </div>
                         {
-                          isOwner(comment) &&
+                          !elem.is_swapped && isOwner(comment) &&
                           <div className="media-right">
-                            {isOwner(elem) && <button className="button is-small is-primary" onClick={(e) => editComment(e, comment.id, comment.post)}><i className="icon fas fa-pencil-alt" onClick={(e) => editComment(e, comment.id, comment.post)} ></i></button>}
-                            {isOwner(elem) && <button className="button is-small is-primary" onClick={(e) => deleteComment(e, comment.id, comment.post)}><i className="icon far fa-trash-alt" onClick={(e) => deleteComment(e, comment.id, comment.post)} ></i></button>}
+                            {<button className="button is-small is-primary" onClick={(e) => toggleEditModal(e, 'comment', comment.post, comment.id, comment.text)}><i className="icon fas fa-pencil-alt" onClick={(e) => toggleEditModal(e, 'comment', comment.post, comment.id, comment.text)} ></i></button>}
+                            {<button className="button is-small is-primary" onClick={(e) => toggleDelete(e, 'comment', comment.post, comment.id)}><i className="icon far fa-trash-alt" onClick={(e) => toggleDelete(e, 'comment', comment.post, comment.id)} ></i></button>}
                           </div>
                         }
                       </article>
                     )
                   })}
-                  <div className="post-comment">
+                  {!elem.is_swapped && <div className="post-comment">
                     <form className='form' onSubmit={e => addComment(e, elem.id)}>
                       <div className='field'>
                         <input
@@ -225,7 +297,7 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions }) => {
                           className="input is-small"
                           placeholder="Write your comment here"
                           id="comment"
-                          value={comment.text}
+                          value={editModal.state ? '' : comment.text}
                         />
                       </div>
                       {error.errors && error.errors.message === 'Unauthorized' && <small className="help is-danger">
@@ -233,7 +305,7 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions }) => {
                       </small>}
                       <button className="button is-primary is-small">Comment</button>
                     </form>
-                  </div>
+                  </div>}
                 </div>
               </div>
 
@@ -250,7 +322,7 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions }) => {
                   onChange={e => handleInput(e)}
                   type="text"
                   className="input"
-                  value={post.text}
+                  value={editModal.state ? '' : post.text}
                   placeholder="Post a request"
                   id="post"
                 />
@@ -262,6 +334,9 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions }) => {
             </form>
           </div>
         </div>
+        {editModal.state && <EditModal toggleEditModal={toggleEditModal} editModal={editModal} error={error} handleInput={handleInput} post={post} comment={comment} handleEditSubmit={handleEditSubmit} />}
+        {deleteModal.state && <DeleteModal toggleDelete={toggleDelete} deleteModal={deleteModal} deleteComment={deleteComment} handleDelete={handleDelete} />}
+        {swapModal.state && <SwapModal toggleSwapModal={toggleSwapModal} swapModal={swapModal} getData={getData} />}
       </div>
     )
   }

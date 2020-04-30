@@ -6,7 +6,7 @@
 
   height: 100vh;
 
-  .container, .columns, .colmn {
+  .container, .columns, .column {
     height: 100%;
   }
 
@@ -95,6 +95,21 @@
         }
       }
 
+      #postcode-form {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .form {
+          width: 80%;
+          .label {
+            text-align: justify;
+          }
+        }
+      }
+
       .post-container {
         width: 100%; 
         height: 100%;
@@ -137,6 +152,22 @@
                 }
               }
             }
+
+            &.swapped {
+              background-color: rgba($brightorange, 0.5);
+              
+              .accordion-header {
+                background-color: rgba($brightorange, 0);
+                color: $lightorange;
+              }
+              .accordion-content {
+                color: $lightorange;
+
+                .comment {
+                  border-bottom: 1px solid $lightorange;
+                }
+              }
+            }
           }
           .media {
             width: 100%;
@@ -151,6 +182,16 @@
               &.is-primary:hover {
                 i {
                   color: $lightorange;
+                }
+              }
+
+              &.swapped {
+                background-color: rgba($lightorange, 0);
+                border: none;
+                cursor: default;
+                i {
+                  color: $lightorange;
+                  cursor: default;
                 }
               }
             }
@@ -198,5 +239,27 @@
     }
   }
 
+}
 
+#delete-modal, #swap-modal {
+  .modal-content {
+    padding: 2rem;
+    border-radius: 1rem;
+    background-color: white;
+
+    .question {
+      margin-bottom: 1rem;
+    }
+
+    .button {
+      margin: 0.2rem;
+    }
+  }
+}
+
+#edit-modal {
+  .textarea {
+    width: 100%;
+    margin: 0.5rem 0;
+  }
 }
