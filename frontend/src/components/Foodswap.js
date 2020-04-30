@@ -79,18 +79,19 @@ const FoodSwap = ({ props, handleLoginRegisterModal }) => {
                 Share Food, Waste Less, Stay Home.
               </div>
               <div className="info is-size-6">
-                <span>Short on ingredients? </span>In these tough times, it's
-                important to be able to turn to your neighbours. We've created a
-                chatroom for you to link up with other users in your local area
+                <span>Short on ingredients? </span>In these tough times, it&apos;s
+                important to be able to turn to your neighbours. We&apos;ve created a
+                forum for you to link up with other users in your local area
                 and help each other out. The aim is to avoid unnecessary trips
-                to the shops, particularly if you're unwell or unable to leave
+                to the shops, particularly if you&apos;re unwell or unable to leave
                 the house.
                 <br />
                 <br />
                 <span>How does it work? </span>Simply sign up with your postcode
-                to join your chatroom, post what you need and wait for a
+                to join your forum, post what you need and wait for a
                 friendly neighbour to lend a hand. Sharing is caring - play an
                 active part in the community by sharing your food too!
+                <span className="has-font-weight-bold has-text-danger"> ADD SOMETHING ABOUT EMAIL MECHANISM</span>
                 <br />
                 <br />
                 <span>And remember, </span>always follow the social distancing
@@ -102,26 +103,31 @@ const FoodSwap = ({ props, handleLoginRegisterModal }) => {
           <div className="column" id="chatroom">
 
             {userPostcode && Auth.isAuthorized() && (
-              <Chatroom postcode={userPostcode} showInstructions={showInstructions} toggleInstructions={toggleInstructions} />
+              <Chatroom postcode={userPostcode} userInfo={userInfo} showInstructions={showInstructions} toggleInstructions={toggleInstructions} />
             )}
 
             {!userPostcode && Auth.isAuthorized() && (
-              <form action="" className="form">
-                <div className="field">
-                  <label htmlFor="" className="label">
-                    Enter postcode
-                  </label>
-                  <div className="control">
-                    <input
-                      type="text"
-                      name="postcode"
-                      className="input"
-                      onChange={handleChange}
-                    />
+              <div id="postcode-form">
+                <form action="" className="form">
+                  <div className="field">
+                    <label htmlFor="" className="label">
+                      It seems we don&apos;t have postcode on record for you. 
+                      <br/>
+                      Please enter the first half of your postcode to be connected with people nearby.
+                    </label>
+                    <div className="control">
+                      <input
+                        type="text"
+                        name="postcode"
+                        className="input"
+                        placeholder="e.g. SW1, YO10, IV2"
+                        onChange={handleChange}
+                      />
+                    </div>
                   </div>
-                </div>
-                <button className="button is-black" onClick={e => handlePostcodeSubmit(e)}>Enter</button>
-              </form>
+                  <button className="button is-black" onClick={e => handlePostcodeSubmit(e)}>Enter</button>
+                </form>
+              </div>
             )}
 
             {!Auth.isAuthorized() && (

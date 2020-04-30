@@ -83,7 +83,7 @@
 
   @keyframes fadeIn {
     0% {
-      opacity: 0;
+      opacity: 0.2;
     }
     100% {
       opacity: 1;
@@ -101,6 +101,7 @@
   .profilePic {
     z-index: 1;
     opacity: 0;
+    // display: none;
     margin-top: -60px;
     margin-bottom: 18px;
     display: flex;
@@ -163,7 +164,12 @@
       }
   }
 
-  button {
+  .fadeActive {
+    animation: fadeIn 3s forwards;
+    // animation-delay: 0.9s;
+  }
+
+  .profileButton {
     opacity: 0;
     display: none;
     margin-top: -20px;
@@ -175,8 +181,8 @@
     font-size: 13px;
     background-color: $lightorange;
     border: 1px solid $lightorange;
-    animation: fadeIn 3s forwards;
-    animation-delay: 0.9s;
+    // animation: fadeIn 3s forwards;
+    // animation-delay: 0.9s;
     // border: 2px solid rgba($brightorange, 0.3);
 
     &:focus {
@@ -206,15 +212,59 @@
     }
   }
 
+  .halves {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    // background: blue;
+    margin-top: -100px;
+
+    .favTitle {
+      margin-right: 2vw;
+    }
+    .accountTitle {
+      margin-left: 2vw;
+    }
+
+    .half {
+      display: flex;
+      width: 49%;
+      // background: blue;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+  .accDetails {
+    display: flex;
+    height: 100px;
+    width: 50%;
+    min-height: 150px;
+    flex-direction: column;
+    text-align: left;
+    align-content: flex-start;
+    justify-content: flex-start;
+    // background: rgb(164, 164, 197);
+
+    h3 {
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    div {
+      margin-top: 10px;
+    }
+  }
+
 
   
   .favourites {
     display: flex;
-    width: 90%;
-    justify-content: flex-start;
+    width: 100%;
+    justify-content: center;
     flex-wrap: wrap;
     color: white;
-    // align-items: flex-end;
+    margin-right: 2vw;
 
     @include media('<=540px') {
       width: 100%;
@@ -222,9 +272,12 @@
     }
 
     .recipe {
-      width: 15%;
-      min-width: 180px;
-      min-height: 163px;
+      // width: 15%;
+      // min-width: 150px;
+      // min-height: 163px;
+      min-width: 105px;
+      min-height: 118px;
+      width: 26%;
       position: relative;
       margin-bottom: 20px;
       cursor: pointer;
@@ -309,6 +362,7 @@
         width: 60%;
       }
   }
-  
+
+ 
 
 }
