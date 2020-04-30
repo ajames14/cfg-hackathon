@@ -1,4 +1,4 @@
-### CFG Hackathon
+### CFG Hack From Home 2020
 # **WASTE**NOT**WANT**NOT
 
 by [Abigail James](https://github.com/ajames14), [Charlotte Thomas](https://github.com/Charlotte-Thomas), [Kathrin Eichinger](https://github.com/katheich) & [Marissa Epstein](https://github.com/marepstein)
