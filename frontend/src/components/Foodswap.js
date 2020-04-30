@@ -102,7 +102,7 @@ const FoodSwap = ({ props, handleLoginRegisterModal }) => {
           <div className="column" id="chatroom">
 
             {userPostcode && Auth.isAuthorized() && (
-              <Chatroom postcode={userPostcode} showInstructions={showInstructions} toggleInstructions={toggleInstructions} />
+              <Chatroom postcode={userPostcode} userInfo={userInfo} showInstructions={showInstructions} toggleInstructions={toggleInstructions} />
             )}
 
             {!userPostcode && Auth.isAuthorized() && (

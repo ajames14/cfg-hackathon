@@ -6,6 +6,7 @@ import moment from 'moment'
 import DeleteModal from './DeleteModal'
 import EditModal from './EditModal'
 import SwapModal from './SwapModal'
+import ExchangeModal from './ExchangeModal'
 
 const postInitialState = {
   text: ''
@@ -16,13 +17,14 @@ const errorInitialState = {
 }
 
 const modalInitialState = {
-  state: false, 
-  type: null, 
-  postId: null, 
+  state: false,
+  type: null,
+  postId: null,
   commentId: null
 }
 
-const Chatroom = ({ postcode, showInstructions, toggleInstructions }) => {
+
+const Chatroom = ({ postcode, showInstructions, toggleInstructions, userInfo }) => {
 
   const [chatroom, setChatroom] = useState([])
   const [post, setPost] = useState(postInitialState)
@@ -32,6 +34,7 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions }) => {
   const [deleteModal, setDeleteModal] = useState(modalInitialState)
   const [editModal, setEditModal] = useState(modalInitialState)
   const [swapModal, setSwapModal] = useState({ state: false, postId: null, postText: '' })
+  const [exchangeModal, setExchangeModal] = useState({ state: false, postEmail: null, postUser: null })
 
   useEffect(() => {
     getData()
@@ -53,7 +56,7 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions }) => {
     } else if (e.target.id === 'comment') {
       setComment({ ...comment, text: e.target.value })
     }
-    
+
     setError({ ...error, errors: '' })
   }
 
@@ -64,7 +67,7 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions }) => {
       axios.put(`/api/posts/${postId}/`, post, {
         headers: { Authorization: `Bearer ${Auth.getToken()}` }
       })
-        .then(() => { 
+        .then(() => {
           getData()
           setEditModal({ ...editModal, state: false })
         })
@@ -154,7 +157,7 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions }) => {
   }
 
   //********************  GENERAL UTILS
-  
+
   function isOwner(elem) {
     return Auth.getUserId() === elem.user.id
   }
@@ -177,25 +180,28 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions }) => {
     setActiveThread(postId)
     // TODO: figure out a good way to collapse back without collapsing also when interacting with comments
   }
-  
+
   function toggleSwapModal(e, postId, postText) {
     if (e !== 'modal') {
       e.preventDefault()
-    } 
+    }
     setSwapModal({ state: !swapModal.state, postId, postText })
   }
 
-  function handleExchange(postId) {
-    console.log(postId)
-    // THIS IS WHERE THE EMAIL MECHANISM WILL NEED TO GO
+  function toggleExhangeModal(e, postEmail, postUser) {
+    e.preventDefault()
+    setExchangeModal({ state: !exchangeModal.state, postEmail, postUser })
+
   }
+
+
 
   if (chatroom.length === 0) {
     return <div className="title">Loading</div>
 
   } else {
     return (
-      
+
       <div className="post-container">
         {console.log(comment)}
         <div className="level is-mobile" id="chatroom-title">
@@ -212,7 +218,7 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions }) => {
           <div className="level-right">{postcode && <span className="level-postcode is-size-4 is-family-secondary">Chatroom for {postcode}</span>}</div>
         </div>
 
-        {console.log(chatroom)}
+        {/* {console.log(chatroom)} */}
         <section className="accordions" id="chatroom-posts">
           {chatroom.posts.length > 0 && chatroom.posts.map((elem, i) => {
             return <div className={'accordion' + `${activeThread === i ? ' is-active' : ''}` + `${elem.is_swapped ? ' swapped' : ''}`} key={i} onClick={() => handleAccordion(i)}>
@@ -237,21 +243,21 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions }) => {
                       </div>
                     </div>
                   </div>
-                  
+
                   <div className="media-right">
-                    {elem.is_swapped ? 
-                      <button className="button is-large swapped" disabled><i className="icon fas fa-sync-alt"></i></button> 
-                      : 
-                      isOwner(elem) ? 
+                    {elem.is_swapped ?
+                      <button className="button is-large swapped" disabled><i className="icon fas fa-sync-alt"></i></button>
+                      :
+                      isOwner(elem) ?
                         <>
                           <button className="button is-small is-warning" onClick={(e) => toggleSwapModal(e, elem.id, elem.text)}><i className="icon fas fa-sync-alt not-swapped" onClick={(e) => toggleSwapModal(e, elem.id, elem.text)} ></i></button>
                           <button className="button is-small is-warning" onClick={(e) => toggleEditModal(e, 'post', elem.id, null, elem.text)}><i className="icon fas fa-pencil-alt" onClick={(e) => toggleEditModal(e, 'post', elem.id, null, elem.text)} ></i></button>
-                          <button className="button is-small is-warning" onClick={(e) => toggleDelete(e, 'post', elem.id, null)}><i className="icon far fa-trash-alt" onClick={(e) => toggleDelete(e, 'post', elem.id, null)} ></i></button> 
+                          <button className="button is-small is-warning" onClick={(e) => toggleDelete(e, 'post', elem.id, null)}><i className="icon far fa-trash-alt" onClick={(e) => toggleDelete(e, 'post', elem.id, null)} ></i></button>
                         </>
-                        : 
-                        <button className="button is-small is-warning" onClick={() => handleExchange(elem.id)}><i className="icon fas fa-envelope" onClick={() => handleExchange(elem.id)}></i></button>
+                        :
+                        <button className="button is-small is-warning" onClick={(e) => toggleExhangeModal(e, elem.user.email, elem.user.username)}><i className="icon fas fa-envelope"></i></button>
                     }
-         
+
                   </div>
                 </article>
               </div>
@@ -312,7 +318,7 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions }) => {
             </div>
           })}
         </section>
-        
+
         <div className="level is-mobile" id="chatroom-comment">
           <div className="level-item">
             <form className='post-form form' onSubmit={e => handleSubmit(e)}>
@@ -336,6 +342,7 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions }) => {
         {editModal.state && <EditModal toggleEditModal={toggleEditModal} editModal={editModal} error={error} handleInput={handleInput} post={post} comment={comment} handleEditSubmit={handleEditSubmit} />}
         {deleteModal.state && <DeleteModal toggleDelete={toggleDelete} deleteModal={deleteModal} deleteComment={deleteComment} handleDelete={handleDelete} />}
         {swapModal.state && <SwapModal toggleSwapModal={toggleSwapModal} swapModal={swapModal} getData={getData} />}
+        {exchangeModal.state && <ExchangeModal toggleExchangeModal={toggleExhangeModal} exchangeModal={exchangeModal} userInfo={userInfo}/>}
       </div>
     )
   }
