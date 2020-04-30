@@ -28,6 +28,8 @@ const Profile = (props) => {
   const [email, setEmail] = useState({ email: '' })
   const [postcode, setPostcode] = useState({ postcode: '' })
 
+  const [errors, setError] = useState({})
+
   useEffect(() => {
     fetch('/api/profile', { headers: { Authorization: `Bearer ${Auth.getToken()}` } })
       .then(resp => resp.json())
@@ -85,15 +87,19 @@ const Profile = (props) => {
   }
 
   function handleInput(e) {
+    console.log(errors)
     if (e.target.name === 'name') {
+      errors.username = ''
       setName({ username: e.target.value })
       updateForm({ username: e.target.value })
     }
     if (e.target.name === 'email') {
+      errors.email = ''
       setEmail({ email: e.target.value })
       updateForm({ email: e.target.value })
     }
     if (e.target.name === 'postcode') {
+      errors.postcode = ''
       setPostcode({ postcode: e.target.value })
       updateForm({ postcode: e.target.value })
     }
@@ -112,10 +118,17 @@ const Profile = (props) => {
   }
 
   function makeRequest(obj) {
-    console.log(obj)
+    console.log(Object.keys(obj)[0])
     axios.put('/api/profile', obj, { headers: { Authorization: `Bearer ${Auth.getToken()}` } })
       .then(resp => console.log(resp))
-      .catch((err) => console.log(err))
+      .catch((err) => {
+        console.log(err.response.data)
+        setError({
+          username: Object.keys(obj)[0] === 'username' ? err.response.data.username : '',
+          email: Object.keys(obj)[0] === 'email' ? err.response.data.email : '',
+          postcode: Object.keys(obj)[0] === 'postcode' ? err.response.data.postcode : ''
+        })
+      })
   }
 
 
@@ -158,8 +171,11 @@ const Profile = (props) => {
           <h2 className='accountTitle'>Account Details</h2>
           <div className="accDetails">
             <div><h3>Username:</h3><input value={name.username} name='name' placeholder='Enter new username' onChange={(e) => handleInput(e)}></input><button name='name' onClick={(e) => handleSubmit(e)}>Submit</button></div>
+            <p className='error'>{errors.username}</p>
             <div><h3>Email:</h3><input type="text" value={email.email} name='email' placeholder='Enter new email' onChange={(e) => handleInput(e)} ></input><button name='email' onClick={(e) => handleSubmit(e)}>Submit</button></div>
+            <p className='error'>{errors.email}</p>
             <div><h3>Postcode:</h3><input type="text" value={postcode.postcode} name='postcode' placeholder='Enter new postcode' onChange={(e) => handleInput(e)}></input><button name='postcode' onClick={(e) => handleSubmit(e)}>Submit</button></div>
+            <p className='error'>{errors.postcode}</p>
             <p className='note'>note: If you change your postcode you will be moved to a new chatroom</p>
           </div>
         </div>
