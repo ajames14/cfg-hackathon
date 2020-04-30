@@ -1,4 +1,4 @@
-### CFG Hackathon
+### CFG Hack From Home 2020
 # **WASTE**NOT**WANT**NOT
 
 by [Abigail James](https://github.com/ajames14), [Charlotte Thomas](https://github.com/Charlotte-Thomas), [Kathrin Eichinger](https://github.com/katheich) & [Marissa Epstein](https://github.com/marepstein)
@@ -9,8 +9,8 @@ by [Abigail James](https://github.com/ajames14), [Charlotte Thomas](https://gith
 
 You can launch the app on Heroku [here](), or find the GitHub repo [here](https://github.com/ajames14/cfg-hackathon).
 
-## To run:
-First, make a local copy by cloning the repo.
+## Local installation
+First, make a local copy by cloning or downloading the repo.
 
 For the front-end:
 1. `npm install`
@@ -22,7 +22,7 @@ For the back-end, in a new terminal:
 3. `createdb hackathon`
 4. `python manage.py makemigrations`
 5. `python manage.py migrate`
-6. `npm run serve:frontend`
+6. `npm run serve:backend`
 
 You should now be able to access the page at `localhost:8000`.
 

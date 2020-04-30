@@ -107,6 +107,19 @@ const FoodSwap = ({ props, handleLoginRegisterModal }) => {
             )}
 
             {!userPostcode && Auth.isAuthorized() && (
+              <>
+                <div className="level is-mobile" id="chatroom-title">
+                  <div className="level-left">
+                    <div className="leve-item">
+                      {!showInstructions && (
+                        <i
+                          className="fas fa-info-circle is-size-5"
+                          onClick={() => toggleInstructions()}
+                        ></i>
+                      )}
+                    </div>
+                  </div>
+                </div>
               <div id="postcode-form">
                 <form action="" className="form">
                   <div className="field">
@@ -128,9 +141,23 @@ const FoodSwap = ({ props, handleLoginRegisterModal }) => {
                   <button className="button is-black" onClick={e => handlePostcodeSubmit(e)}>Enter</button>
                 </form>
               </div>
+              </>
             )}
 
             {!Auth.isAuthorized() && (
+              <>
+                <div className="level is-mobile" id="chatroom-title">
+                  <div className="level-left">
+                    <div className="leve-item">
+                      {!showInstructions && (
+                        <i
+                          className="fas fa-info-circle is-size-5"
+                          onClick={() => toggleInstructions()}
+                        ></i>
+                      )}
+                    </div>
+                  </div>
+                </div>
               <div id="sign-up">
                 You must be logged in to join the Community:
                 <br></br>
@@ -148,6 +175,7 @@ const FoodSwap = ({ props, handleLoginRegisterModal }) => {
                   Login
                 </Link>
               </div>
+              </>
             )}
           </div>
         </div>
