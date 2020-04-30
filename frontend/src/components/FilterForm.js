@@ -28,10 +28,13 @@ const FilteredRecipeForm = ({ setRecipes, pageNum }) => {
     const ingredients = tags.toString()
     console.log(ingredients)
 
-    axios.get('https://api.spoonacular.com/recipes/findByIngredients', {
+    axios.get('https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients', {
+      headers: {
+        'content-type': 'application/octet-stream',
+        'x-rapidapi-host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com',
+        'x-rapidapi-key': process.env.REACT_APP_SPOON_API_KEY
+      }, 
       params: {
-        //make secret - don't commit your key:
-        'apiKey': process.env.REACT_APP_SPOON_API_KEY,
         'ingredients': ingredients,
         'ranking': 1, // 1 = maximise used ingredients , 2 = minimise missing ingredients
         'ignorePantry': true,
