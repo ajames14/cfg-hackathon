@@ -181,8 +181,8 @@
     font-size: 13px;
     background-color: $lightorange;
     border: 1px solid $lightorange;
-    // animation: fadeIn 3s forwards;
-    // animation-delay: 0.9s;
+    animation: fadeIn 3s forwards;
+    animation-delay: 0.9s;
     // border: 2px solid rgba($brightorange, 0.3);
 
     &:focus {
