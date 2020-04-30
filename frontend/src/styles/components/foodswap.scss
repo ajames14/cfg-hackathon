@@ -137,8 +137,15 @@
             background-color: $lightorange;
 
             .accordion-header {
-              background-color: $brightorange;
+              background-color: white;
+              color: $brightorange;
+              transition: color ease-in-out 0.2s;
               cursor: pointer;
+              border-radius: 4px;
+
+              &:hover {
+                color: rgba($brightorange, 0.7);
+              }
             }
 
             .accordion-body {
@@ -155,14 +162,16 @@
             }
 
             &.swapped {
-              background-color: rgba($brightorange, 0.5);
               
               .accordion-header {
-                background-color: rgba($brightorange, 0);
+                background-color: rgba($brightorange, 0.5);
                 color: $lightorange;
+                border-radius: 4px;
+                
               }
               .accordion-content {
                 color: $lightorange;
+                background-color: rgba($brightorange, 0.5);
 
                 .comment {
                   border-bottom: 1px solid $lightorange;
