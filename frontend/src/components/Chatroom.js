@@ -115,6 +115,7 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions, userInfo }) 
     })
       .then(() => getData())
       .then(() => setPost({ ...post, text: '' }))
+      .then(() => scrollDown())
       .catch((err) => setError({ errors: err.resp.data }))
   }
 
@@ -198,6 +199,12 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions, userInfo }) 
 
   }
 
+  function scrollDown() {
+    setTimeout(() => {
+      const accordions = document.querySelector('#chatroom-posts')
+      accordions ? accordions.scrollTop = accordions.scrollHeight - accordions.clientHeight : null
+    }, 100)
+  }
 
 
   if (chatroom.length === 0) {
