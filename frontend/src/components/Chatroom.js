@@ -178,8 +178,11 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions, userInfo }) 
 
   //********************  ACCORDION FEATURES
   function handleAccordion(postId) {
-    setActiveThread(postId)
-    // TODO: figure out a good way to collapse back without collapsing also when interacting with comments
+    if (activeThread === postId) {
+      setActiveThread(null)
+    } else {
+      setActiveThread(postId)
+    }
   }
 
   function toggleSwapModal(e, postId, postText) {
@@ -222,7 +225,7 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions, userInfo }) 
         {/* {console.log(chatroom)} */}
         <section className="accordions" id="chatroom-posts">
           {chatroom.posts.length > 0 && chatroom.posts.map((elem, i) => {
-            return <div className={'accordion' + `${activeThread === i ? ' is-active' : ''}` + `${elem.is_swapped ? ' swapped' : ''}`} key={i} onClick={() => handleAccordion(i)}>
+            return <div className={'accordion' + `${activeThread === i ? ' is-active' : ''}` + `${elem.is_swapped ? ' swapped' : ''}`} key={i}>
 
               <div className="accordion-header" onClick={() => handleAccordion(i)}>
 
