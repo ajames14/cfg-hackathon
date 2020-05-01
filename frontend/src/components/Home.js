@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import IntroOverlay from './IntroOverlay'
 import { gsap } from 'gsap'
 
 import bg1 from '../images/FINDRECIPES.png'

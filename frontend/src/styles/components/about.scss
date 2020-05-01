@@ -66,6 +66,7 @@
     padding-right: 35%;
     text-align: justify;
     margin-top: -3.5%;
+    color: black;
     @include media('<=tablet') {
       padding-right: 20%;
     }
@@ -73,8 +74,8 @@
       font-size: 0.8em;
       padding-right: 5%;
     }
-    span{
-      font-weight: bold;
+    span {
+      font-weight: 900;
     }
   }
 }
