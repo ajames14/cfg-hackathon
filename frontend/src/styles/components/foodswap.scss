@@ -106,10 +106,17 @@
 
       i {
         color: white;
+        &.info {
+          margin-right: 0.7rem;
+        }
 
         &:hover {
           color: $brightorange;
+          &.refresh {
+            color: $lightorange;
+          }
         }
+
       }
 
       #postcode-form {
@@ -147,8 +154,8 @@
           flex-grow: 10;
           overflow: scroll;
           
-          .no-comments {
-            margin: 15vw 2vw;
+          .no-posts {
+            margin: 20% 10%;
           }
           .accordions, .accordion, .accordion-header {
             border-radius: 0;

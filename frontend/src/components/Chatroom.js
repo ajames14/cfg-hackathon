@@ -7,6 +7,7 @@ import DeleteModal from './DeleteModal'
 import EditModal from './EditModal'
 import SwapModal from './SwapModal'
 import ExchangeModal from './ExchangeModal'
+import { animateScroll } from 'react-scroll'
 
 const postInitialState = {
   text: ''
@@ -36,16 +37,20 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions, userInfo }) 
   const [swapModal, setSwapModal] = useState({ state: false, postId: null, postText: '' })
   const [exchangeModal, setExchangeModal] = useState({ state: false, postEmail: null, postUser: null })
 
+
   useEffect(() => {
-    getData()
+    getData(true)
   }, [])
 
-  function getData() {
+  function getData(scroll) {
     axios.get(`/api/chatrooms/${postcode}/`, {
       headers: { Authorization: `Bearer ${Auth.getToken()}` }
     })
       .then(resp => {
         setChatroom(resp.data)
+      })
+      .then(() => {
+        scroll === true ? scrollToBottom() : null
       })
       .catch(error => console.log(error))
   }
@@ -113,9 +118,9 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions, userInfo }) 
     axios.post(`/api/${chatroom.id}/posts/`, post, {
       headers: { Authorization: `Bearer ${Auth.getToken()}` }
     })
-      .then(() => getData())
+      .then(() => getData(true))
       .then(() => setPost({ ...post, text: '' }))
-      .then(() => scrollDown())
+      // .then(() => scrollToBottom())
       .catch((err) => setError({ errors: err.resp.data }))
   }
 
@@ -199,11 +204,10 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions, userInfo }) 
 
   }
 
-  function scrollDown() {
-    setTimeout(() => {
-      const accordions = document.querySelector('#chatroom-posts')
-      accordions ? accordions.scrollTop = accordions.scrollHeight - accordions.clientHeight : null
-    }, 100)
+  function scrollToBottom() {
+    animateScroll.scrollToBottom({
+      containerId: 'chatroom-posts'
+    })
   }
 
 
@@ -220,10 +224,13 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions, userInfo }) 
             <div className="leve-item">
               {!showInstructions && (
                 <i
-                  className="fas fa-info-circle is-size-5"
+                  className="info fas fa-info-circle is-size-5"
                   onClick={() => toggleInstructions()}
                 ></i>
               )}
+            </div>
+            <div className="level-item">
+              <button className="button is-small is-primary" onClick={() => getData(true)}><i className="icon refresh fas fa-sync-alt" onClick={() => getData(true)}></i></button>
             </div>
           </div>
           <div className="level-right">{postcode && <span className="level-postcode is-size-4 is-family-secondary">Chatroom for {postcode}</span>}</div>
@@ -231,7 +238,7 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions, userInfo }) 
 
         {/* {console.log(chatroom)} */}
         <section className="accordions" id="chatroom-posts">
-          {chatroom.posts.length === 0 && <div className="no-comments label is-size-6">No posts yet, be the first to make a request in your area!</div>}
+          {chatroom.posts.length === 0 && <div className="no-posts label is-size-6">No posts yet, be the first to make a request in your area!</div>}
           {chatroom.posts.length > 0 && chatroom.posts.map((elem, i) => {
             return <div className={'accordion' + `${activeThread === i ? ' is-active' : ''}` + `${elem.is_swapped ? ' swapped' : ''}`} key={i}>
 
@@ -251,18 +258,18 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions, userInfo }) 
                           {elem.text}
                         </p>
                         <br />
-                        <div className="post-info"><span className="has-text-weight-bold">{elem.user.username} </span><span className="is-size-7">{formatTimestamp(elem.time_stamp)}</span></div>
+                        <div className="post-info"><span className="has-text-weight-bold">{elem.user.username} </span><span className="is-size-7">{formatTimestamp(elem.time_stamp)} ({elem.comments.length} {elem.comments.length === 1 ? 'comment' : 'comments'})</span></div>
                       </div>
                     </div>
                   </div>
 
                   <div className="media-right">
                     {elem.is_swapped ?
-                      <button className="button is-large swapped" disabled><i className="icon fas fa-sync-alt"></i></button>
+                      <button className="button is-large swapped" disabled><i className="icon fas fa-exchange-alt"></i></button>
                       :
                       isOwner(elem) ?
                         <>
-                          <button className="button is-small is-warning" onClick={(e) => toggleSwapModal(e, elem.id, elem.text)}><i className="icon fas fa-sync-alt not-swapped" onClick={(e) => toggleSwapModal(e, elem.id, elem.text)} ></i></button>
+                          <button className="button is-small is-warning" onClick={(e) => toggleSwapModal(e, elem.id, elem.text)}><i className="icon fas fa-exchange-alt not-swapped" onClick={(e) => toggleSwapModal(e, elem.id, elem.text)} ></i></button>
                           <button className="button is-small is-warning" onClick={(e) => toggleEditModal(e, 'post', elem.id, null, elem.text)}><i className="icon fas fa-pencil-alt" onClick={(e) => toggleEditModal(e, 'post', elem.id, null, elem.text)} ></i></button>
                           <button className="button is-small is-warning" onClick={(e) => toggleDelete(e, 'post', elem.id, null)}><i className="icon far fa-trash-alt" onClick={(e) => toggleDelete(e, 'post', elem.id, null)} ></i></button>
                         </>
@@ -355,7 +362,7 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions, userInfo }) 
         {editModal.state && <EditModal toggleEditModal={toggleEditModal} editModal={editModal} error={error} handleInput={handleInput} post={post} comment={comment} handleEditSubmit={handleEditSubmit} />}
         {deleteModal.state && <DeleteModal toggleDelete={toggleDelete} deleteModal={deleteModal} deleteComment={deleteComment} handleDelete={handleDelete} />}
         {swapModal.state && <SwapModal toggleSwapModal={toggleSwapModal} swapModal={swapModal} getData={getData} />}
-        {exchangeModal.state && <ExchangeModal toggleExchangeModal={toggleExhangeModal} exchangeModal={exchangeModal} userInfo={userInfo}/>}
+        {exchangeModal.state && <ExchangeModal toggleExchangeModal={toggleExhangeModal} exchangeModal={exchangeModal} userInfo={userInfo} />}
       </div>
     )
   }
