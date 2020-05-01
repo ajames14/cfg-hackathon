@@ -8,10 +8,7 @@ import gluten from './images/glut.png'
 
 const SingleRecipe = (props) => {
   const [recipe, setRecipe] = useState({
-    title: 'Issue with Spoonacular api'
-    // vegeterian: true,
-    // vegan: true,
-    // glutenFree: true
+    title: 'Loading...'
   })
   const [saveText, setText] = useState('Save To Favourites')
   const [disabled, setDisable] = useState()
@@ -31,8 +28,8 @@ const SingleRecipe = (props) => {
           }
         }
       )
-      .then((resp) => console.log(resp) + setRecipe(resp.data) + getUser(resp))
-      .catch((err) => console.log(err))
+      .then((resp) => setRecipe(resp.data) + getUser(resp))
+      .catch((err) => console.log(err) + setRecipe({ 'title': 'Internal error' }))
     setTimeout(() => {
       addSweep()
     }, 500)
@@ -52,7 +49,6 @@ const SingleRecipe = (props) => {
 
   function checkId(favs, id) {
     if (favs.includes(id)) {
-      // setDisable(true)
       setFavourite(true)
       setText('Remove From Favourites')
     } else if (favs.length >= 20) {
@@ -64,7 +60,6 @@ const SingleRecipe = (props) => {
 
   function save(choice) {
     if (disabled !== 'disabled') {
-      // setDisable(choice)
       setFavourite(choice)
       choice ? setText('Remove from favourites') : setText('Save To Favourites')
       const favArray = user.favourites ? [...user.favourites] : []
@@ -75,13 +70,11 @@ const SingleRecipe = (props) => {
         favArray.push(recipe.id)
       }
       const form = { favourites: favArray }
-      console.log('array after', favArray)
 
       axios
         .put('/api/profile', form, {
           headers: { Authorization: `Bearer ${Auth.getToken()}` }
         })
-        .then((resp) => console.log(resp))
         .catch((err) => console.log(err))
     }
   }
@@ -101,19 +94,11 @@ const SingleRecipe = (props) => {
               {recipe.vegeterian && <h2>Vegetarian</h2>}
               {recipe.vegan && <h2>Vegan</h2>}
               {recipe.glutenFree && <h2>Gluten Free</h2>}
-
-              {/* {recipe.vegeterian && <img width="60px" src={veg} />}
-          {recipe.vegan && <img width="75px" src={vegan} />}
-          {recipe.glutenFree && <img width="65px" src={gluten} />} */}
-              {/* <p>{`Vegeterian: ${recipe.vegeterian ? '✅' : '❌' }`}</p> */}
-              {/* <p>{`Vegan: ${recipe.vegan ? '✅' : '❌' }`}</p> */}
-              {/* <p>{`Gluten Free: ${recipe.glutenFree ? '✅' : '❌' }`}</p> */}
             </div>
             <span className="sweep slideBefore"></span>
           </header>
         </div>
         <div className="column is-half" id="column-2">
-          {/* <img className="recipeImage" width="500px" src={recipe.image}></img> */}
           <div
             className="dangerHtml"
             dangerouslySetInnerHTML={{ __html: recipe.summary }}
@@ -124,12 +109,12 @@ const SingleRecipe = (props) => {
             <div>
               {recipe.extendedIngredients
                 ? recipe.extendedIngredients.map((ing, id) => {
-                    return (
-                      <div className="ingredient" key={id}>
-                        {ing.original}
-                      </div>
-                    )
-                  })
+                  return (
+                    <div className="ingredient" key={id}>
+                      {ing.original}
+                    </div>
+                  )
+                })
                 : null}
             </div>
             {!favourited && Auth.isAuthorized() && (
@@ -151,13 +136,13 @@ const SingleRecipe = (props) => {
             <div className="allSteps">
               {recipe.analyzedInstructions[0]
                 ? recipe.analyzedInstructions[0].steps.map((step, id) => {
-                    return (
-                      <div className="stepInfo" key={id}>
-                        <p className="stepNum">{`${step.number}.`}</p>
-                        <p>{step.step}</p>
-                      </div>
-                    )
-                  })
+                  return (
+                    <div className="stepInfo" key={id}>
+                      <p className="stepNum">{`${step.number}.`}</p>
+                      <p>{step.step}</p>
+                    </div>
+                  )
+                })
                 : 'No steps provided by this recipe'}
             </div>
           )}
