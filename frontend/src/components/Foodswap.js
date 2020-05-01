@@ -77,20 +77,24 @@ const FoodSwap = ({ props, handleLoginRegisterModal }) => {
               </div>
               <div className="info">
                 <span>Short on ingredients? </span>In tough times, it&apos;s
-                important to be able to turn to your neighbours. We&apos;ve created a
-                forum for you to link up with people in your local area
-                and help each other out. The aim is to avoid unnecessary trips
-                to the shops, particularly if you&apos;re unwell or unable to leave
-                the house.
+                important to be able to turn to your neighbours. We&apos;ve
+                created a forum for you to link up with people in your local
+                area and help each other out. The aim is to avoid unnecessary
+                trips to the shops, particularly if you&apos;re unwell or unable
+                to leave the house.
                 <br />
                 <br />
                 <span>How does it work? </span>Simply sign up with your postcode
-                to join your forum, post what you need and wait for a
-                friendly neighbour to lend a hand. Sharing is caring - play an
-                active part in the community by sharing your food too!
+                to join your forum, post what you need and wait for a friendly
+                neighbour to lend a hand. Sharing is caring - play an active
+                part in the community by sharing your food too!
                 <br></br>
                 <br></br>
-                <span>When you and your neighbour are ready to exchange, click <i className="icon fas fa-envelope"></i> on the post to take your conversation private!</span>
+                <span>
+                  When you and your neighbour are ready to exchange, click{' '}
+                  <i className="icon fas fa-envelope"></i> on the post to take
+                  your conversation private!
+                </span>
                 <br />
                 <br />
                 <span>And remember, </span>always follow the social distancing
@@ -100,9 +104,13 @@ const FoodSwap = ({ props, handleLoginRegisterModal }) => {
           )}
 
           <div className="column" id="chatroom">
-
             {userPostcode && Auth.isAuthorized() && (
-              <Chatroom postcode={userPostcode} userInfo={userInfo} showInstructions={showInstructions} toggleInstructions={toggleInstructions} />
+              <Chatroom
+                postcode={userPostcode}
+                userInfo={userInfo}
+                showInstructions={showInstructions}
+                toggleInstructions={toggleInstructions}
+              />
             )}
 
             {!userPostcode && Auth.isAuthorized() && (
@@ -119,27 +127,33 @@ const FoodSwap = ({ props, handleLoginRegisterModal }) => {
                     </div>
                   </div>
                 </div>
-              <div id="postcode-form">
-                <form action="" className="form">
-                  <div className="field">
-                    <label htmlFor="" className="label">
-                      It seems we don&apos;t have postcode on record for you. 
-                      <br/>
-                      Please enter the first half of your postcode to be connected with people nearby.
-                    </label>
-                    <div className="control">
-                      <input
-                        type="text"
-                        name="postcode"
-                        className="input"
-                        placeholder="e.g. SW1, YO10, IV2"
-                        onChange={handleChange}
-                      />
+                <div id="postcode-form">
+                  <form action="" className="form">
+                    <div className="field">
+                      <label htmlFor="" className="label">
+                        It seems we don&apos;t have postcode on record for you.
+                        <br />
+                        Please enter the first half of your postcode to be
+                        connected with people nearby.
+                      </label>
+                      <div className="control">
+                        <input
+                          type="text"
+                          name="postcode"
+                          className="input"
+                          placeholder="e.g. SW1, YO10, IV2"
+                          onChange={handleChange}
+                        />
+                      </div>
                     </div>
-                  </div>
-                  <button className="button is-black" onClick={e => handlePostcodeSubmit(e)}>Enter</button>
-                </form>
-              </div>
+                    <button
+                      className="button"
+                      onClick={(e) => handlePostcodeSubmit(e)}
+                    >
+                      Enter
+                    </button>
+                  </form>
+                </div>
               </>
             )}
 
@@ -157,23 +171,23 @@ const FoodSwap = ({ props, handleLoginRegisterModal }) => {
                     </div>
                   </div>
                 </div>
-              <div id="sign-up">
-                You must be logged in to join the Community:
-                <br></br>
-                <br></br>
-                <Link
-                  className="join-link"
-                  onClick={() => handleLoginRegisterModal('register')}
-                >
-                  Register
-                </Link>
-                <Link
-                  className="join-link"
-                  onClick={() => handleLoginRegisterModal('login')}
-                >
-                  Login
-                </Link>
-              </div>
+                <div id="sign-up">
+                  You must be logged in to join the Community:
+                  <br></br>
+                  <br></br>
+                  <Link
+                    className="join-link"
+                    onClick={() => handleLoginRegisterModal('register')}
+                  >
+                    Register
+                  </Link>
+                  <Link
+                    className="join-link"
+                    onClick={() => handleLoginRegisterModal('login')}
+                  >
+                    Login
+                  </Link>
+                </div>
               </>
             )}
           </div>
