@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import Auth from '../lib/auth'
 import ReactFilestack from 'filestack-react'
 
-import UserContext from './UserContext'
 
 const options = {
   accept: 'image/*',
@@ -16,15 +15,9 @@ const options = {
 
 const Profile = (props) => {
   const [user, setUser] = useState({})
-  // const { userInfo, setUserInfo } = useContext(UserContext)
-  const [favourites, setFav] = useState([
-    { title: 'food title', image: 'https://imgur.com/ViVXJFY.png' },
-    { title: 'food title', image: 'https://imgur.com/ViVXJFY.png' },
-    { title: 'food title', image: 'https://imgur.com/ViVXJFY.png' }
-  ])
+  const [favourites, setFav] = useState([])
   const [image, setImg] = useState()
 
-  const [AccForm, updateForm] = useState({ name: '', email: '', postcode: '' })
   const [name, setName] = useState({ username: '' })
   const [email, setEmail] = useState({ email: '' })
   const [postcode, setPostcode] = useState({ postcode: '' })
@@ -42,8 +35,7 @@ const Profile = (props) => {
         setName({ username: resp.username })
         setEmail({ email: resp.email })
         setPostcode({ postcode: resp.postcode })
-        // updateForm({ name: resp.username, email: resp.email, postcode: resp.postcode })
-        // resp.favourites.length > 0 ? getFavourites(resp) : null
+        resp.favourites.length > 0 ? getFavourites(resp) : null
       })
       .catch((err) => console.log(err))
     addSweep()
@@ -73,7 +65,6 @@ const Profile = (props) => {
             'x-rapidapi-key': process.env.REACT_APP_SPOON_API_KEY
           },
           params: {
-            // 'apiKey': process.env.REACT_APP_SPOON_API_KEY,
             ids: resp.favourites.toString(),
             includeNutrition: false
           }
@@ -101,17 +92,14 @@ const Profile = (props) => {
     if (e.target.name === 'name') {
       errors.username = ''
       setName({ username: e.target.value })
-      updateForm({ username: e.target.value })
     }
     if (e.target.name === 'email') {
       errors.email = ''
       setEmail({ email: e.target.value })
-      updateForm({ email: e.target.value })
     }
     if (e.target.name === 'postcode') {
       errors.postcode = ''
       setPostcode({ postcode: e.target.value })
-      updateForm({ postcode: e.target.value })
     }
   }
 
@@ -191,31 +179,38 @@ const Profile = (props) => {
           <div className="favourites">
             {favourites
               ? favourites.map((fav, id) => {
-                  return (
-                    <div
-                      className="recipe"
-                      key={id}
-                      onClick={() => props.history.push(`/recipe/${fav.id}`)}
-                    >
-                      <div className="middle">
-                        <div className="text">{fav.title}</div>
-                      </div>
-                      <img src={fav.image}></img>
+                return (
+                  <div
+                    className="recipe"
+                    key={id}
+                    onClick={() => props.history.push(`/recipe/${fav.id}`)}
+                  >
+                    <div className="middle">
+                      <div className="text">{fav.title}</div>
                     </div>
-                  )
-                })
+                    <img src={fav.image}></img>
+                  </div>
+                )
+              })
               : null}
           </div>
           {user.favourites
-            ? user.favourites.length < 1 && (
-                <div
-                  className="redirect"
-                  onClick={() => props.history.push('/recipes')}
-                >
-                  Go find some favourites!
-                </div>
-              )
-            : null}
+            ? user.favourites.length < 1 || user.favourites === null && (
+              <div
+                className="redirect"
+                onClick={() => props.history.push('/recipes')}
+              >
+                Go find some favourites!
+              </div>
+            )
+            : (
+              <div
+                className="redirect"
+                onClick={() => props.history.push('/recipes')}
+              >
+                Go find some favourites!
+              </div>
+            )}
         </div>
         <div className="half">
           <h2 className="accountTitle">Account Details</h2>

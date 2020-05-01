@@ -14,7 +14,6 @@
 
   .slideBefore {
     z-index: -1;
-    // background: rgb(84, 107, 117);
     background: $lightorange;
     -webkit-transform: scaleX(0);
     transform: scaleX(0);
@@ -99,7 +98,6 @@
   .profilePic {
     z-index: 1;
     opacity: 0;
-    // display: none;
     margin-top: -60px;
     margin-bottom: 18px;
     display: flex;
@@ -124,8 +122,6 @@
 
     img {
       opacity: 1;
-      // display: block;
-      // height: auto;
       transition: 0.5s ease;
       backface-visibility: hidden;
     }
@@ -164,7 +160,6 @@
 
   .fadeActive {
     animation: fadeIn 3s forwards;
-    // animation-delay: 0.9s;
   }
 
   .profileButton {
@@ -181,7 +176,6 @@
     border: 1px solid $lightorange;
     animation: fadeIn 3s forwards;
     animation-delay: 0.9s;
-    // border: 2px solid rgba($brightorange, 0.3);
 
     &:focus {
       outline: none;
@@ -218,22 +212,17 @@
     display: flex;
     justify-content: space-between;
     width: 100%;
-    // background: blue;
     margin-top: -100px;
-
-    @include media('<=phone') {
-      // justify-self: center;
-      // align-self: center;
-      // align-items: center;
-      // justify-content: center;
-      // margin: 0;
-      // padding: 0;
-    }
 
     .favTitle {
       margin-right: 2vw;
       @include media('<=925px') {
         margin-right: 10vw;
+        font-size: 30px;
+      }
+      @include media('<=780px') {
+        margin: 0;
+        margin-bottom: 15px;
         font-size: 30px;
       }
     }
@@ -244,12 +233,16 @@
         margin-left: 10vw;
         font-size: 30px;
       }
+      @include media('<=780px') {
+        margin: 0;
+        margin-bottom: 15px;
+        font-size: 30px;
+      }
     }
 
     .half {
       display: flex;
       width: 49%;
-      // background: blue;
       flex-direction: column;
       align-items: center;
 
@@ -263,7 +256,6 @@
 
     @include media('<=780px') {
       margin-top: 0;
-      // align-self: center;
       align-items: center;
       flex-direction: column;
     }
@@ -278,13 +270,14 @@
     text-align: left;
     align-content: flex-start;
     justify-content: flex-start;
-    // background: rgb(164, 164, 197);
+
     @include media('<=780px') {
       height: 100%;
+      width: 100%;
     }
     @include media('<=phone') {
       height: 100%;
-      padding-right: 27px;
+      
     }
 
     h3 {
@@ -296,6 +289,11 @@
     div {
       margin-top: 10px;
       margin-left: 22%;
+      @include media('<=780px') {
+        margin-left: 0;
+        width: 100%;
+        text-align: center;
+      }
     }
 
     p {
@@ -303,6 +301,12 @@
       font-size: 14px;
       width: 56%;
       margin-top: 10px;
+
+      @include media('<=780px') {
+        margin-left: 0;
+        width: 80%;
+        align-self: center;
+      }
     }
 
     input {
@@ -319,6 +323,10 @@
       &:focus {
         outline: none;
       }
+
+      @include media('<=780px') {
+        font-size: 13px;
+      }
     }
 
     // makes sure chrome doesn't change background & color with autofill
@@ -329,15 +337,15 @@
       -webkit-box-shadow: 0 0 0 30px $lightorange inset !important;
     }
     input:-webkit-autofill {
-      -webkit-text-fill-color: $brightorange !important;
+      -webkit-text-fill-color: white !important;
     }
 
     ::placeholder {
-      color: $brightorange;
+      color: white;
       opacity: 0.7;
     }
     ::-ms-input-placeholder {
-      color: $brightorange;
+      color: white;
     }
 
     .error {
@@ -361,7 +369,12 @@
       &:hover {
         opacity: 0.8;
       }
+
+      @include media('<=780px') {
+        font-size: 13px;
+      }
     }
+    
   }
 
   .favourites {
@@ -372,16 +385,13 @@
     color: white;
     margin-right: 2vw;
 
-    @include media('<=540px') {
+    @include media('<=780px') {
       width: 100%;
       justify-content: center;
       margin: 0;
     }
 
     .recipe {
-      // width: 15%;
-      // min-width: 150px;
-      // min-height: 163px;
       min-width: 105px;
       min-height: 118px;
       width: 26%;
