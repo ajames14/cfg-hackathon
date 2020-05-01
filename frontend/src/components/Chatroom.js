@@ -7,6 +7,7 @@ import DeleteModal from './DeleteModal'
 import EditModal from './EditModal'
 import SwapModal from './SwapModal'
 import ExchangeModal from './ExchangeModal'
+import { animateScroll } from 'react-scroll'
 
 const postInitialState = {
   text: ''
@@ -36,6 +37,7 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions, userInfo }) 
   const [swapModal, setSwapModal] = useState({ state: false, postId: null, postText: '' })
   const [exchangeModal, setExchangeModal] = useState({ state: false, postEmail: null, postUser: null })
 
+
   useEffect(() => {
     getData()
   }, [])
@@ -46,6 +48,9 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions, userInfo }) 
     })
       .then(resp => {
         setChatroom(resp.data)
+      })
+      .then(() => {
+        scrollToBottom()
       })
       .catch(error => console.log(error))
   }
@@ -115,7 +120,7 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions, userInfo }) 
     })
       .then(() => getData())
       .then(() => setPost({ ...post, text: '' }))
-      .then(() => scrollDown())
+      // .then(() => scrollToBottom())
       .catch((err) => setError({ errors: err.resp.data }))
   }
 
@@ -199,11 +204,10 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions, userInfo }) 
 
   }
 
-  function scrollDown() {
-    setTimeout(() => {
-      const accordions = document.querySelector('#chatroom-posts')
-      accordions ? accordions.scrollTop = accordions.scrollHeight - accordions.clientHeight : null
-    }, 100)
+  function scrollToBottom() {
+    animateScroll.scrollToBottom({
+      containerId: 'chatroom-posts'
+    })
   }
 
 
@@ -355,7 +359,7 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions, userInfo }) 
         {editModal.state && <EditModal toggleEditModal={toggleEditModal} editModal={editModal} error={error} handleInput={handleInput} post={post} comment={comment} handleEditSubmit={handleEditSubmit} />}
         {deleteModal.state && <DeleteModal toggleDelete={toggleDelete} deleteModal={deleteModal} deleteComment={deleteComment} handleDelete={handleDelete} />}
         {swapModal.state && <SwapModal toggleSwapModal={toggleSwapModal} swapModal={swapModal} getData={getData} />}
-        {exchangeModal.state && <ExchangeModal toggleExchangeModal={toggleExhangeModal} exchangeModal={exchangeModal} userInfo={userInfo}/>}
+        {exchangeModal.state && <ExchangeModal toggleExchangeModal={toggleExhangeModal} exchangeModal={exchangeModal} userInfo={userInfo} />}
       </div>
     )
   }
