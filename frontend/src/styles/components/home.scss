@@ -60,6 +60,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    width: 100%;
     @include media('<=795px') {
       flex-direction: column;
       margin: 0px;
@@ -67,12 +68,17 @@
     @include media('<=phone') {
       height: 50%;
     }
-    #small-box {
+    a {
+      width: 100%;
+      height: 100%;
+    }
+    #small-box-1, #small-box-2 {
       background-position: center;
       background-size: cover;
       background-repeat: no-repeat;
       height: 40.5vh;
-      width: 620px;
+      width: 95%;
+      
       @include media('<=795px') {
         width: 100%;
       }

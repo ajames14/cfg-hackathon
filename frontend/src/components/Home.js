@@ -12,7 +12,7 @@ const Home = () => {
         <Link to="/about">
           <div className="box hvr-shrink">
             <div className="home-link">
-              HELPING YOU CUT CROWDS & MINIMIZE WASTE
+              HELPING YOU CUT CROWDS & MINIMISE WASTE
             </div>
             <div to="/about" className="small-link">
               Find out more...
@@ -24,7 +24,7 @@ const Home = () => {
         <Link to="/recipes">
           <div
             className="box hvr-shrink"
-            id="small-box"
+            id="small-box-1"
             style={{ backgroundImage: `url(${bg1})` }}
           >
             <div className="home-link"></div>
@@ -33,7 +33,7 @@ const Home = () => {
         <Link to="/foodswap">
           <div
             className="box hvr-shrink"
-            id="small-box"
+            id="small-box-2"
             style={{ backgroundImage: `url(${bg2})` }}
           >
             <div className="home-link"></div>
