@@ -224,10 +224,13 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions, userInfo }) 
             <div className="leve-item">
               {!showInstructions && (
                 <i
-                  className="fas fa-info-circle is-size-5"
+                  className="info fas fa-info-circle is-size-5"
                   onClick={() => toggleInstructions()}
                 ></i>
               )}
+            </div>
+            <div className="level-item">
+              <button className="button is-small is-primary" onClick={() => getData(true)}><i className="icon refresh fas fa-sync-alt" onClick={() => getData(true)}></i></button>
             </div>
           </div>
           <div className="level-right">{postcode && <span className="level-postcode is-size-4 is-family-secondary">Chatroom for {postcode}</span>}</div>
@@ -235,7 +238,7 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions, userInfo }) 
 
         {/* {console.log(chatroom)} */}
         <section className="accordions" id="chatroom-posts">
-          {chatroom.posts.length === 0 && <div className="no-comments label is-size-6">No posts yet, be the first to make a request in your area!</div>}
+          {chatroom.posts.length === 0 && <div className="no-posts label is-size-6">No posts yet, be the first to make a request in your area!</div>}
           {chatroom.posts.length > 0 && chatroom.posts.map((elem, i) => {
             return <div className={'accordion' + `${activeThread === i ? ' is-active' : ''}` + `${elem.is_swapped ? ' swapped' : ''}`} key={i}>
 
@@ -255,18 +258,18 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions, userInfo }) 
                           {elem.text}
                         </p>
                         <br />
-                        <div className="post-info"><span className="has-text-weight-bold">{elem.user.username} </span><span className="is-size-7">{formatTimestamp(elem.time_stamp)}</span></div>
+                        <div className="post-info"><span className="has-text-weight-bold">{elem.user.username} </span><span className="is-size-7">{formatTimestamp(elem.time_stamp)} ({elem.comments.length} {elem.comments.length === 1 ? 'comment' : 'comments'})</span></div>
                       </div>
                     </div>
                   </div>
 
                   <div className="media-right">
                     {elem.is_swapped ?
-                      <button className="button is-large swapped" disabled><i className="icon fas fa-sync-alt"></i></button>
+                      <button className="button is-large swapped" disabled><i className="icon fas fa-exchange-alt"></i></button>
                       :
                       isOwner(elem) ?
                         <>
-                          <button className="button is-small is-warning" onClick={(e) => toggleSwapModal(e, elem.id, elem.text)}><i className="icon fas fa-sync-alt not-swapped" onClick={(e) => toggleSwapModal(e, elem.id, elem.text)} ></i></button>
+                          <button className="button is-small is-warning" onClick={(e) => toggleSwapModal(e, elem.id, elem.text)}><i className="icon fas fa-exchange-alt not-swapped" onClick={(e) => toggleSwapModal(e, elem.id, elem.text)} ></i></button>
                           <button className="button is-small is-warning" onClick={(e) => toggleEditModal(e, 'post', elem.id, null, elem.text)}><i className="icon fas fa-pencil-alt" onClick={(e) => toggleEditModal(e, 'post', elem.id, null, elem.text)} ></i></button>
                           <button className="button is-small is-warning" onClick={(e) => toggleDelete(e, 'post', elem.id, null)}><i className="icon far fa-trash-alt" onClick={(e) => toggleDelete(e, 'post', elem.id, null)} ></i></button>
                         </>
