@@ -5,7 +5,11 @@ by [Abigail James](https://github.com/ajames14), [Charlotte Thomas](https://gith
 
 ## Overview
 
-(coming soon)
+**WASTE**NOT**WANT**NOT is a recipe and food sharing platform, completed as part of the Code First: Girls Hack from Home hackathon in April 2020. 
+Our aim is to help users avoid the supermarkets, allow local communities to help each other out in times of need and reduce food waste in the process.
+We do this in two ways: 
+1) Recipe Finder: When users are short on supplies and lacking inspiration, they can enter up to 5 key ingredients and we provide recipe options to use up these specific items. 
+2) Food Community: We’ve created a forum allowing users to connect with people in their postcode area. By simply signing up to their local forum, a user can access help if the need it and provide food if they can spare it.
 
 You can launch the app on Heroku [here](https://waste-not-want-not.herokuapp.com/), or find the GitHub repo [here](https://github.com/ajames14/cfg-hackathon).
 
