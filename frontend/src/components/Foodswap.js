@@ -24,9 +24,6 @@ const FoodSwap = ({ props, handleLoginRegisterModal }) => {
   const [data, setData] = useState()
   const [form, updateForm] = useState(initialLoginState)
 
-  console.log('yay', userPostcode)
-  console.log('USERINFO:', userInfo)
-
   function handlePostcodeSubmit(e) {
     e.preventDefault()
     axios
@@ -44,7 +41,7 @@ const FoodSwap = ({ props, handleLoginRegisterModal }) => {
   }
 
   function handleChange(e) {
-    setData({ ...data, [e.target.name]: e.target.value })
+    setData({ ...data, [e.target.name]: e.target.value.toUpperCase() })
     console.log(data)
   }
 
@@ -78,10 +75,10 @@ const FoodSwap = ({ props, handleLoginRegisterModal }) => {
               <div className="subtitle is-size-4" id="intro-subtitle">
                 Share Food, Waste Less, Stay Home.
               </div>
-              <div className="info is-size-6">
-                <span>Short on ingredients? </span>In these tough times, it&apos;s
+              <div className="info">
+                <span>Short on ingredients? </span>In tough times, it&apos;s
                 important to be able to turn to your neighbours. We&apos;ve created a
-                forum for you to link up with other users in your local area
+                forum for you to link up with people in your local area
                 and help each other out. The aim is to avoid unnecessary trips
                 to the shops, particularly if you&apos;re unwell or unable to leave
                 the house.
@@ -91,7 +88,9 @@ const FoodSwap = ({ props, handleLoginRegisterModal }) => {
                 to join your forum, post what you need and wait for a
                 friendly neighbour to lend a hand. Sharing is caring - play an
                 active part in the community by sharing your food too!
-                <span className="has-font-weight-bold has-text-danger"> ADD SOMETHING ABOUT EMAIL MECHANISM</span>
+                <br></br>
+                <br></br>
+                <span>When you and your neighbour are ready to exchange, click <i className="icon fas fa-envelope"></i> on the post to take your conversation private!</span>
                 <br />
                 <br />
                 <span>And remember, </span>always follow the social distancing

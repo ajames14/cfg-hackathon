@@ -52,7 +52,7 @@ const Navbar = ({ handleLoginRegisterModal }) => {
         <div className="navbar-end">
           <div className="navbar-item is-hoverable">
             <Link className="navbar-link is-arrowless" to="/about">
-              Info
+              About
             </Link>
           </div>
           <div className="navbar-item is-hoverable">
