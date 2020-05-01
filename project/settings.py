@@ -138,3 +138,5 @@ REST_FRAMEWORK = {
 }
 
 AUTH_USER_MODEL = 'jwt_app.User'
+
+django_heroku.settings(locals()) # put this last

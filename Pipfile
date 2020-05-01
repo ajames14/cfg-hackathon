@@ -11,6 +11,7 @@ django = "*"
 psycopg2-binary = "*"
 pyjwt = "*"
 djangorestframework = "*"
+django-heroku = "*"
 
 [requires]
 python_version = "3.7"
