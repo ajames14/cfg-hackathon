@@ -37,7 +37,6 @@ const Navbar = ({ handleLoginRegisterModal, history }) => {
       role="navigation"
       aria-label="main navigation"
     >
-      {console.log('props', history)}
       <div className="navbar-brand">
         <Link id="homeicon" className="navbar-item has-text-centered" to="/">
           waste

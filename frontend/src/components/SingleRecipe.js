@@ -31,7 +31,7 @@ const SingleRecipe = (props) => {
           }
         }
       )
-      .then((resp) => console.log(resp) + setRecipe(resp.data) + getUser(resp))
+      .then((resp) => setRecipe(resp.data) + getUser(resp))
       .catch((err) => console.log(err))
     setTimeout(() => {
       addSweep()
@@ -75,7 +75,6 @@ const SingleRecipe = (props) => {
         favArray.push(recipe.id)
       }
       const form = { favourites: favArray }
-      console.log('array after', favArray)
 
       axios
         .put('/api/profile', form, {

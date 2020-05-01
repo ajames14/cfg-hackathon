@@ -3,7 +3,6 @@ import React from 'react'
 const DeleteModal = ({ toggleDelete, deleteModal, deleteComment, handleDelete }) => (
  
   <div className="modal is-active" id="delete-modal">
-    {console.log(deleteModal)}
     <div className="modal-background" onClick={toggleDelete}></div>
     <div className="modal-content">
       <div className="text is-size-5 question">

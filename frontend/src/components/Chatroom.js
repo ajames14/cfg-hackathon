@@ -52,11 +52,10 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions, userInfo }) 
       .then(() => {
         scroll === true ? scrollToBottom() : null
       })
-      .catch(error => console.log(error))
+      .catch(error => setError({ ...error.message }))
   }
 
   function handleInput(e) {
-    console.log(e.target.id)
     if (e.target.id === 'post') {
       setPost({ ...post, text: e.target.value })
     } else if (e.target.id === 'comment') {
@@ -236,7 +235,6 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions, userInfo }) 
           <div className="level-right">{postcode && <span className="level-postcode is-size-4 is-family-secondary">Chatroom for {postcode}</span>}</div>
         </div>
 
-        {/* {console.log(chatroom)} */}
         <section className="accordions" id="chatroom-posts">
           {chatroom.posts.length === 0 && <div className="no-posts label is-size-6">No posts yet, be the first to make a request in your area!</div>}
           {chatroom.posts.length > 0 && chatroom.posts.map((elem, i) => {

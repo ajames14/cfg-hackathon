@@ -5,7 +5,6 @@ const ExchangeModal = ({ toggleExchangeModal, exchangeModal, userInfo }) => {
 
   function handleExchange(e) {
     e.preventDefault()
-    console.log(e.target.value)
     const templateParams = {
       email_to: e.target.value,
       reply_to: userInfo.email

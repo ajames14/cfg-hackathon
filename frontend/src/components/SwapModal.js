@@ -21,7 +21,6 @@ const SwapModal = ({ toggleSwapModal, swapModal, getData }) => {
   }
  
   return (<div className="modal is-active" id="swap-modal">
-    {console.log(swapModal)}
     <div className="modal-background" onClick={toggleSwapModal}></div>
     <div className="modal-content">
       <div className="text is-size-5 question">
