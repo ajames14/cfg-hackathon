@@ -61,7 +61,6 @@ class ProfileView(APIView):
     def put(self, request):
         initial_user = User.objects.get(pk=request.user.id)
         if 'postcode' in request.data.keys():
-            print(request.data['postcode'].upper())
             request.data['postcode'] = request.data['postcode'].upper()
 
         updated_user = UserSerializer(initial_user, data=request.data)
@@ -70,13 +69,11 @@ class ProfileView(APIView):
             updated_user.save()
 
             if 'postcode' in request.data.keys():
-                print('postcode entered')
                 try:
                   # remove user from other chatroom:
                     chatrooms_all = Chatroom.objects.all()
                     serializer_all = ChatroomSerializer(
                         chatrooms_all, many=True)
-                    # print('ALLLL', serializer_all.data)
 
                     for ordered_dict in serializer_all.data:
                         for user_tuple in list(ordered_dict.items())[2][1]:
