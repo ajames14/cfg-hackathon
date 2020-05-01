@@ -81,7 +81,7 @@ const App = (props) => {
 
   function checkUser() {
     if (Auth.isAuthorized()) {
-      console.log('setting user')
+      // console.log('setting user')
       axios
         .get('/api/profile', {
           headers: { Authorization: `Bearer ${Auth.getToken()}` }
@@ -89,10 +89,10 @@ const App = (props) => {
         .then((response) => {
           setUserInfo(response.data)
           setUserPostcode(response.data.postcode)
-          console.log('response', response.data)
+          // console.log('response', response.data)
         })
         .catch((error) => {
-          console.log(error)
+          // console.log(error)
           setUserInfo(null)
           Auth.logout()
           props.history.push('/login')
@@ -101,7 +101,7 @@ const App = (props) => {
   }
 
   useEffect(() => {
-    console.log('running')
+    // console.log('running')
     // console.log(Auth.getToken())
     checkUser()
   }, [])

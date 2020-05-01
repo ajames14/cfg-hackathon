@@ -26,7 +26,7 @@ const LoginRegister = ({ props, handleLoginRegisterModal, use, checkUser }) => {
   function handleInput(e) {
     updateForm({ ...form, [e.target.name]: e.target.value })
     setError({ ...error, errors: '' })
-    console.log(form)
+    // console.log(form)
   }
 
   function handleSubmit(e) {
@@ -43,7 +43,6 @@ const LoginRegister = ({ props, handleLoginRegisterModal, use, checkUser }) => {
         })
         .catch((err) => {
           setError({ errors: err.response.data })
-          console.log(error)
         })
     }
 
@@ -60,7 +59,6 @@ const LoginRegister = ({ props, handleLoginRegisterModal, use, checkUser }) => {
   }
 
   function handlePurpose() {
-    console.log(purpose)
     if (purpose === 'login') {
       setPurpose('register')
       updateForm(formInitialReg)
@@ -72,7 +70,6 @@ const LoginRegister = ({ props, handleLoginRegisterModal, use, checkUser }) => {
 
   return (
     <div className="modal is-active" id="login-register">
-      {console.log(form)}
       <div
         className="modal-background"
         onClick={() => handleLoginRegisterModal()}

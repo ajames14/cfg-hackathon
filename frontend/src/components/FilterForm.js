@@ -26,7 +26,6 @@ const FilteredRecipeForm = ({ setRecipes, pageNum }) => {
   function handleSubmit(e) {
     e.preventDefault()
     const ingredients = tags.toString()
-    console.log(ingredients)
 
     axios.get('https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients', {
       headers: {
@@ -41,12 +40,11 @@ const FilteredRecipeForm = ({ setRecipes, pageNum }) => {
         'number': 12 * pageNum // number of recipes you want returned
       }
     })
-      .then(resp => console.log(resp) + setRecipes(resp.data))
+      .then(resp => setRecipes(resp.data))
       .catch(err => console.log(err))
   }
 
   function handleSelect(selectedItems) {
-    console.log(selectedItems)
     if (selectedItems === null) return setTags([])
     const newSelection = selectedItems.map(item => item.value)
     setTags(newSelection)
@@ -58,8 +56,6 @@ const FilteredRecipeForm = ({ setRecipes, pageNum }) => {
 
   return (
     <div>
-      {console.log('OPTIONS', options)}
-      {console.log('SELECTION', tags)}
       <div className="search-title is-size-5">
         Enter some ingredients from your cupboard...
       </div>

@@ -32,11 +32,10 @@ const FoodSwap = ({ props, handleLoginRegisterModal }) => {
       })
       .then((res) => {
         setUserPostcode(res.data.postcode)
-        console.log('foodswapdata', data)
+        // console.log('foodswapdata', data)
       })
       .catch((error) => {
         setError(error.response.data.errors)
-        console.log(error)
       })
   }
 
