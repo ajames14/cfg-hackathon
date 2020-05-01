@@ -3,6 +3,9 @@
   display: flex;
   flex-direction: row;
   margin-top: 20px;
+  @include media('<=795px') {
+    flex-direction: column;
+  }
   @include media('<=phone') {
     width: 100vw;
     flex-direction: column;
@@ -27,8 +30,8 @@
         font-size: 5rem;
         width: auto;
       }
-      @include media('<=780px') {
-        font-size: 5rem;
+      @include media('<=795px') {
+        width: 100%;
       }
       .home-link {
         color: white;
@@ -37,11 +40,11 @@
         @include media('<=1300px') {
           font-size: 4em;
         }
-        @include media('<=780px') {
-          font-size: 0.6em;
-        }
-        @include media('<=540px') {
-          font-size: 0.5em;
+        // @include media('<=780px') {
+        //   font-size: 2em;
+        // }
+        @include media('<=phone') {
+          font-size: 0.7em;
         }
       }
       .small-link {
@@ -57,8 +60,9 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    @include media('<=780px') {
+    @include media('<=795px') {
       flex-direction: column;
+      margin: 0px;
     }
     @include media('<=phone') {
       height: 50%;
@@ -69,13 +73,13 @@
       background-repeat: no-repeat;
       height: 40.5vh;
       width: 620px;
-      @include media('<=desktop') {
-        width: 35rem;
+      @include media('<=795px') {
+        width: 100%;
       }
-      @include media('<=phone') {
-        width: 20rem;
-        // height: 25vh;
-      }
+      // @include media('<=phone') {
+      //   width: 20rem;
+      //   // height: 25vh;
+      // }
       .home-link {
         color: $brightorange;
         font-weight: 800;

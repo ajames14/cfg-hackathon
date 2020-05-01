@@ -7,7 +7,7 @@ by [Abigail James](https://github.com/ajames14), [Charlotte Thomas](https://gith
 
 (coming soon)
 
-You can launch the app on Heroku [here](), or find the GitHub repo [here](https://github.com/ajames14/cfg-hackathon).
+You can launch the app on Heroku [here](https://waste-not-want-not.herokuapp.com/), or find the GitHub repo [here](https://github.com/ajames14/cfg-hackathon).
 
 ## Local installation
 First, make a local copy by cloning or downloading the repo.

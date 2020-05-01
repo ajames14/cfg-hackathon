@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { gsap } from 'gsap'
 
-import bg1 from '../images/FINDRECIPES.png'
+import bg1 from '../images/findrecipes.png'
 import bg2 from '../images/INGREDIENTSSHARE.png'
 
 const Home = () => {
