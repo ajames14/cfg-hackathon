@@ -221,6 +221,15 @@
     // background: blue;
     margin-top: -100px;
 
+    @include media('<=phone') {
+      // justify-self: center;
+      // align-self: center;
+      // align-items: center;
+      // justify-content: center;
+      // margin: 0;
+      // padding: 0;
+    }
+
     .favTitle {
       margin-right: 2vw;
       @include media('<=925px') {
@@ -243,6 +252,7 @@
       // background: blue;
       flex-direction: column;
       align-items: center;
+
       @include media('<=phone') {
         width: 100%;
       }
@@ -365,6 +375,7 @@
     @include media('<=540px') {
       width: 100%;
       justify-content: center;
+      margin: 0;
     }
 
     .recipe {
@@ -387,6 +398,7 @@
       @include media('<=540px') {
         min-width: 100px;
         min-height: 100px;
+        margin: 5px;
       }
     }
 

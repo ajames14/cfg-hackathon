@@ -43,7 +43,7 @@ const Profile = (props) => {
         setEmail({ email: resp.email })
         setPostcode({ postcode: resp.postcode })
         // updateForm({ name: resp.username, email: resp.email, postcode: resp.postcode })
-        resp.favourites.length > 0 ? getFavourites(resp) : null
+        // resp.favourites.length > 0 ? getFavourites(resp) : null
       })
       .catch((err) => console.log(err))
     addSweep()
