@@ -168,7 +168,7 @@ const Profile = (props) => {
                   onClick={onPick}
                   src={
                     !image
-                      ? 'https://bulma.io/images/placeholders/128x128.png'
+                      ? 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRcEQfF7q7j163x2_R6mMHS2qLwq1CSKziwMtOPkTFAz2Zhjcy1&usqp=CAU'
                       : image
                   }
                 />

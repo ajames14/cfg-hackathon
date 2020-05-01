@@ -96,7 +96,7 @@ const SingleRecipe = (props) => {
       <div className="columns is-multiline">
         <div className="column is-half">
           <header>
-            {recipe.title}
+            <div className="title">{recipe.title}</div>
             <div className="level diets">
               {recipe.vegeterian && <h2>Vegetarian</h2>}
               {recipe.vegan && <h2>Vegan</h2>}

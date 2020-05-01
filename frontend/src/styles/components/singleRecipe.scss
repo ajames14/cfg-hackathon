@@ -25,8 +25,8 @@
   @include media('<=540px') {
     font-size: 12px;
   }
-  height: 100vh; 
-  
+  height: 100vh;
+
   .columns {
     height: 100%;
 
@@ -39,6 +39,7 @@
         margin: 10px;
         font-size: 10px;
         text-transform: uppercase;
+        color: white;
         // background-color: $lightorange;
         img {
           margin: 0 6px;
@@ -58,20 +59,26 @@
         width: 100%;
         height: 100%;
         padding: 10px 10px;
-        font-size: 5.5em;
         margin: 30px 0 0 0;
-        min-height: 90px;
-        color: white;
-        line-height: 1.2em;
-        text-align: left;
-        @include media('<=tablet') {
-          font-size: 5em;
-          padding: 0;
-        }
+        .title {
+          font-size: 5.5em;
+          min-height: 90px;
+          color: white;
+          line-height: 1.2em;
+          text-align: left;
+          @include media('<=1200px') {
+            font-size: 4.3em;
+            padding: 0;
+          }
+          @include media('<=tablet') {
+            font-size: 5em;
+            padding: 0;
+          }
 
-        @include media('<=phone') {
-          font-size: 5em;
-          padding: 0;
+          @include media('<=phone') {
+            font-size: 5em;
+            padding: 0;
+          }
         }
 
         span {
@@ -104,7 +111,7 @@
     #column-2 {
       height: 100%;
       overflow-y: scroll;
-      margin-top: 45px;
+      margin-top: 30px;
       @include media('<=phone') {
         overflow: unset;
       }
