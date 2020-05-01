@@ -152,7 +152,7 @@
 
         #chatroom-posts {
           flex-grow: 10;
-          overflow: scroll;
+          overflow-y: scroll;
           
           .no-posts {
             margin: 20% 10%;
