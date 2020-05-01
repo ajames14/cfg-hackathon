@@ -39,10 +39,10 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions, userInfo }) 
 
 
   useEffect(() => {
-    getData()
+    getData(true)
   }, [])
 
-  function getData() {
+  function getData(scroll) {
     axios.get(`/api/chatrooms/${postcode}/`, {
       headers: { Authorization: `Bearer ${Auth.getToken()}` }
     })
@@ -50,7 +50,7 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions, userInfo }) 
         setChatroom(resp.data)
       })
       .then(() => {
-        scrollToBottom()
+        scroll === true ? scrollToBottom() : null
       })
       .catch(error => console.log(error))
   }
@@ -118,7 +118,7 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions, userInfo }) 
     axios.post(`/api/${chatroom.id}/posts/`, post, {
       headers: { Authorization: `Bearer ${Auth.getToken()}` }
     })
-      .then(() => getData())
+      .then(() => getData(true))
       .then(() => setPost({ ...post, text: '' }))
       // .then(() => scrollToBottom())
       .catch((err) => setError({ errors: err.resp.data }))
