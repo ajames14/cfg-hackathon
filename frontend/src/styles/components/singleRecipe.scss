@@ -103,7 +103,7 @@
     }
     #column-2 {
       height: 100%;
-      overflow: scroll;
+      overflow-y: scroll;
       margin-top: 45px;
       @include media('<=phone') {
         overflow: unset;
