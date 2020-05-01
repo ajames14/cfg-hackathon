@@ -18,18 +18,6 @@
     overflow-y: auto; 
   }
 
-  @include media('<=tablet') {
-    height: 100%;
-
-    .columns {
-      margin-bottom: 10vh;
-    }
-
-    .level {
-      padding-top: 3vh;
-    }
-  }
-
   .columns, .column {
     text-align: center;
 
@@ -98,6 +86,8 @@
       
       @include media('<=tablet') {
         margin-top: 10%;
+        height: 90vh;
+        margin-bottom: 0.5rem;
       }
 
       @include media('<=phone') {
@@ -152,10 +142,10 @@
 
         #chatroom-posts {
           flex-grow: 10;
-          overflow: scroll;
+          overflow-y: scroll;
           
           .no-posts {
-            margin: 15vw 2vw;
+            margin: 20% 10%;
           }
           .accordions, .accordion, .accordion-header {
             border-radius: 0;
@@ -277,7 +267,6 @@
       }
     }
   }
-
 }
 
 #delete-modal, #swap-modal {
