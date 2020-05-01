@@ -43,16 +43,9 @@ const Profile = (props) => {
   function addSweep() {
     const sweep = document.querySelector('.sweep')
     sweep ? sweep.classList.add('slideActive') : null
-    const profilePic = document.querySelector('figure')
-    // profilePic ? profilePic.classList.add('fadeActive') + console.log(profilePic) : null
-    // setTimeout(()=> {
-    //   // profilePic ? profilePic.classList.remove('fadeActive') : null
-    // }, 4000)
   }
 
   function getFavourites(resp) {
-    console.log('FAVS', resp.favourites.toString())
-
     axios
       .get(
         'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/informationBulk',
@@ -69,12 +62,11 @@ const Profile = (props) => {
           }
         }
       )
-      .then((resp) => console.log(resp.data) + setFav(resp.data))
+      .then((resp) => setFav(resp.data))
       .catch((err) => console.log(err))
   }
 
   const handleImageUpload = (res) => {
-    console.log('UPLOAD', res.filesUploaded[0].url)
     setImg(res.filesUploaded[0].url)
     const form = { postcode: user.postcode, image: res.filesUploaded[0].url }
 
@@ -82,12 +74,10 @@ const Profile = (props) => {
       .put('/api/profile', form, {
         headers: { Authorization: `Bearer ${Auth.getToken()}` }
       })
-      .then((resp) => console.log(resp))
       .catch((err) => console.log(err))
   }
 
   function handleInput(e) {
-    console.log(errors)
     if (e.target.name === 'name') {
       errors.username = ''
       setName({ username: e.target.value })
@@ -115,14 +105,11 @@ const Profile = (props) => {
   }
 
   function makeRequest(obj) {
-    console.log(Object.keys(obj)[0])
     axios
       .put('/api/profile', obj, {
         headers: { Authorization: `Bearer ${Auth.getToken()}` }
       })
-      .then((resp) => console.log(resp))
       .catch((err) => {
-        console.log(err.response.data)
         setError({
           username:
             Object.keys(obj)[0] === 'username'
@@ -178,19 +165,19 @@ const Profile = (props) => {
           <div className="favourites">
             {favourites
               ? favourites.map((fav, id) => {
-                  return (
-                    <div
-                      className="recipe"
-                      key={id}
-                      onClick={() => props.history.push(`/recipe/${fav.id}`)}
-                    >
-                      <div className="middle">
-                        <div className="text">{fav.title}</div>
-                      </div>
-                      <img src={fav.image}></img>
+                return (
+                  <div
+                    className="recipe"
+                    key={id}
+                    onClick={() => props.history.push(`/recipe/${fav.id}`)}
+                  >
+                    <div className="middle">
+                      <div className="text">{fav.title}</div>
                     </div>
-                  )
-                })
+                    <img src={fav.image}></img>
+                  </div>
+                )
+              })
               : null}
           </div>
           {user.favourites ? (
@@ -204,13 +191,13 @@ const Profile = (props) => {
               </div>
             ))
           ) : (
-            <div
-              className="redirect"
-              onClick={() => props.history.push('/recipes')}
-            >
-              Go find some favourites!
-            </div>
-          )}
+              <div
+                className="redirect"
+                onClick={() => props.history.push('/recipes')}
+              >
+                Go find some favourites!
+              </div>
+            )}
         </div>
         <div className="half">
           <h2 className="accountTitle">Account Details</h2>
