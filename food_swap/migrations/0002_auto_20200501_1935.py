@@ -13,39 +13,39 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AddField(
-            model_name='chatroom',
-            name='users',
-            field=models.ManyToManyField(blank=True, related_name='chatroom', to=settings.AUTH_USER_MODEL),
-        ),
-        migrations.AddField(
-            model_name='comment',
-            name='post',
-            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, related_name='comments', to='food_swap.Post'),
-            preserve_default=False,
-        ),
-        migrations.AddField(
-            model_name='comment',
-            name='user',
-            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, related_name='comments', to=settings.AUTH_USER_MODEL),
-            preserve_default=False,
-        ),
-        migrations.AddField(
-            model_name='intermediary',
-            name='Chatroom',
-            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, related_name='medium', to='food_swap.Chatroom'),
-            preserve_default=False,
-        ),
-        migrations.AddField(
-            model_name='intermediary',
-            name='user',
-            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, related_name='medium', to=settings.AUTH_USER_MODEL),
-            preserve_default=False,
-        ),
-        migrations.AddField(
-            model_name='post',
-            name='user',
-            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, related_name='posts', to=settings.AUTH_USER_MODEL),
-            preserve_default=False,
-        ),
+        # migrations.AddField(
+        #     model_name='chatroom',
+        #     name='users',
+        #     field=models.ManyToManyField(blank=True, related_name='chatroom', to=settings.AUTH_USER_MODEL),
+        # ),
+        # migrations.AddField(
+        #     model_name='comment',
+        #     name='post',
+        #     field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, related_name='comments', to='food_swap.Post'),
+        #     preserve_default=False,
+        # ),
+        # migrations.AddField(
+        #     model_name='comment',
+        #     name='user',
+        #     field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, related_name='comments', to=settings.AUTH_USER_MODEL),
+        #     preserve_default=False,
+        # ),
+        # migrations.AddField(
+        #     model_name='intermediary',
+        #     name='Chatroom',
+        #     field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, related_name='medium', to='food_swap.Chatroom'),
+        #     preserve_default=False,
+        # ),
+        # migrations.AddField(
+        #     model_name='intermediary',
+        #     name='user',
+        #     field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, related_name='medium', to=settings.AUTH_USER_MODEL),
+        #     preserve_default=False,
+        # ),
+        # migrations.AddField(
+        #     model_name='post',
+        #     name='user',
+        #     field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, related_name='posts', to=settings.AUTH_USER_MODEL),
+        #     preserve_default=False,
+        # ),
     ]
