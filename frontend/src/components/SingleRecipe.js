@@ -78,7 +78,7 @@ const SingleRecipe = (props) => {
       console.log('array after', favArray)
 
       axios
-        .put('http://localhost:8000/api/profile', form, {
+        .put('/api/profile', form, {
           headers: { Authorization: `Bearer ${Auth.getToken()}` }
         })
         .then((resp) => console.log(resp))

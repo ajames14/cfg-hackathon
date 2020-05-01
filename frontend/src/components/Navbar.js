@@ -4,7 +4,7 @@ import Auth from '../lib/auth'
 import UserContext from './UserContext'
 import PostcodeContext from './PostcodeContext'
 
-const Navbar = ({ handleLoginRegisterModal }) => {
+const Navbar = ({ handleLoginRegisterModal, history }) => {
   const { userInfo, setUserInfo } = useContext(UserContext)
   const { userPostcode, setUserPostcode } = useContext(PostcodeContext)
 
@@ -15,6 +15,15 @@ const Navbar = ({ handleLoginRegisterModal }) => {
     burger.classList.toggle('is-active')
     menuList.classList.toggle('is-active')
   }
+
+  useEffect(() => {
+    const burger = document.querySelector('.burger')
+    const menuList = document.querySelector('#' + burger.dataset.target)
+
+    burger.classList.remove('is-active')
+    menuList.classList.remove('is-active')
+    
+  }, [history.location.pathname])
 
   function handleLogout() {
     Auth.logout()
@@ -28,6 +37,7 @@ const Navbar = ({ handleLoginRegisterModal }) => {
       role="navigation"
       aria-label="main navigation"
     >
+      {console.log('props', history)}
       <div className="navbar-brand">
         <Link id="homeicon" className="navbar-item has-text-centered" to="/">
           waste
