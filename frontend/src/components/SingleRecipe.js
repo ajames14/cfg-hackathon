@@ -145,6 +145,7 @@ const SingleRecipe = (props) => {
                 {saveText}
               </button>
             )}
+            <button className="favButton" id='ingredientButton' onClick={() => props.history.push('/foodswap')}>Missing some Ingredients?</button>
           </div>
           {recipe.analyzedInstructions && (
             <div className="allSteps">

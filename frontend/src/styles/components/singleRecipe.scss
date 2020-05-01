@@ -167,7 +167,7 @@
           padding: 12px 0;
           // width: 4em;
           min-width: 200px;
-          margin: 16px 0px;
+          margin: 16px 3px;
           border: 2px solid $brightorange;
           border-radius: 2%;
           font-weight: 800;
@@ -206,6 +206,13 @@
           }
         }
       }
+
+      #ingredientButton {
+        @include media('<=phone') {
+          margin: 0 3px;
+        }
+      }
+
       .allSteps {
         // display: flex;
         // flex-direction: column;
