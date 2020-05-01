@@ -181,8 +181,8 @@
     font-size: 13px;
     background-color: $lightorange;
     border: 1px solid $lightorange;
-    // animation: fadeIn 3s forwards;
-    // animation-delay: 0.9s;
+    animation: fadeIn 3s forwards;
+    animation-delay: 0.9s;
     // border: 2px solid rgba($brightorange, 0.3);
 
     &:focus {
@@ -233,12 +233,19 @@
       flex-direction: column;
       align-items: center;
     }
+
+    @include media('<=780px') {
+      margin-top: 0;
+      // align-self: center;
+      align-items: center;
+      flex-direction: column;
+    }
   }
 
   .accDetails {
     display: flex;
     height: 100px;
-    width: 50%;
+    width: 90%;
     min-height: 150px;
     flex-direction: column;
     text-align: left;
@@ -249,11 +256,78 @@
     h3 {
       font-weight: 800;
       margin-bottom: 8px;
+      color: $brightorange;
     }
 
     div {
       margin-top: 10px;
+      margin-left: 22%;
     }
+
+    p {
+      margin-left: 22%;
+      font-size: 14px;
+      width: 56%;
+    }
+
+    input {
+      width: 70%;
+      max-width: 300px;
+      background: $lightorange;
+      color: $brightorange;
+      border: none;
+      padding: 10px 0;
+      padding-left: 5px;
+      font-size: 16px;
+
+      &:focus {
+        outline: none;
+      }
+      
+    }
+
+    // makes sure chrome doesn't change background & color with autofill
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover, 
+    input:-webkit-autofill:focus, 
+    input:-webkit-autofill:active  {
+        -webkit-box-shadow: 0 0 0 30px $lightorange inset !important;
+    }
+    input:-webkit-autofill {
+      -webkit-text-fill-color: $brightorange !important;
+  }
+
+    ::placeholder {
+      color: $brightorange;
+      opacity: 0.7;
+    }
+    ::-ms-input-placeholder { 
+      color: $brightorange;
+    }
+
+    .error {
+      font-size: 12px;
+      color: red;
+    }
+
+    .submit {
+      background: rgba($brightorange, 0.7);
+      // background: pink;
+      color: white;
+      border: none;
+      border-left: 2px solid $brightorange;
+      padding: 10px 5px;
+      font-size: 16px;
+      cursor: pointer;
+
+      &:focus {
+        outline: none;
+      }
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+    
   }
 
 

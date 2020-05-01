@@ -1,7 +1,17 @@
 #about-section {
   margin: 0 auto;
   background-image: url('https://i.imgur.com/kH7H6a1.png');
-  background-position-x: 300px;
+  background-position-x: 400px;
+  @include media('<=tablet') {
+    background-position-x: 40px;
+    background-size: 200%;
+    background-repeat: no-repeat;
+  }
+  @include media('<=phone') {
+    background-position-x: 40px;
+    background-size: 200%;
+    background-repeat: no-repeat;
+  }
   .container {
     @include media('<=phone') {
       height: 100%;
@@ -20,10 +30,10 @@
     }
   }
   .page-title {
-    font-size: 130px;
+    font-size: 6.5rem;
     font-weight: 900;
     color: $brightorange;
-    margin: 100px 0px 40px 0px;
+    margin: 65px 0px 40px 0px;
     text-transform: uppercase;
     @include media('<=tablet') {
       font-size: 6em;
@@ -52,9 +62,19 @@
     }
   }
   p.other {
-    font-size: 2;
+    font-size: 0.99rem;
+    padding-right: 35%;
+    text-align: justify;
+    margin-top: -3.5%;
+    @include media('<=tablet') {
+      padding-right: 20%;
+    }
     @include media('<=phone') {
       font-size: 0.8em;
+      padding-right: 5%;
+    }
+    span{
+      font-weight: bold;
     }
   }
 }

@@ -115,6 +115,7 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions, userInfo }) 
     })
       .then(() => getData())
       .then(() => setPost({ ...post, text: '' }))
+      .then(() => scrollDown())
       .catch((err) => setError({ errors: err.resp.data }))
   }
 
@@ -198,6 +199,12 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions, userInfo }) 
 
   }
 
+  function scrollDown() {
+    setTimeout(() => {
+      const accordions = document.querySelector('#chatroom-posts')
+      accordions ? accordions.scrollTop = accordions.scrollHeight - accordions.clientHeight : null
+    }, 100)
+  }
 
 
   if (chatroom.length === 0) {
@@ -224,6 +231,7 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions, userInfo }) 
 
         {/* {console.log(chatroom)} */}
         <section className="accordions" id="chatroom-posts">
+          {chatroom.posts.length === 0 && <div className="no-comments label is-size-6">No posts yet, be the first to make a request in your area!</div>}
           {chatroom.posts.length > 0 && chatroom.posts.map((elem, i) => {
             return <div className={'accordion' + `${activeThread === i ? ' is-active' : ''}` + `${elem.is_swapped ? ' swapped' : ''}`} key={i}>
 
@@ -268,6 +276,7 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions, userInfo }) 
 
               <div className="accordion-body">
                 <div className="accordion-content">
+                  {elem.comments.length === 0 && <div className="no-comments is-size-7">No one has commented yet, be the first to respond!</div>}
                   {elem.comments.length > 0 && elem.comments.map((comment, i) => {
                     return (
                       <article className="comment media" key={i}>
@@ -332,7 +341,7 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions, userInfo }) 
                   type="text"
                   className="input"
                   value={editModal.state ? '' : post.text}
-                  placeholder="Post a request"
+                  placeholder="Post a new request"
                   id="post"
                 />
               </div>

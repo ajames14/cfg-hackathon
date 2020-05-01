@@ -228,7 +228,11 @@ const Profile = (props) => {
                 placeholder="Enter new username"
                 onChange={(e) => handleInput(e)}
               ></input>
-              <button name="name" onClick={(e) => handleSubmit(e)}>
+              <button
+                className="submit"
+                name="name"
+                onClick={(e) => handleSubmit(e)}
+              >
                 Submit
               </button>
             </div>
@@ -242,7 +246,11 @@ const Profile = (props) => {
                 placeholder="Enter new email"
                 onChange={(e) => handleInput(e)}
               ></input>
-              <button name="email" onClick={(e) => handleSubmit(e)}>
+              <button
+                className="submit"
+                name="email"
+                onClick={(e) => handleSubmit(e)}
+              >
                 Submit
               </button>
             </div>
@@ -256,7 +264,11 @@ const Profile = (props) => {
                 placeholder="Enter new postcode"
                 onChange={(e) => handleInput(e)}
               ></input>
-              <button name="postcode" onClick={(e) => handleSubmit(e)}>
+              <button
+                className="submit"
+                name="postcode"
+                onClick={(e) => handleSubmit(e)}
+              >
                 Submit
               </button>
             </div>
