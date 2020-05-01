@@ -106,10 +106,17 @@
 
       i {
         color: white;
+        &.info {
+          margin-right: 0.7rem;
+        }
 
         &:hover {
           color: $brightorange;
+          &.refresh {
+            color: $lightorange;
+          }
         }
+
       }
 
       #postcode-form {
