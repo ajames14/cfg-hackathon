@@ -3,7 +3,6 @@ import axios from 'axios'
 import Auth from '../lib/auth'
 import ReactFilestack from 'filestack-react'
 
-
 const options = {
   accept: 'image/*',
   transformations: {
@@ -179,38 +178,39 @@ const Profile = (props) => {
           <div className="favourites">
             {favourites
               ? favourites.map((fav, id) => {
-                return (
-                  <div
-                    className="recipe"
-                    key={id}
-                    onClick={() => props.history.push(`/recipe/${fav.id}`)}
-                  >
-                    <div className="middle">
-                      <div className="text">{fav.title}</div>
+                  return (
+                    <div
+                      className="recipe"
+                      key={id}
+                      onClick={() => props.history.push(`/recipe/${fav.id}`)}
+                    >
+                      <div className="middle">
+                        <div className="text">{fav.title}</div>
+                      </div>
+                      <img src={fav.image}></img>
                     </div>
-                    <img src={fav.image}></img>
-                  </div>
-                )
-              })
+                  )
+                })
               : null}
           </div>
-          {user.favourites
-            ? user.favourites.length < 1 || user.favourites === null && (
+          {user.favourites ? (
+            user.favourites.length < 1 ||
+            (user.favourites === null && (
               <div
                 className="redirect"
                 onClick={() => props.history.push('/recipes')}
               >
                 Go find some favourites!
               </div>
-            )
-            : (
-              <div
-                className="redirect"
-                onClick={() => props.history.push('/recipes')}
-              >
-                Go find some favourites!
-              </div>
-            )}
+            ))
+          ) : (
+            <div
+              className="redirect"
+              onClick={() => props.history.push('/recipes')}
+            >
+              Go find some favourites!
+            </div>
+          )}
         </div>
         <div className="half">
           <h2 className="accountTitle">Account Details</h2>

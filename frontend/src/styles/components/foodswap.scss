@@ -1,12 +1,13 @@
 #food-swap {
-
   i {
     cursor: pointer;
   }
 
   height: 100vh;
 
-  .container, .columns, .column {
+  .container,
+  .columns,
+  .column {
     height: 100%;
   }
 
@@ -15,39 +16,43 @@
   }
 
   .column {
-    overflow-y: auto; 
+    overflow-y: auto;
   }
 
-  .columns, .column {
+  .columns,
+  .column {
     text-align: center;
 
     .level {
       width: 100%;
     }
 
-    #intro{
+    #intro {
       padding: 4%;
       color: $brightorange;
 
-      #intro-title, #intro-subtitle {
+      #intro-title,
+      #intro-subtitle {
         color: $brightorange;
       }
 
-      .info{
+      .info {
         // margin-top: 3%;
         padding: 6% 3.5% 0% 3.5%;
         font-size: 0.91rem;
         text-align: justify;
-        span{
+        span {
           font-weight: bold;
         }
       }
 
-      #intro-title, #intro-subtitle, .info {
+      #intro-title,
+      #intro-subtitle,
+      .info {
         margin: 0 2vw;
       }
 
-      #intro-subtitle{
+      #intro-subtitle {
         margin-top: 1%;
         @include media('<=phone') {
           margin-top: 4%;
@@ -63,13 +68,13 @@
       }
     }
 
-    #sign-up{
-     font-family: $family-secondary;
-     font-size: 16px;
-     background-color: white;
-     padding: 5%;
+    #sign-up {
+      font-family: $family-secondary;
+      font-size: 16px;
+      background-color: white;
+      padding: 5%;
 
-      .join-link{
+      .join-link {
         color: $lightorange;
         margin: 0 20px;
         text-transform: uppercase;
@@ -79,11 +84,10 @@
         }
       }
     }
-    
 
     #chatroom {
       background-color: $lightorange;
-      
+
       @include media('<=tablet') {
         margin-top: 10%;
         height: 90vh;
@@ -106,7 +110,6 @@
             color: $lightorange;
           }
         }
-
       }
 
       #postcode-form {
@@ -120,12 +123,18 @@
           width: 80%;
           .label {
             text-align: justify;
+            color: white;
+          }
+          .button {
+            background-color: $brightorange;
+            color: white;
+            border: none;
           }
         }
       }
 
       .post-container {
-        width: 100%; 
+        width: 100%;
         height: 100%;
 
         display: flex;
@@ -143,11 +152,14 @@
         #chatroom-posts {
           flex-grow: 10;
           overflow-y: scroll;
-          
+
           .no-posts {
             margin: 20% 10%;
+            color: white;
           }
-          .accordions, .accordion, .accordion-header {
+          .accordions,
+          .accordion,
+          .accordion-header {
             border-radius: 0;
           }
 
@@ -180,12 +192,10 @@
             }
 
             &.swapped {
-              
               .accordion-header {
                 background-color: rgba($brightorange, 0.5);
                 color: $lightorange;
                 border-radius: 4px;
-                
               }
               .accordion-content {
                 color: $lightorange;
@@ -232,7 +242,7 @@
               display: flex;
               flex-direction: row;
               padding-top: 1rem;
-  
+
               .field {
                 flex-grow: 3;
               }
@@ -262,14 +272,14 @@
               margin-left: 10px;
             }
           }
-   
         }
       }
     }
   }
 }
 
-#delete-modal, #swap-modal {
+#delete-modal,
+#swap-modal {
   .modal-content {
     padding: 2rem;
     border-radius: 1rem;
