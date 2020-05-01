@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom'
 import IntroOverlay from './IntroOverlay'
 import { gsap } from 'gsap'
 
-import bg1 from '../images/findrecipes.png'
-import bg2 from '../images/swapfood.png'
+import bg1 from '../images/FINDRECIPES.png'
+import bg2 from '../images/INGREDIENTSSHARE.png'
 
 const Home = () => {
   return (
