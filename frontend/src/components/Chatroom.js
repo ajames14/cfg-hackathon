@@ -171,7 +171,7 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions, userInfo }) 
   function formatTimestamp(time) {
     if (!time) return
     const newString = time.substring(0, time.indexOf('.'))
-    const newTime = moment(newString).fromNow()
+    const newTime = moment(newString).add(1, 'hours').fromNow()
     return newTime
   }
 
