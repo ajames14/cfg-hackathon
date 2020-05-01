@@ -235,7 +235,7 @@ const Chatroom = ({ postcode, showInstructions, toggleInstructions, userInfo }) 
 
         {/* {console.log(chatroom)} */}
         <section className="accordions" id="chatroom-posts">
-          {chatroom.posts.length === 0 && <div className="no-comments label is-size-6">No posts yet, be the first to make a request in your area!</div>}
+          {chatroom.posts.length === 0 && <div className="no-posts label is-size-6">No posts yet, be the first to make a request in your area!</div>}
           {chatroom.posts.length > 0 && chatroom.posts.map((elem, i) => {
             return <div className={'accordion' + `${activeThread === i ? ' is-active' : ''}` + `${elem.is_swapped ? ' swapped' : ''}`} key={i}>
 
