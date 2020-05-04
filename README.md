@@ -13,9 +13,9 @@ We do this in two ways:
 
 You can launch the app on Heroku [here](https://waste-not-want-not.herokuapp.com/), or find the GitHub repo [here](https://github.com/ajames14/cfg-hackathon).
 
-NB: We have created a *test account* so you can get a demo of the full functionality of the site. Please login with the following details:
-Email: jbloggs@email.com 
-Password: test-password1
+NB: We have created a **test account** so you can get a demo of the full functionality of the site. Please login with the following details:
+- Email: jbloggs@email.com 
+- Password: test-password1
 
 ## Local installation
 First, make a local copy by cloning or downloading the repo.
