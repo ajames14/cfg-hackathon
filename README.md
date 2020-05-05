@@ -17,6 +17,8 @@ NB: We have created a **test account** so you can get a demo of the full functio
 - Email: jbloggs@email.com 
 - Password: test-password1
 
+![](https://imgur.com/srq4Msx)
+
 ## Local installation
 First, make a local copy by cloning or downloading the repo.
 
