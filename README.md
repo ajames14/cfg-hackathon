@@ -17,7 +17,11 @@ NB: We have created a **test account** so you can get a demo of the full functio
 - Email: jbloggs@email.com 
 - Password: test-password1
 
-![](https://imgur.com/srq4Msx)
+### Find Recipe
+![](https://media.giphy.com/media/KFmkUrorheXfBA7bU6/giphy.gif)
+
+### Find Ingredients 
+![](https://media.giphy.com/media/Q7YHCXxVnceCRbJawr/giphy.gif)
 
 ## Local installation
 First, make a local copy by cloning or downloading the repo.
