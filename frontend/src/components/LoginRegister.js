@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import Auth from '../lib/auth'
 
@@ -54,15 +54,19 @@ const LoginRegister = ({ props, handleLoginRegisterModal, use, checkUser }) => {
           handleLoginRegisterModal()
           checkUser()
         })
-        .catch(() => setError({ errors: 'Email or Password Incorrect' }))
+        .catch(() => {
+          setError({ errors: 'Email or Password Incorrect' })
+        })
     }
   }
 
   function handlePurpose() {
     if (purpose === 'login') {
+      setError(errorInitialState)
       setPurpose('register')
       updateForm(formInitialReg)
     } else {
+      setError(errorInitialState)
       setPurpose('login')
       updateForm(formInitialLog)
     }
@@ -170,6 +174,11 @@ const LoginRegister = ({ props, handleLoginRegisterModal, use, checkUser }) => {
             <button className="button is-black">
               {purpose === 'register' ? 'Register' : 'Login'}
             </button>
+            {purpose === 'login' && error.errors &&
+              <small className="help is-danger">
+                {error.errors}
+              </small>
+            }
           </form>
           {purpose === 'login' ? (
             <div className="note is-size-7">
