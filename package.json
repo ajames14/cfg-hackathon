@@ -48,7 +48,7 @@
     "dotenv-webpack": "^1.7.0",
     "emailjs-com": "^2.4.1",
     "filestack-react": "^3.1.0",
-    "gsap": "^3.2.6",
+    "gsap": "^3.6.0",
     "include-media": "^1.4.9",
     "moment": "^2.24.0",
     "neat-csv": "^5.2.0",
