@@ -50,7 +50,7 @@
     "filestack-react": "^3.1.0",
     "gsap": "^3.2.6",
     "include-media": "^1.4.9",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "neat-csv": "^5.2.0",
     "papaparse": "^5.2.0",
     "react": "^16.13.1",
